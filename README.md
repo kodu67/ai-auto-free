@@ -1,8 +1,8 @@
 ![AI Free](ai-free.png)
 
-# Makine Kimliği Sıfırlama Aracı
+# AI Auto Free
 
-Bu araç, Cursor uygulamasının makine kimliğini sıfırlamak için kullanılır.
+Bu araç ile Cursor ve Windsurf gibi IDE'leri sınırsız kullanabilirsiniz.
 
 ## Derleme
 
