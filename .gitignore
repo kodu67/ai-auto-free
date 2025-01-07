@@ -1,7 +1,6 @@
 # PyInstaller
 build/
 dist/
-*.spec
 !CursorKeepAlive.mac.spec
 !CursorKeepAlive.win.spec
 
