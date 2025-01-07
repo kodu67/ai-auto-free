@@ -2,27 +2,27 @@
 
 # AI Auto Free
 
-Bu araç ile Cursor ve Windsurf gibi IDE'leri sınırsız kullanabilirsiniz.
+With this tool, you can use IDEs like Cursor and Windsurf without limitations.
 
-## Derleme
+## Building
 
-## Paket Kurulumu
+## Package Installation
 
-Gerekli paketleri yüklemek için aşağıdaki komutu çalıştırın:
+Run the following command to install required packages:
 
 ```bash
 pip install -r requirements.txt
 ```
 
 ### Windows
-Projeyi derlemek için:
+To build the project:
 
 ```bash
 .\build.bat
 ```
 
 ### Linux & MacOS
-Projeyi derlemek için:
+To build the project:
 
 ```bash
 ./build.sh
