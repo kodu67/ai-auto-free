@@ -1,0 +1,142 @@
+{
+    "menu": {
+        "title": "AI Auto Free",
+        "select_option": "Пожалуйста, выберите опцию:",
+        "cursor": "1. Создание аккаунта Cursor",
+        "windsurf": "2. Создание аккаунта Windsurf",
+        "machine_id_reset": "3. Сброс ID машины Cursor",
+        "exit": "4. Выход"
+    },
+    "settings": {
+        "title": "Настройки",
+        "headless_mode": "Фоновый режим",
+        "headless_enabled": "Включен (По умолчанию)",
+        "headless_disabled": "Выключен",
+        "back": "Вернуться в главное меню"
+    },
+    "cursor": {
+        "starting": "Начинается создание аккаунта Cursor...",
+        "browser_init": "Инициализация браузера...",
+        "registration_success": "Регистрация успешно завершена",
+        "registration_failed": "Регистрация не удалась",
+        "verification_code": "Получение кода подтверждения...",
+        "account_info": "Информация об аккаунте",
+        "email": "Email",
+        "password": "Пароль",
+        "process": {
+            "cursor_closed": "Cursor был закрыт.",
+            "turnstile": {
+                "starting": "Начинается проверка Turnstile...",
+                "started": "Проверка начата",
+                "success": "Проверка успешна",
+                "failed": "Проверка не удалась"
+            },
+            "getting_token": "Получение cookie...",
+            "token_retry": "Попытка",
+            "token_not_found": "Токен не найден",
+            "seconds_retry": "секунд до повторной попытки",
+            "max_attempts": "Достигнуто максимальное количество попыток",
+            "token_error": "Не удалось получить cookie",
+            "retry_in": "Повторная попытка через",
+            "seconds": "секунд",
+            "registration_page_error": "Не удалось открыть страницу регистрации",
+            "processing": "Обработка...",
+            "operation_failed": "Операция не удалась",
+            "email_unavailable": "Этот email недоступен",
+            "verification_code_error": "Не удалось ввести код подтверждения",
+            "waiting": "Ожидание...",
+            "usage_limit": "Лимит использования",
+            "usage_limit_error": "Не удалось получить лимит использования"
+        },
+        "auth": {
+            "no_update_values": "Не предоставлены значения для обновления",
+            "update_success": "{} успешно обновлен",
+            "update_failed": "{} не найден или значение не изменилось",
+            "db_error": "Ошибка базы данных",
+            "error": "Произошла ошибка"
+        },
+        "completed": "Процесс завершен"
+    },
+    "windsurf": {
+        "starting": "Начинается создание аккаунта Windsurf...",
+        "registration_success": "Аккаунт Windsurf успешно создан",
+        "registration_failed": "Не удалось создать аккаунт Windsurf",
+        "account_info": "Информация об аккаунте",
+        "token_copied": "Токен скопирован в буфер обмена",
+        "progress": {
+            "creating_account": "Создание аккаунта...",
+            "filling_form": "Заполнение регистрационной формы...",
+            "completing_onboarding": "Завершение этапов онбординга...",
+            "getting_token": "Получение токена и копирование в буфер обмена..."
+        },
+        "steps": {
+            "email": "Получение временного email адреса...",
+            "password": "Генерация надежного пароля...",
+            "browser": "Инициализация браузера...",
+            "register_page": "Открытие страницы регистрации...",
+            "form": "Заполнение формы...",
+            "submit": "Отправка регистрационной формы...",
+            "profile": "Перенаправление на страницу профиля...",
+            "token": "Получение токена Firebase...",
+            "complete": "Завершение процесса...",
+            "close": "Закрытие браузера..."
+        },
+        "errors": {
+            "email_creation": "Не удалось создать email",
+            "email_field": "Поле email не найдено",
+            "password_fields": "Поля пароля не найдены",
+            "terms_checkbox": "Чекбокс условий не найден",
+            "signup_button": "Кнопка регистрации не найдена",
+            "firstname_input": "Поле имени не найдено",
+            "lastname_input": "Поле фамилии не найдено",
+            "continue_button": "Кнопка продолжения не найдена",
+            "skip_button": "Кнопка пропуска не найдена",
+            "name_form": "Не удалось загрузить или заполнить форму имени",
+            "about_form": "Не удалось пропустить форму о пользователе",
+            "source_form": "Не удалось пропустить форму источника",
+            "editor_page": "Не удалось загрузить страницу редактора",
+            "token": "Не удалось получить токен"
+        },
+        "token_usage": {
+            "title": "Как использовать токен?",
+            "step1": "1. Откройте Windsurf",
+            "step2": "2. Нажмите Ctrl+Shift+P для Windows/Linux, Cmd+Shift+P для MacOS",
+            "step3": "3. Введите в командной палитре:",
+            "command": "    Windsurf: Provide Auth Token (Backup Login)",
+            "step4": "4. Эта команда откроет окно браузера, вы можете его закрыть",
+            "step5": "5. Вставьте скопированный токен в поле ввода токена в Windsurf"
+        }
+    },
+    "machine_id_reset": {
+        "starting": "Начинается процесс сброса ID машины...",
+        "success": "ID машины успешно сброшен",
+        "failed": "Не удалось сбросить ID машины",
+        "need_admin": "Эта операция требует прав администратора",
+        "changes": "Изменения:"
+    },
+    "admin": {
+        "need_admin": "Эта программа требует прав администратора.",
+        "requesting": "Запрос прав администратора...",
+        "failed": "Не удалось получить права администратора. Пожалуйста, запустите программу от имени администратора."
+    },
+    "common": {
+        "press_enter": "Нажмите Enter для продолжения...",
+        "error": "Ошибка",
+        "account_info": "Информация об аккаунте",
+        "email": "Email",
+        "password": "Пароль",
+        "token": "Токен"
+    },
+    "logging": {
+        "email_error": "Ошибка создания email",
+        "token_error": "Ошибка получения токена",
+        "account_error": "Ошибка создания аккаунта",
+        "name_form_attempt": "Попытка заполнения формы имени {}"
+    },
+    "email": {
+        "processing": "Обработка...",
+        "verification_failed": "Не удалось получить код подтверждения",
+        "almost_success": "Почти завершено",
+        "execution_failed": "Выполнение не удалось"
+    }
+}

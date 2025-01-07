@@ -1,0 +1,141 @@
+{
+    "menu": {
+        "title": "AI Auto Free",
+        "select_option": "Zəhmət olmasa bir seçim edin:",
+        "cursor": "1. Cursor Hesab Yaradıcı",
+        "windsurf": "2. Windsurf Hesab Yaradıcı",
+        "machine_id_reset": "3. Cursor Maşın ID-sini Sıfırla",
+        "exit": "4. Çıxış"
+    },
+    "settings": {
+        "title": "Parametrlər",
+        "headless_mode": "Başsız Rejim",
+        "headless_enabled": "Aktiv (Standart)",
+        "headless_disabled": "Deaktiv",
+        "back": "Əsas Menyuya Qayıt"
+    },
+    "cursor": {
+        "starting": "Cursor hesabı yaradılır...",
+        "browser_init": "Brauzer başladılır...",
+        "registration_success": "Qeydiyyat uğurla tamamlandı",
+        "registration_failed": "Qeydiyyat uğursuz oldu",
+        "verification_code": "Doğrulama kodu alınır...",
+        "account_info": "Hesab Məlumatları",
+        "email": "E-poçt",
+        "password": "Şifrə",
+        "process": {
+            "cursor_closed": "Cursor bağlandı.",
+            "turnstile": {
+                "starting": "Turnstile doğrulaması başladılır...",
+                "started": "Doğrulama başladı",
+                "success": "Doğrulama uğurlu oldu",
+                "failed": "Doğrulama uğursuz oldu"
+            },
+            "getting_token": "Cookie alınır...",
+            "token_retry": "Cəhd",
+            "token_not_found": "Token tapılmadı",
+            "seconds_retry": "saniyə sonra təkrar cəhd ediləcək",
+            "max_attempts": "Maksimum cəhd sayına çatıldı",
+            "token_error": "Cookie alına bilmədi",
+            "retry_in": "Təkrar cəhd müddəti",
+            "seconds": "saniyə",
+            "registration_page_error": "Qeydiyyat səhifəsi açıla bilmədi",
+            "processing": "İşlənir...",
+            "operation_failed": "Əməliyyat uğursuz oldu",
+            "email_unavailable": "Bu email istifadə edilə bilməz",
+            "verification_code_error": "Doğrulama kodu daxil edilə bilmədi",
+            "waiting": "Gözlənilir...",
+            "usage_limit": "İstifadə limiti",
+            "usage_limit_error": "İstifadə limiti alına bilmədi"
+        },
+        "auth": {
+            "no_update_values": "Yeniləmək üçün heç bir dəyər təqdim edilmədi",
+            "update_success": "{} uğurla yeniləndi",
+            "update_failed": "{} tapılmadı və ya dəyər dəyişmədi",
+            "db_error": "Verilənlər bazası xətası",
+            "error": "Xəta baş verdi"
+        }
+    },
+    "windsurf": {
+        "starting": "Windsurf hesabı yaradılır...",
+        "registration_success": "Windsurf hesabı uğurla yaradıldı",
+        "registration_failed": "Windsurf hesabı yaradıla bilmədi",
+        "account_info": "Hesab Məlumatları",
+        "token_copied": "Token buferə kopyalandı",
+        "progress": {
+            "creating_account": "Hesab yaradılır...",
+            "filling_form": "Qeydiyyat forması doldurulur...",
+            "completing_onboarding": "Başlanğıc mərhələləri tamamlanır...",
+            "getting_token": "Token alınır və buferə kopyalanır..."
+        },
+        "steps": {
+            "email": "Müvəqqəti e-poçt ünvanı alınır...",
+            "password": "Güclü şifrə yaradılır...",
+            "browser": "Brauzer başladılır...",
+            "register_page": "Qeydiyyat səhifəsi açılır...",
+            "form": "Form doldurulur...",
+            "submit": "Qeydiyyat forması göndərilir...",
+            "profile": "Profil səhifəsinə yönləndirilir...",
+            "token": "Firebase tokeni alınır...",
+            "complete": "Proses tamamlanır...",
+            "close": "Brauzer bağlanır..."
+        },
+        "errors": {
+            "email_creation": "E-poçt yaradıla bilmədi",
+            "email_field": "E-poçt sahəsi tapılmadı",
+            "password_fields": "Şifrə sahələri tapılmadı",
+            "terms_checkbox": "Şərtlər qutucuğu tapılmadı",
+            "signup_button": "Qeydiyyat düyməsi tapılmadı",
+            "firstname_input": "Ad sahəsi tapılmadı",
+            "lastname_input": "Soyad sahəsi tapılmadı",
+            "continue_button": "Davam düyməsi tapılmadı",
+            "skip_button": "Keç düyməsi tapılmadı",
+            "name_form": "Ad forması yüklənə və ya doldurula bilmədi",
+            "about_form": "İstifadəçi haqqında forması keçilə bilmədi",
+            "source_form": "Mənbə forması keçilə bilmədi",
+            "editor_page": "Redaktor səhifəsi yüklənə bilmədi",
+            "token": "Token alına bilmədi"
+        },
+        "token_usage": {
+            "title": "Token Necə İstifadə Edilir?",
+            "step1": "1. Windsurf'u açın",
+            "step2": "2. Windows/Linux üçün Ctrl+Shift+P, MacOS üçün Cmd+Shift+P düymələrinə basın",
+            "step3": "3. Əmr panelinə yazın:",
+            "command": "    Windsurf: Provide Auth Token (Backup Login)",
+            "step4": "4. Bu əmr brauzer pəncərəsi açacaq, onu bağlaya bilərsiniz",
+            "step5": "5. Kopyalanmış tokeni Windsurf'də token daxiletmə sahəsinə yapışdırın"
+        }
+    },
+    "machine_id_reset": {
+        "starting": "Maşın ID-si sıfırlama prosesi başladılır...",
+        "success": "Maşın ID-si uğurla sıfırlandı",
+        "failed": "Maşın ID-si sıfırlana bilmədi",
+        "need_admin": "Bu əməliyyat administrator səlahiyyətləri tələb edir",
+        "changes": "Dəyişikliklər:"
+    },
+    "admin": {
+        "need_admin": "Bu proqram administrator səlahiyyətləri tələb edir.",
+        "requesting": "Administrator səlahiyyətləri tələb edilir...",
+        "failed": "Administrator səlahiyyətləri alına bilmədi. Zəhmət olmasa proqramı administrator kimi işə salın."
+    },
+    "common": {
+        "press_enter": "Davam etmək üçün Enter düyməsinə basın...",
+        "error": "Xəta",
+        "account_info": "Hesab Məlumatları",
+        "email": "E-poçt",
+        "password": "Şifrə",
+        "token": "Token"
+    },
+    "logging": {
+        "email_error": "E-poçt yaratma xətası",
+        "token_error": "Token alma xətası",
+        "account_error": "Hesab yaratma xətası",
+        "name_form_attempt": "Ad forması cəhdi {}"
+    },
+    "email": {
+        "processing": "İşlənir...",
+        "verification_failed": "Doğrulama kodu alına bilmədi",
+        "almost_success": "Demək olar ki, tamamlandı",
+        "execution_failed": "İcra uğursuz oldu"
+    }
+}

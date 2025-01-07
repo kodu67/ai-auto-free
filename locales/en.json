@@ -1,0 +1,142 @@
+{
+    "menu": {
+        "title": "AI Auto Free",
+        "select_option": "Please select an option:",
+        "cursor": "1. Cursor Account Creator",
+        "windsurf": "2. Windsurf Account Creator",
+        "machine_id_reset": "3. Reset Cursor Machine ID",
+        "exit": "4. Exit"
+    },
+    "settings": {
+        "title": "Settings",
+        "headless_mode": "Headless Mode",
+        "headless_enabled": "Enabled (Default)",
+        "headless_disabled": "Disabled",
+        "back": "Back to Main Menu"
+    },
+    "cursor": {
+        "starting": "Starting Cursor account creation...",
+        "browser_init": "Initializing browser...",
+        "registration_success": "Registration completed successfully",
+        "registration_failed": "Registration failed",
+        "verification_code": "Getting verification code...",
+        "account_info": "Account Information",
+        "email": "Email",
+        "password": "Password",
+        "process": {
+            "cursor_closed": "Cursor has been closed.",
+            "turnstile": {
+                "starting": "Starting Turnstile verification...",
+                "started": "Verification started",
+                "success": "Verification successful",
+                "failed": "Verification failed"
+            },
+            "getting_token": "Getting cookie...",
+            "token_retry": "Attempt",
+            "token_not_found": "Token not found",
+            "seconds_retry": "seconds before retry",
+            "max_attempts": "Maximum attempts reached",
+            "token_error": "Failed to get cookie",
+            "retry_in": "Retrying in",
+            "seconds": "seconds",
+            "registration_page_error": "Failed to open registration page",
+            "processing": "Processing...",
+            "operation_failed": "Operation failed",
+            "email_unavailable": "This email is not available",
+            "verification_code_error": "Failed to enter verification code",
+            "waiting": "Waiting...",
+            "usage_limit": "Usage limit",
+            "usage_limit_error": "Failed to get usage limit"
+        },
+        "auth": {
+            "no_update_values": "No values provided for update",
+            "update_success": "{} updated successfully",
+            "update_failed": "{} not found or value unchanged",
+            "db_error": "Database error",
+            "error": "An error occurred"
+        },
+        "completed": "Process completed"
+    },
+    "windsurf": {
+        "starting": "Starting Windsurf account creation...",
+        "registration_success": "Windsurf account created successfully",
+        "registration_failed": "Failed to create Windsurf account",
+        "account_info": "Account Information",
+        "token_copied": "Token copied to clipboard",
+        "progress": {
+            "creating_account": "Creating account...",
+            "filling_form": "Filling registration form...",
+            "completing_onboarding": "Completing onboarding steps...",
+            "getting_token": "Getting token and copying to clipboard..."
+        },
+        "steps": {
+            "email": "Getting temporary email address...",
+            "password": "Generating strong password...",
+            "browser": "Initializing browser...",
+            "register_page": "Opening registration page...",
+            "form": "Filling form...",
+            "submit": "Submitting registration form...",
+            "profile": "Redirecting to profile page...",
+            "token": "Getting Firebase token...",
+            "complete": "Completing process...",
+            "close": "Closing browser..."
+        },
+        "errors": {
+            "email_creation": "Failed to create email",
+            "email_field": "Email field not found",
+            "password_fields": "Password fields not found",
+            "terms_checkbox": "Terms checkbox not found",
+            "signup_button": "Sign up button not found",
+            "firstname_input": "First name input not found",
+            "lastname_input": "Last name input not found",
+            "continue_button": "Continue button not found",
+            "skip_button": "Skip button not found",
+            "name_form": "Failed to load or fill name form",
+            "about_form": "Failed to skip about user form",
+            "source_form": "Failed to skip source form",
+            "editor_page": "Failed to load editor page",
+            "token": "Failed to get token"
+        },
+        "token_usage": {
+            "title": "How to Use the Token?",
+            "step1": "1. Open Windsurf",
+            "step2": "2. Press Ctrl+Shift+P for Windows/Linux, Cmd+Shift+P for MacOS",
+            "step3": "3. Type in the command palette:",
+            "command": "    Windsurf: Provide Auth Token (Backup Login)",
+            "step4": "4. This command will open a browser window, you can close it",
+            "step5": "5. Paste the copied token into the token input field in Windsurf"
+        }
+    },
+    "machine_id_reset": {
+        "starting": "Starting machine ID reset process...",
+        "success": "Machine ID reset successful",
+        "failed": "Failed to reset machine ID",
+        "need_admin": "This operation requires administrator privileges",
+        "changes": "Changes:"
+    },
+    "admin": {
+        "need_admin": "This program requires administrator privileges.",
+        "requesting": "Requesting administrator privileges...",
+        "failed": "Failed to get administrator privileges. Please run the program as administrator."
+    },
+    "common": {
+        "press_enter": "Press Enter to continue...",
+        "error": "Error",
+        "account_info": "Account Information",
+        "email": "Email",
+        "password": "Password",
+        "token": "Token"
+    },
+    "logging": {
+        "email_error": "Email creation error",
+        "token_error": "Token retrieval error",
+        "account_error": "Account creation error",
+        "name_form_attempt": "Name form attempt {}"
+    },
+    "email": {
+        "processing": "Processing...",
+        "verification_failed": "Failed to get verification code",
+        "almost_success": "Almost completed",
+        "execution_failed": "Execution failed"
+    }
+}

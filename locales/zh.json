@@ -1,0 +1,141 @@
+{
+    "menu": {
+        "title": "AI Auto Free",
+        "select_option": "请选择一个选项：",
+        "cursor": "1. Cursor账户创建器",
+        "windsurf": "2. Windsurf账户创建器",
+        "machine_id_reset": "3. 重置Cursor机器ID",
+        "exit": "4. 退出"
+    },
+    "settings": {
+        "title": "设置",
+        "headless_mode": "无头模式",
+        "headless_enabled": "启用（默认）",
+        "headless_disabled": "禁用",
+        "back": "返回主菜单"
+    },
+    "cursor": {
+        "starting": "正在启动Cursor账户创建...",
+        "browser_init": "正在初始化浏览器...",
+        "registration_success": "注册成功完成",
+        "registration_failed": "注册失败",
+        "verification_code": "正在获取验证码...",
+        "account_info": "账户信息",
+        "email": "电子邮件",
+        "password": "密码",
+        "process": {
+            "cursor_closed": "Cursor已关闭。",
+            "turnstile": {
+                "starting": "正在启动Turnstile验证...",
+                "started": "验证已开始",
+                "success": "验证成功",
+                "failed": "验证失败"
+            },
+            "getting_token": "正在获取cookie...",
+            "token_retry": "尝试",
+            "token_not_found": "未找到令牌",
+            "seconds_retry": "秒后重试",
+            "max_attempts": "已达到最大尝试次数",
+            "token_error": "无法获取cookie",
+            "retry_in": "将在",
+            "seconds": "秒后重试",
+            "registration_page_error": "无法打开注册页面",
+            "processing": "处理中...",
+            "operation_failed": "操作失败",
+            "email_unavailable": "此电子邮件不可用",
+            "verification_code_error": "验证码输入失败",
+            "waiting": "等待中...",
+            "usage_limit": "使用限制",
+            "usage_limit_error": "无法获取使用限制"
+        },
+        "auth": {
+            "no_update_values": "未提供更新值",
+            "update_success": "{}更新成功",
+            "update_failed": "{}未找到或值未更改",
+            "db_error": "数据库错误",
+            "error": "发生错误"
+        }
+    },
+    "windsurf": {
+        "starting": "正在启动Windsurf账户创建...",
+        "registration_success": "Windsurf账户创建成功",
+        "registration_failed": "Windsurf账户创建失败",
+        "account_info": "账户信息",
+        "token_copied": "令牌已复制到剪贴板",
+        "progress": {
+            "creating_account": "正在创建账户...",
+            "filling_form": "正在填写注册表单...",
+            "completing_onboarding": "正在完成入门步骤...",
+            "getting_token": "正在获取令牌并复制到剪贴板..."
+        },
+        "steps": {
+            "email": "正在获取临时电子邮件地址...",
+            "password": "正在生成强密码...",
+            "browser": "正在初始化浏览器...",
+            "register_page": "正在打开注册页面...",
+            "form": "正在填写表单...",
+            "submit": "正在提交注册表单...",
+            "profile": "正在重定向到个人资料页面...",
+            "token": "正在获取Firebase令牌...",
+            "complete": "正在完成流程...",
+            "close": "正在关闭浏览器..."
+        },
+        "errors": {
+            "email_creation": "创建电子邮件失败",
+            "email_field": "未找到电子邮件字段",
+            "password_fields": "未找到密码字段",
+            "terms_checkbox": "未找到条款复选框",
+            "signup_button": "未找到注册按钮",
+            "firstname_input": "未找到名字输入框",
+            "lastname_input": "未找到姓氏输入框",
+            "continue_button": "未找到继续按钮",
+            "skip_button": "未找到跳过按钮",
+            "name_form": "加载或填写姓名表单失败",
+            "about_form": "跳过关于用户表单失败",
+            "source_form": "跳过来源表单失败",
+            "editor_page": "加载编辑器页面失败",
+            "token": "获取令牌失败"
+        },
+        "token_usage": {
+            "title": "如何使用令牌？",
+            "step1": "1. 打开Windsurf",
+            "step2": "2. Windows/Linux按Ctrl+Shift+P，MacOS按Cmd+Shift+P",
+            "step3": "3. 在命令面板中输入：",
+            "command": "    Windsurf: Provide Auth Token (Backup Login)",
+            "step4": "4. 此命令将打开浏览器窗口，您可以关闭它",
+            "step5": "5. 将复制的令牌粘贴到Windsurf中的令牌输入框中"
+        }
+    },
+    "machine_id_reset": {
+        "starting": "正在启动机器ID重置过程...",
+        "success": "机器ID重置成功",
+        "failed": "机器ID重置失败",
+        "need_admin": "此操作需要管理员权限",
+        "changes": "更改："
+    },
+    "admin": {
+        "need_admin": "此程序需要管理员权限。",
+        "requesting": "正在请求管理员权限...",
+        "failed": "获取管理员权限失败。请以管理员身份运行程序。"
+    },
+    "common": {
+        "press_enter": "按Enter继续...",
+        "error": "错误",
+        "account_info": "账户信息",
+        "email": "电子邮件",
+        "password": "密码",
+        "token": "令牌"
+    },
+    "logging": {
+        "email_error": "电子邮件创建错误",
+        "token_error": "令牌获取错误",
+        "account_error": "账户创建错误",
+        "name_form_attempt": "姓名表单尝试 {}"
+    },
+    "email": {
+        "processing": "处理中...",
+        "verification_failed": "获取验证码失败",
+        "almost_success": "即将完成",
+        "execution_failed": "执行失败"
+    }
+}

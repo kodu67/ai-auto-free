@@ -1,0 +1,142 @@
+{
+    "menu": {
+        "title": "AI Auto Free",
+        "select_option": "Lütfen bir seçenek seçin:",
+        "cursor": "1. Cursor Hesap Oluşturucu",
+        "windsurf": "2. Windsurf Hesap Oluşturucu",
+        "machine_id_reset": "3. Cursor Makine Kimliğini Sıfırla",
+        "exit": "4. Çıkış"
+    },
+    "settings": {
+        "title": "Ayarlar",
+        "headless_mode": "Görünmez Mod",
+        "headless_enabled": "Açık (Varsayılan)",
+        "headless_disabled": "Kapalı",
+        "back": "Ana Menüye Dön"
+    },
+    "cursor": {
+        "starting": "Cursor hesap oluşturma başlatılıyor...",
+        "browser_init": "Tarayıcı başlatılıyor...",
+        "registration_success": "Kayıt başarıyla tamamlandı",
+        "registration_failed": "Kayıt başarısız oldu",
+        "verification_code": "Doğrulama kodu alınıyor...",
+        "account_info": "Hesap Bilgileri",
+        "email": "E-posta",
+        "password": "Şifre",
+        "process": {
+            "cursor_closed": "Cursor kapatıldı.",
+            "turnstile": {
+                "starting": "Turnstile doğrulaması başlatılıyor...",
+                "started": "Doğrulama başlatıldı",
+                "success": "Doğrulama başarılı",
+                "failed": "Doğrulama başarısız"
+            },
+            "getting_token": "Cookie alınıyor...",
+            "token_retry": "Deneme",
+            "token_not_found": "Token bulunamadı",
+            "seconds_retry": "saniye sonra tekrar denenecek",
+            "max_attempts": "Maksimum deneme sayısına ulaşıldı",
+            "token_error": "Cookie alınamadı",
+            "retry_in": "Tekrar deneme süresi",
+            "seconds": "saniye",
+            "registration_page_error": "Kayıt sayfası açılamadı",
+            "processing": "İşlem devam ediyor...",
+            "operation_failed": "İşlem başarısız",
+            "email_unavailable": "Bu email kullanılamaz",
+            "verification_code_error": "Doğrulama kodu girişi başarısız",
+            "waiting": "Bekleniyor...",
+            "usage_limit": "Kullanım limiti",
+            "usage_limit_error": "Kullanım limiti alınamadı"
+        },
+        "auth": {
+            "no_update_values": "Güncellenecek herhangi bir değer sağlanmadı",
+            "update_success": "{} başarıyla güncellendi",
+            "update_failed": "{} bulunamadı veya değer değişmedi",
+            "db_error": "Veritabanı hatası",
+            "error": "Hata oluştu"
+        },
+        "completed": "İşlem tamamlandı"
+    },
+    "windsurf": {
+        "starting": "Windsurf hesap oluşturma başlatılıyor...",
+        "registration_success": "Windsurf hesabı başarıyla oluşturuldu",
+        "registration_failed": "Windsurf hesabı oluşturulamadı",
+        "account_info": "Hesap Bilgileri",
+        "token_copied": "Token panoya kopyalandı",
+        "progress": {
+            "creating_account": "Hesap oluşturuluyor...",
+            "filling_form": "Kayıt formu dolduruluyor...",
+            "completing_onboarding": "Onboarding adımları tamamlanıyor...",
+            "getting_token": "Token alınıyor ve panoya kopyalanıyor..."
+        },
+        "steps": {
+            "email": "Geçici e-posta adresi alınıyor...",
+            "password": "Güçlü şifre oluşturuluyor...",
+            "browser": "Tarayıcı başlatılıyor...",
+            "register_page": "Kayıt sayfası açılıyor...",
+            "form": "Form dolduruluyor...",
+            "submit": "Kayıt formu gönderiliyor...",
+            "profile": "Profil sayfasına yönlendiriliyor...",
+            "token": "Firebase token'ı alınıyor...",
+            "complete": "İşlem tamamlanıyor...",
+            "close": "Tarayıcı kapatılıyor..."
+        },
+        "errors": {
+            "email_creation": "E-posta oluşturulamadı",
+            "email_field": "E-posta alanı bulunamadı",
+            "password_fields": "Şifre alanları bulunamadı",
+            "terms_checkbox": "Kullanım koşulları checkbox'ı bulunamadı",
+            "signup_button": "Sign up butonu bulunamadı",
+            "firstname_input": "First name input bulunamadı",
+            "lastname_input": "Last name input bulunamadı",
+            "continue_button": "Continue butonu bulunamadı",
+            "skip_button": "Skip butonu bulunamadı",
+            "name_form": "İsim formu yüklenemedi veya doldururken hata oluştu",
+            "about_form": "About user formu atlanamadı",
+            "source_form": "Source formu atlanamadı",
+            "editor_page": "Editor sayfası yüklenemedi",
+            "token": "Token alınamadı"
+        },
+        "token_usage": {
+            "title": "Token Nasıl Kullanılır?",
+            "step1": "1. Windsurf'u açın",
+            "step2": "2. Windows/Linux için Ctrl+Shift+P, MacOS için Cmd+Shift+P tuşlarına basın",
+            "step3": "3. Açılan komut paletine şunu yazın:",
+            "command": "    Windsurf: Provide Auth Token (Backup Login)",
+            "step4": "4. Bu komut bir tarayıcı penceresi açacak, pencereyi kapatabilirsiniz",
+            "step5": "5. Windsurf'de açılan token giriş alanına, kopyalanan tokeni yapıştırın"
+        }
+    },
+    "machine_id_reset": {
+        "starting": "Makine kimliği sıfırlama işlemi başlatılıyor...",
+        "success": "Makine kimliği başarıyla sıfırlandı",
+        "failed": "Makine kimliği sıfırlanamadı",
+        "need_admin": "Bu işlem için yönetici yetkileri gerekiyor",
+        "changes": "Değişiklikler:"
+    },
+    "admin": {
+        "need_admin": "Bu program yönetici yetkileri gerektiriyor.",
+        "requesting": "Yönetici yetkileri isteniyor...",
+        "failed": "Yönetici yetkileri alınamadı. Lütfen programı yönetici olarak çalıştırın."
+    },
+    "common": {
+        "press_enter": "Devam etmek için Enter'a basın...",
+        "error": "Hata",
+        "account_info": "Hesap Bilgileri",
+        "email": "E-posta",
+        "password": "Şifre",
+        "token": "Token"
+    },
+    "logging": {
+        "email_error": "E-posta oluşturma hatası",
+        "token_error": "Token alma hatası",
+        "account_error": "Hesap oluşturma hatası",
+        "name_form_attempt": "İsim formu denemesi {}"
+    },
+    "email": {
+        "processing": "İşlem devam ediyor...",
+        "verification_failed": "Doğrulama kodu alınamadı",
+        "almost_success": "İşlem neredeyse tamamlandı",
+        "execution_failed": "İşlem başarısız oldu"
+    }
+}
