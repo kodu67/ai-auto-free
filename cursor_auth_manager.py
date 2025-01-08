@@ -4,19 +4,24 @@ from locale_manager import LocaleManager
 
 
 class CursorAuthManager:
-    """Cursor kimlik doğrulama yöneticisi"""
-
     def __init__(self):
         self.locale_manager = LocaleManager()
-        # İşletim sistemini kontrol et
-        if os.name == "nt":  # Windows
+        
+        if os.name == "nt":  
             self.db_path = os.path.join(
                 os.getenv("APPDATA"), "Cursor", "User", "globalStorage", "state.vscdb"
             )
-        else:  # macOS
-            self.db_path = os.path.expanduser(
-                "~/Library/Application Support/Cursor/User/globalStorage/state.vscdb"
-            )
+        elif os.name == "posix":  
+            if "darwin" in os.uname().sysname.lower(): 
+                self.db_path = os.path.expanduser(
+                    "~/Library/Application Support/Cursor/User/globalStorage/state.vscdb"
+                )
+            else:  
+                self.db_path = os.path.expanduser(
+                    "~/.config/Cursor/User/globalStorage/state.vscdb"
+                )
+        else:
+            raise OSError("Desteklenmeyen işletim sistemi")
 
     def update_auth(self, email=None, access_token=None, refresh_token=None):
         """
@@ -27,7 +32,6 @@ class CursorAuthManager:
         :return: bool Güncellemenin başarılı olup olmadığı
         """
         updates = []
-        # Giriş durumu
         updates.append(("cursorAuth/cachedSignUpType", "Auth_0"))
 
         if email is not None:
@@ -47,8 +51,6 @@ class CursorAuthManager:
             cursor = conn.cursor()
 
             for key, value in updates:
-                # Eğer hiç satır güncellenmezse, anahtar mevcut değil demektir, ekleme yap
-                # accessToken'ın var olup olmadığını kontrol et
                 check_query = f"SELECT COUNT(*) FROM itemTable WHERE key = ?"
                 cursor.execute(check_query, (key,))
                 if cursor.fetchone()[0] == 0:

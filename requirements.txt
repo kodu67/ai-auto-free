@@ -23,7 +23,7 @@ pycryptodome==3.21.0
 pyinstaller==6.11.1
 pyinstaller-hooks-contrib==2024.11
 PyVirtualDisplay==3.0
-pywin32-ctypes==0.2.3
+pywin32-ctypes==0.2.3; platform_system == "Windows"
 requests==2.32.3
 requests-file==2.1.0
 setuptools==75.6.0

@@ -1,19 +1,21 @@
 #!/bin/bash
 
-# Gerekli paketleri yükle
+set -e
+
+echo "==> Gerekli paketler yükleniyor..."
 pip install -r requirements.txt
 pip install pyinstaller
 
-# Temizlik
+echo "==> Temizlik yapılıyor..."
 rm -rf build dist
 
-# PyInstaller ile build al
-pyinstaller build.spec
+echo "==> PyInstaller ile derleniyor..."
+pyinstaller --clean --noconfirm build.spec
 
-# Çıktı dizinini kontrol et
-if [ -d "dist/AI Auto Free" ]; then
-    echo "Build başarılı: dist/AI Auto Free"
+echo "==> Çıktı dizini kontrol ediliyor..."
+if [ -f "dist/AI Auto Free" ]; then
+    echo "==> Build başarılı: dist/AI Auto Free"
 else
-    echo "Build başarısız!"
+    echo "==> Build başarısız!"
     exit 1
 fi
