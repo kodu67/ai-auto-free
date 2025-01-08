@@ -2,11 +2,9 @@ import os
 import sys
 import logging
 import platform
-import ctypes
 from locale_manager import LocaleManager
 from logo import print_logo
 
-# Logging yapılandırması
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
@@ -24,11 +22,15 @@ class AutoFreeApp:
     def _is_admin(self):
         """Yönetici yetkilerini kontrol eder"""
         try:
-            if platform.system() == "Windows":
+            if platform.system() == "Linux" or platform.system() == "Darwin":  # Linux or macOS
+                return os.geteuid() == 0
+            elif platform.system() == "Windows":
+                import ctypes
                 return ctypes.windll.shell32.IsUserAnAdmin()
             else:
-                return os.geteuid() == 0
-        except:
+                return False
+        except Exception as e:
+            logging.error(f"Admin kontrol hatası: {str(e)}")
             return False
 
     def _request_admin(self):
@@ -36,9 +38,7 @@ class AutoFreeApp:
         if platform.system() == "Windows":
             try:
                 if not self._is_admin():
-                    # Python betiğinin yolunu al
                     script = os.path.abspath(sys.argv[0])
-                    # Yönetici olarak yeniden başlat
                     ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, script, None, 1)
                     sys.exit()
             except Exception as e:
@@ -62,7 +62,10 @@ class AutoFreeApp:
 
     def clear_screen(self):
         """Ekranı temizler"""
-        os.system('cls' if os.name == 'nt' else 'clear')
+        if platform.system() == "Windows":
+            os.system('cls')
+        else:
+            os.system('clear')
 
     def show_main_menu(self):
         """Ana menüyü gösterir"""
@@ -77,14 +80,11 @@ class AutoFreeApp:
 
     def run_cursor_creator(self):
         """Cursor hesap oluşturucuyu çalıştırır"""
-
         try:
-            # Cursor'u kapat
             from machine_id_reset import MachineIDResetter
             resetter = MachineIDResetter()
             resetter._kill_cursor_processes()
 
-            # Cursor hesap oluşturucuyu çalıştır
             from cursor_pro_keep_alive import main
             self.clear_screen()
             print_logo()
