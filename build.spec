@@ -1,17 +1,18 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+import sys
+
 block_cipher = None
 
-a = Analysis(
-    ['main.py'],
-    pathex=[],
-    binaries=[],
-    datas=[
+# İşletim sistemine göre özelleştirmeler
+if sys.platform == "linux" or sys.platform == "linux2":
+    # Linux için özel ayarlar
+    datas = [
         ('locales/*.json', 'locales'),
         ('logo.py', '.'),
         ('turnstilePatch', 'turnstilePatch'),
-    ],
-    hiddenimports=[
+    ]
+    hiddenimports = [
         'browser_utils',
         'cursor_auth_manager',
         'cursor_pro_keep_alive',
@@ -20,7 +21,50 @@ a = Analysis(
         'logo',
         'machine_id_reset',
         'windsurf_account_creator',
-    ],
+    ]
+elif sys.platform == "darwin":
+    # macOS için özel ayarlar
+    datas = [
+        ('locales/*.json', 'locales'),
+        ('logo.py', '.'),
+        ('turnstilePatch', 'turnstilePatch'),
+    ]
+    hiddenimports = [
+        'browser_utils',
+        'cursor_auth_manager',
+        'cursor_pro_keep_alive',
+        'get_email_code',
+        'locale_manager',
+        'logo',
+        'machine_id_reset',
+        'windsurf_account_creator',
+    ]
+elif sys.platform == "win32":
+    # Windows için özel ayarlar
+    datas = [
+        ('locales/*.json', 'locales'),
+        ('logo.py', '.'),
+        ('turnstilePatch', 'turnstilePatch'),
+    ]
+    hiddenimports = [
+        'browser_utils',
+        'cursor_auth_manager',
+        'cursor_pro_keep_alive',
+        'get_email_code',
+        'locale_manager',
+        'logo',
+        'machine_id_reset',
+        'windsurf_account_creator',
+    ]
+else:
+    raise Exception(f"Desteklenmeyen işletim sistemi: {sys.platform}")
+
+a = Analysis(
+    ['main.py'],
+    pathex=[],
+    binaries=[],
+    datas=datas,
+    hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
