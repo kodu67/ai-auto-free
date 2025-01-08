@@ -1,4 +1,4 @@
-# windoZORT
+# Windows
 
 ![AI Free](ai-free.png)
 
