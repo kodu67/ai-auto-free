@@ -78,7 +78,7 @@ class AutoFreeApp:
         print("\n" + self.locale_manager.get_text("menu.title"))
         print("\n" + self.locale_manager.get_text("menu.select_option"))
         print(self.locale_manager.get_text("menu.cursor"))
-        print(self.locale_manager.get_text("menu.windsurf"))
+        print(f"{self.locale_manager.get_text('menu.windsurf')} (Fix)")
         print(self.locale_manager.get_text("menu.machine_id_reset"))
         print(self.locale_manager.get_text("menu.exit"))
 
