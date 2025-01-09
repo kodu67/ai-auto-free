@@ -32,11 +32,11 @@ class BrowserManager:
         co.set_argument("--hide-crash-restore-bubble")
         co.auto_port()
 
-        # Headless mod ayarı (varsayılan olarak açık)
+        # Headless mod ayarı
         if self.headless:
             co.set_argument("--headless=new")
         else:
-            co.set_argument("--headless=0")
+            pass
 
         # Mac sistemleri için özel ayarlar
         if sys.platform == "darwin":

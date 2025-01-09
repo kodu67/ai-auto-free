@@ -1,10 +1,10 @@
 # Windows
 
-![AI Free](ai-free.png)
+![AI Free](public/windows.png)
 
 # Linux - Archlinux
 
-![AI Free](2025-01-08_10-54.png)
+![AI Free](public/linux.png)
 
 # AI Auto Free
 

@@ -100,8 +100,27 @@ def update_cursor_auth(email=None, access_token=None, refresh_token=None):
     return auth_manager.update_auth(email, access_token, refresh_token)
 
 
-def sign_up_account(browser, tab, account, password, first_name, last_name, email_handler, locale):
+def sign_up_account(browser, tab, email_handler, locale):
     print(locale["cursor"]["starting"])
+
+    # Yeni e-posta adresi oluştur
+    email, email_token = email_handler.create_email()
+    if not email:
+        print(locale["cursor"]["process"]["email_creation_failed"])
+        return False
+
+    # Rastgele şifre oluştur
+    password = "".join(
+        random.choices(
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*",
+            k=12
+        )
+    )
+
+    # Rastgele isim seç
+    first_name = random.choice(["Emma", "Liam", "Olivia", "Noah", "Ava", "William", "Sophia", "James", "Isabella", "Oliver"])
+    last_name = random.choice(["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"])
+
     tab.get(SIGN_UP_URL)
 
     try:
@@ -112,7 +131,7 @@ def sign_up_account(browser, tab, account, password, first_name, last_name, emai
             tab.actions.click("@name=last_name").input(last_name)
             time.sleep(random.uniform(1, 3))
 
-            tab.actions.click("@name=email").input(account)
+            tab.actions.click("@name=email").input(email)
             time.sleep(random.uniform(1, 3))
 
             tab.actions.click("@type=submit")
@@ -147,7 +166,7 @@ def sign_up_account(browser, tab, account, password, first_name, last_name, emai
             if tab.ele("Account Settings"):
                 break
             if tab.ele("@data-index=0"):
-                code = email_handler.get_verification_code(account)
+                code = email_handler.get_verification_code(email)
                 if not code:
                     return False
 
@@ -182,7 +201,7 @@ def sign_up_account(browser, tab, account, password, first_name, last_name, emai
         print(f"{locale['cursor']['process']['usage_limit_error']}: {e}")
 
     print(locale["cursor"]["registration_success"])
-    account_info = f"\n{locale['cursor']['account_info']}: {account}  {locale['cursor']['password']}: {password}"
+    account_info = f"\n{locale['cursor']['account_info']}: {email}  {locale['cursor']['password']}: {password}"
     logging.info(account_info)
     time.sleep(5)
     return True
@@ -225,30 +244,26 @@ class EmailGenerator:
 def main():
     locale = LocaleManager().get_locale()
     browser_manager = None
+    email = None
     try:
         browser_manager = BrowserManager()
         browser = browser_manager.init_browser()
 
-        email_handler = EmailVerificationHandler(browser)
-
-        email_generator = EmailGenerator()
-        account_info = email_generator.get_account_info()
-
-        account = account_info["email"]
-        password = account_info["password"]
-        first_name = account_info["first_name"]
-        last_name = account_info["last_name"]
+        email_handler = EmailVerificationHandler()
 
         tab = browser.latest_tab
         tab.run_js("try { turnstile.reset() } catch(e) { }")
 
         tab.get(LOGIN_URL)
 
-        if sign_up_account(browser, tab, account, password, first_name, last_name, email_handler, locale):
+        if sign_up_account(browser, tab, email_handler, locale):
             token = get_cursor_session_token(tab, locale)
             if token:
+                email = email_handler.email
                 update_cursor_auth(
-                    email=account, access_token=token, refresh_token=token
+                    email=email,
+                    access_token=token,
+                    refresh_token=token
                 )
             else:
                 print(locale["cursor"]["registration_failed"])

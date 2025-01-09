@@ -6,8 +6,19 @@ import random
 import string
 import logging
 import platform
-import ctypes
 from pathlib import Path
+from elevate import elevate
+
+def is_admin():
+    """Yönetici yetkilerini kontrol eder"""
+    try:
+        if platform.system() == "Windows":
+            import ctypes
+            return ctypes.windll.shell32.IsUserAnAdmin()
+        else:  # Linux/macOS
+            return os.geteuid() == 0
+    except:
+        return False
 
 class MachineIDResetter:
     def __init__(self):
@@ -26,12 +37,11 @@ class MachineIDResetter:
             return os.path.join(home, ".cursor", "User", "globalStorage", "storage.json")
 
     def _is_admin(self):
+        """Yönetici yetkilerini kontrol eder"""
         try:
-            if platform.system() == "Windows":
-                return ctypes.windll.shell32.IsUserAnAdmin()
-            else:
-                return os.geteuid() == 0
-        except:
+            return is_admin()
+        except Exception as e:
+            self.logger.error(f"Yönetici yetki kontrolü başarısız: {str(e)}")
             return False
 
     def _generate_machine_id(self):
@@ -102,7 +112,11 @@ class MachineIDResetter:
 
     def reset_machine_id(self):
         if not self._is_admin():
-            return False, "Bu işlem için yönetici yetkileri gerekiyor."
+            try:
+                elevate(graphical=False)
+            except Exception as e:
+                self.logger.error(f"Yetki yükseltme başarısız: {str(e)}")
+                return False, "Bu işlem için yönetici yetkileri gerekiyor."
 
         self._kill_cursor_processes()
 

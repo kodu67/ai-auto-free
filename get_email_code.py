@@ -1,77 +1,76 @@
-from DrissionPage.common import Keys
+import requests
 import time
-import re
 from locale_manager import LocaleManager
 
-
 class EmailVerificationHandler:
-    def __init__(self, browser, mail_url="https://tempmail.plus"):
-        self.browser = browser
-        self.mail_url = mail_url
+    def __init__(self, mail_api_url="https://api.internal.temp-mail.io/api/v3"):
+        self.mail_api_url = mail_api_url
         self.locale = LocaleManager().get_locale()
+        self.email = None
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0',
+            'Accept': 'application/json',
+            'Accept-Language': 'tr-TR,tr;q=0.8,en-US;q=0.5,en;q=0.3',
+            'Content-Type': 'application/json;charset=utf-8',
+            'Application-Name': 'web',
+            'Application-Version': '2.4.2',
+            'Origin': 'https://temp-mail.io',
+            'Referer': 'https://temp-mail.io/'
+        }
 
-    def get_verification_code(self, email):
-        username = email.split("@")[0]
-        code = None
+    def create_email(self):
+        """Yeni bir geçici e-posta adresi oluşturur"""
+        try:
+            data = {
+                "min_name_length": 10,
+                "max_name_length": 10
+            }
+
+            response = requests.post(
+                f"{self.mail_api_url}/email/new",
+                headers=self.headers,
+                json=data
+            )
+
+            if response.status_code == 200:
+                result = response.json()
+                self.email = result.get("email")
+                return self.email, result.get("token")
+            return None, None
+
+        except Exception:
+            return None, None
+
+    def get_verification_code(self, email, max_attempts=30, delay=2):
+        """E-posta adresine gelen doğrulama kodunu alır"""
+        print(self.locale["email"]["processing"])
 
         try:
-            print(self.locale["email"]["processing"])
-            tab_mail = self.browser.new_tab(self.mail_url)
-            self.browser.activate_tab(tab_mail)
+            for attempt in range(max_attempts):
+                response = requests.get(
+                    f"{self.mail_api_url}/email/{email}/messages",
+                    headers=self.headers
+                )
 
-            self._input_username(tab_mail, username)
+                if response.status_code == 200:
+                    messages = response.json()
+                    if messages:
+                        message = messages[0]
+                        body_text = message.get("body_text", "")
 
-            code = self._get_latest_mail_code(tab_mail)
+                        # Satır satır kontrol
+                        for line in body_text.split('\n'):
+                            line = line.strip()
+                            # Sadece rakamlardan oluşan 6 haneli kodları ara
+                            if line.isdigit() and len(line) == 6:
+                                print(f"{self.locale['cursor']['verification_code']}: {line}")
+                                return line
 
-            self._cleanup_mail(tab_mail)
+                time.sleep(delay)
 
-            tab_mail.close()
+            print(self.locale["email"]["verification_failed"])
+            return None
 
-        except Exception as e:
-            print(f"{self.locale['email']['verification_failed']}: {str(e)}")
-
-        return code
-
-    def _input_username(self, tab, username):
-        while True:
-            if tab.ele("@id=pre_button"):
-                tab.actions.click("@id=pre_button")
-                time.sleep(0.5)
-                tab.run_js('document.getElementById("pre_button").value = ""')
-                time.sleep(0.5)
-                tab.actions.input(username).key_down(Keys.ENTER).key_up(Keys.ENTER)
-                break
-            time.sleep(1)
-
-    def _get_latest_mail_code(self, tab):
-        code = None
-        while True:
-            new_mail = tab.ele("@class=mail")
-            if new_mail:
-                if new_mail.text:
-                    tab.actions.click("@class=mail")
-                    break
-                else:
-                    break
-            time.sleep(1)
-
-        if tab.ele("@class=overflow-auto mb-20"):
-            email_content = tab.ele("@class=overflow-auto mb-20").text
-            verification_code = re.search(
-                r"verification code is (\d{6})", email_content
-            )
-            if verification_code:
-                code = verification_code.group(1)
-                print(self.locale["email"]["almost_success"])
-            else:
-                print(self.locale["email"]["execution_failed"])
-
-        return code
-
-    def _cleanup_mail(self, tab):
-        if tab.ele("@id=delete_mail"):
-            tab.actions.click("@id=delete_mail")
-            time.sleep(1)
-
-        if tab.ele("@id=confirm_mail"):
-            tab.actions.click("@id=confirm_mail")
+        except Exception:
+            print(self.locale["email"]["execution_failed"])
+            return None

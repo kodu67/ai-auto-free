@@ -4,6 +4,18 @@ import logging
 import platform
 from locale_manager import LocaleManager
 from logo import print_logo
+from elevate import elevate
+
+def is_admin():
+    """Yönetici yetkilerini kontrol eder"""
+    try:
+        if platform.system() == "Windows":
+            import ctypes
+            return ctypes.windll.shell32.IsUserAnAdmin()
+        else:  # Linux/macOS
+            return os.geteuid() == 0
+    except:
+        return False
 
 logging.basicConfig(
     level=logging.INFO,
@@ -22,28 +34,20 @@ class AutoFreeApp:
     def _is_admin(self):
         """Yönetici yetkilerini kontrol eder"""
         try:
-            if platform.system() == "Linux" or platform.system() == "Darwin":  # Linux or macOS
-                return os.geteuid() == 0
-            elif platform.system() == "Windows":
-                import ctypes
-                return ctypes.windll.shell32.IsUserAnAdmin()
-            else:
-                return False
+            return is_admin()
         except Exception as e:
             logging.error(f"Admin kontrol hatası: {str(e)}")
             return False
 
     def _request_admin(self):
         """Yönetici yetkisi ister"""
-        if platform.system() == "Windows":
-            try:
-                if not self._is_admin():
-                    script = os.path.abspath(sys.argv[0])
-                    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, script, None, 1)
-                    sys.exit()
-            except Exception as e:
-                logging.error(f"Yönetici yetkileri alınamadı: {str(e)}")
-                return False
+        try:
+            if not self._is_admin():
+                elevate(graphical=False)
+                sys.exit()
+        except Exception as e:
+            logging.error(f"Yönetici yetkileri alınamadı: {str(e)}")
+            return False
         return True
 
     def check_admin_rights(self):
@@ -83,7 +87,7 @@ class AutoFreeApp:
         try:
             from machine_id_reset import MachineIDResetter
             resetter = MachineIDResetter()
-            resetter._kill_cursor_processes()
+            #resetter._kill_cursor_processes()
 
             from cursor_pro_keep_alive import main
             self.clear_screen()
