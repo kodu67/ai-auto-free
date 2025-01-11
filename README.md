@@ -1,3 +1,5 @@
+Supports English, Russian, Chinese, Turkish, and Azerbaijani languages.
+
 # Windows
 
 ![AI Free](public/windows.png)
