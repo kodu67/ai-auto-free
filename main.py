@@ -5,6 +5,8 @@ import platform
 from locale_manager import LocaleManager
 from logo import print_logo
 from elevate import elevate
+import requests
+import json
 
 def is_admin():
     """Yönetici yetkilerini kontrol eder"""
@@ -27,9 +29,21 @@ logging.basicConfig(
 )
 
 class AutoFreeApp:
-    def __init__(self):
+    def __init__(self, test_mode=False):
         self.locale_manager = LocaleManager()
         self.running = True
+        self.test_mode = test_mode
+
+        # Özellik durumları
+        self.cursor_enabled = True
+        self.cursor_maintenance = False
+        self.cursor_maintenance_message = ""
+        self.windsurf_enabled = True
+        self.windsurf_maintenance = False
+        self.windsurf_maintenance_message = ""
+
+        # Program versiyonu
+        self.current_version = self._get_version()
 
     def _is_admin(self):
         """Yönetici yetkilerini kontrol eder"""
@@ -75,15 +89,50 @@ class AutoFreeApp:
         """Ana menüyü gösterir"""
         self.clear_screen()
         print_logo()
+
+        # Telegram grubu davetini göster
+        try:
+            if self.test_mode:
+                settings_path = os.path.join(os.path.dirname(__file__), 'settings.json')
+                with open(settings_path, 'r', encoding='utf-8') as f:
+                    settings = json.load(f)
+            else:
+                url = "https://raw.githubusercontent.com/kodu67/ai-auto-free/refs/heads/main/settings.json"
+                response = requests.get(url, timeout=5)
+                settings = response.json()
+
+            telegram_settings = settings.get("telegram", {})
+            group_url = telegram_settings.get("group", "")
+            if group_url:
+                message_template = telegram_settings.get("message", {}).get(
+                    self.locale_manager.current_locale,
+                    telegram_settings["message"]["en"]  # Fallback to English
+                )
+                print("\n" + message_template.format(group_url))
+        except Exception as e:
+            logging.error(f"Telegram grubu bilgisi alınamadı: {str(e)}")
+
         print("\n" + self.locale_manager.get_text("menu.title"))
         print("\n" + self.locale_manager.get_text("menu.select_option"))
         print(self.locale_manager.get_text("menu.cursor"))
-        print(f"{self.locale_manager.get_text('menu.windsurf')} (Fix)")
+        print(self.locale_manager.get_text('menu.windsurf'))
         print(self.locale_manager.get_text("menu.machine_id_reset"))
         print(self.locale_manager.get_text("menu.exit"))
 
     def run_cursor_creator(self):
         """Cursor hesap oluşturucuyu çalıştırır"""
+        if not self.cursor_enabled:
+            print("\n" + self.locale_manager.get_text("features.disabled").format(
+                self.locale_manager.get_text("menu.cursor")
+            ))
+            input("\n" + self.locale_manager.get_text("common.press_enter"))
+            return
+
+        if self.cursor_maintenance:
+            print(f"\n{self.cursor_maintenance_message}")
+            input("\n" + self.locale_manager.get_text("common.press_enter"))
+            return
+
         try:
             from machine_id_reset import MachineIDResetter
             resetter = MachineIDResetter()
@@ -127,6 +176,18 @@ class AutoFreeApp:
 
     def run_windsurf_creator(self):
         """Windsurf hesap oluşturucuyu çalıştırır"""
+        if not self.windsurf_enabled:
+            print("\n" + self.locale_manager.get_text("features.disabled").format(
+                self.locale_manager.get_text("menu.windsurf")
+            ))
+            input("\n" + self.locale_manager.get_text("common.press_enter"))
+            return
+
+        if self.windsurf_maintenance:
+            print(f"\n{self.windsurf_maintenance_message}")
+            input("\n" + self.locale_manager.get_text("common.press_enter"))
+            return
+
         self.clear_screen()
         print("\n" + self.locale_manager.get_text("windsurf.starting"))
 
@@ -155,6 +216,53 @@ class AutoFreeApp:
 
         input("\n" + self.locale_manager.get_text("common.press_enter"))
 
+    def check_settings(self):
+        """Uzak ayarları kontrol eder"""
+        try:
+            if self.test_mode:
+                settings_path = os.path.join(os.path.dirname(__file__), 'settings.json')
+                with open(settings_path, 'r', encoding='utf-8') as f:
+                    settings = json.load(f)
+            else:
+                url = "https://raw.githubusercontent.com/kodu67/ai-auto-free/refs/heads/main/settings.json"
+                response = requests.get(url, timeout=5)
+                settings = response.json()
+
+            # Versiyon kontrolü
+            latest_version = settings.get("latest_version")
+            if latest_version and latest_version != self.current_version:
+                print("\n" + self.locale_manager.get_text("updates.available"))
+                print(self.locale_manager.get_text("updates.message").format(latest_version))
+                print(self.locale_manager.get_text("updates.current_version").format(self.current_version))
+                print(self.locale_manager.get_text("updates.latest_version").format(latest_version))
+                print(self.locale_manager.get_text("updates.download").format(
+                    "https://github.com/kodu67/ai-auto-free/releases/latest"
+                ))
+                print()
+                input(self.locale_manager.get_text("common.press_enter"))
+
+            # Özellik kontrolü
+            features = settings.get("features", {})
+
+            # Cursor kontrolü
+            cursor_settings = features.get("cursor", {})
+            if not cursor_settings.get("enabled", True):
+                self.cursor_enabled = False
+            if cursor_settings.get("maintenance", False):
+                self.cursor_maintenance = True
+                self.cursor_maintenance_message = cursor_settings["maintenance_message"][self.locale_manager.current_locale]
+
+            # Windsurf kontrolü
+            windsurf_settings = features.get("windsurf", {})
+            if not windsurf_settings.get("enabled", True):
+                self.windsurf_enabled = False
+            if windsurf_settings.get("maintenance", False):
+                self.windsurf_maintenance = True
+                self.windsurf_maintenance_message = windsurf_settings["maintenance_message"][self.locale_manager.current_locale]
+
+        except Exception as e:
+            logging.error(f"Ayarlar alınamadı: {str(e)}")
+
     def run(self):
         """Uygulamayı çalıştırır"""
         while self.running:
@@ -170,11 +278,32 @@ class AutoFreeApp:
             elif choice == "4":
                 self.running = False
             else:
-                input("\nInvalid choice. Press Enter to continue...")
+                input("\n" + self.locale_manager.get_text("menu.invalid_choice"))
+
+    def _get_version(self):
+        """Mevcut sürümü settings.json'dan alır"""
+        try:
+            if self.test_mode:
+                settings_path = os.path.join(os.path.dirname(__file__), 'settings.json')
+                with open(settings_path, 'r', encoding='utf-8') as f:
+                    settings = json.load(f)
+            else:
+                url = "https://raw.githubusercontent.com/kodu67/ai-auto-free/refs/heads/main/settings.json"
+                response = requests.get(url, timeout=5)
+                settings = response.json()
+            return settings.get("version", "1.0.0")
+        except:
+            return "1.0.0"  # Fallback versiyon
 
 if __name__ == "__main__":
-    app = AutoFreeApp()
+    # Test modu için:
+    # app = AutoFreeApp(test_mode=True)
+
+    # Normal mod için:
+    app = AutoFreeApp()  # Test modunu kapattık
+
     if app.check_admin_rights():
+        app.check_settings()  # Ayarları kontrol et
         app.run()
     else:
         sys.exit(1)

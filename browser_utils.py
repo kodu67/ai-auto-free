@@ -22,7 +22,7 @@ class BrowserManager:
             extension_path = self._get_extension_path()
             co.add_extension(extension_path)
         except FileNotFoundError as e:
-            logging.warning(f"Uyarı: {e}")
+            logging.error(f"Eklenti yüklenirken hata oluştu: {e}")
 
         co.set_user_agent(
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -35,8 +35,6 @@ class BrowserManager:
         # Headless mod ayarı
         if self.headless:
             co.set_argument("--headless=new")
-        else:
-            pass
 
         # Mac sistemleri için özel ayarlar
         if sys.platform == "darwin":
@@ -46,22 +44,14 @@ class BrowserManager:
         return co
 
     def _get_extension_path(self):
-        """Eklenti yolunu alır"""
-        root_dir = os.getcwd()
-        extension_path = os.path.join(root_dir, "turnstilePatch")
-
-        if hasattr(sys, "_MEIPASS"):
-            extension_path = os.path.join(sys._MEIPASS, "turnstilePatch")
-
+        """Turnstile Patch eklentisinin yolunu döndürür"""
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        extension_path = os.path.join(current_dir, "turnstilePatch")
         if not os.path.exists(extension_path):
-            raise FileNotFoundError(f"Eklenti bulunamadı: {extension_path}")
-
+            raise FileNotFoundError(f"Eklenti dizini bulunamadı: {extension_path}")
         return extension_path
 
     def quit(self):
         """Tarayıcıyı kapatır"""
         if self.browser:
-            try:
-                self.browser.quit()
-            except:
-                pass
+            self.browser.quit()

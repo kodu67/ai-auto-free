@@ -5,7 +5,8 @@
         "cursor": "1. Cursor账户创建器",
         "windsurf": "2. Windsurf账户创建器",
         "machine_id_reset": "3. 重置Cursor机器ID",
-        "exit": "4. 退出"
+        "exit": "4. 退出",
+        "invalid_choice": "选择无效。按Enter继续..."
     },
     "settings": {
         "title": "设置",
@@ -137,5 +138,15 @@
         "verification_failed": "获取验证码失败",
         "almost_success": "即将完成",
         "execution_failed": "执行失败"
+    },
+    "updates": {
+        "available": "有新的更新可用！",
+        "message": "新版本（{}）已发布。请下载最新版本：",
+        "download": "下载链接：{}",
+        "current_version": "当前版本：{}",
+        "latest_version": "最新版本：{}"
+    },
+    "features": {
+        "disabled": "{}功能当前已禁用。"
     }
 }

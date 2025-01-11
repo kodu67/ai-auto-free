@@ -5,7 +5,8 @@
         "cursor": "1. Cursor Hesab Yaradıcı",
         "windsurf": "2. Windsurf Hesab Yaradıcı",
         "machine_id_reset": "3. Cursor Maşın ID-sini Sıfırla",
-        "exit": "4. Çıxış"
+        "exit": "4. Çıxış",
+        "invalid_choice": "Yanlış seçim. Davam etmək üçün Enter düyməsinə basın..."
     },
     "settings": {
         "title": "Parametrlər",
@@ -137,5 +138,15 @@
         "verification_failed": "Doğrulama kodu alına bilmədi",
         "almost_success": "Demək olar ki, tamamlandı",
         "execution_failed": "İcra uğursuz oldu"
+    },
+    "updates": {
+        "available": "Yeni Yeniləmə Mövcuddur!",
+        "message": "Yeni versiya ({}) yayımlanıb. Zəhmət olmasa ən son versiyanı endirin:",
+        "download": "Endirmə Linki: {}",
+        "current_version": "Mövcud Versiya: {}",
+        "latest_version": "Ən Son Versiya: {}"
+    },
+    "features": {
+        "disabled": "{} funksiyası hazırda deaktivdir."
     }
 }

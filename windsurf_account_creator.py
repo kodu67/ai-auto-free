@@ -7,6 +7,7 @@ import requests
 import pyperclip
 from browser_utils import BrowserManager
 from locale_manager import LocaleManager
+from cursor_pro_keep_alive import handle_turnstile
 
 class WindsurfAccountCreator:
     def __init__(self):
@@ -122,7 +123,6 @@ class WindsurfAccountCreator:
 
             # Kayıt sayfasına git
             tab.get(self.register_url)
-            time.sleep(3)  # Sayfanın yüklenmesini bekle
 
             print("[*] " + self.locale_manager.get_text("windsurf.progress.filling_form"))
             # Form elementlerini doldur
@@ -142,6 +142,11 @@ class WindsurfAccountCreator:
             if not terms_checkbox:
                 return False, self.locale_manager.get_text("windsurf.errors.terms_checkbox")
             terms_checkbox.click()
+
+            # Cloudflare Turnstile çözümü
+            print("[*] " + self.locale_manager.get_text("windsurf.progress.solving_turnstile"))
+            if not handle_turnstile(tab, self.locale_manager.get_locale()):
+                return False, self.locale_manager.get_text("windsurf.errors.turnstile")
 
             # Kayıt ol butonuna tıkla
             signup_button = tab.ele("text=Sign up", timeout=10)
@@ -179,3 +184,45 @@ class WindsurfAccountCreator:
 
         finally:
             browser_manager.quit()
+
+def handle_turnstile(tab, locale):
+    print(locale["cursor"]["process"]["turnstile"]["starting"])
+    try:
+        while True:
+            try:
+                # Shadow root içinde iframe'i ara
+                turnstile_div = tab.ele("div[style*='width: 300px; height: 65px']", timeout=2)
+                if turnstile_div:
+                    iframe = (
+                        turnstile_div
+                        .child()
+                        .shadow_root
+                        .ele("tag:iframe")
+                    )
+
+                    if iframe:
+                        print(locale["cursor"]["process"]["turnstile"]["started"])
+                        time.sleep(random.uniform(1, 3))
+                        iframe.click()
+                        time.sleep(2)
+
+                        # Başarı kontrolü
+                        response_input = tab.ele("@name=cf-turnstile-response")
+                        if response_input and response_input.attr("value"):
+                            print(locale["cursor"]["process"]["turnstile"]["success"])
+                            return True
+
+                # Sign up butonu aktif mi kontrol et
+                signup_button = tab.ele("text=Sign up")
+                if signup_button and not signup_button.attr("disabled"):
+                    print(locale["cursor"]["process"]["turnstile"]["success"])
+                    return True
+
+            except Exception:
+                pass
+
+            time.sleep(random.uniform(1, 2))
+
+    except Exception as e:
+        print(f"{locale['cursor']['process']['turnstile']['failed']}: {e}")
+        return False

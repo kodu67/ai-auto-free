@@ -1,0 +1,38 @@
+{
+  "version": "1.0.4",
+  "latest_version": "1.0.4",
+  "telegram": {
+    "group": "https://t.me/kodu_group",
+    "message": {
+      "tr": "Telegram Grubumuza Katılın: {}",
+      "en": "Join Our Telegram Group: {}",
+      "ru": "Присоединяйтесь к нашей группе Telegram: {}",
+      "zh": "加入我们的Telegram群组：{}",
+      "az": "Telegram Qrupumuza Qatılın: {}"
+    }
+  },
+  "features": {
+    "cursor": {
+      "enabled": true,
+      "maintenance": false,
+      "maintenance_message": {
+        "tr": "Cursor özelliği bakımda. Lütfen daha sonra tekrar deneyin.\n\nTelegram Grubumuza Katılın: https://t.me/kodu_group",
+        "en": "Cursor feature is under maintenance. Please try again later.\n\nJoin Our Telegram Group: https://t.me/kodu_group",
+        "ru": "Функция Cursor находится на обслуживании. Пожалуйста, попробуйте позже.\n\nПрисоединяйтесь к нашей группе Telegram: https://t.me/kodu_group",
+        "zh": "Cursor功能正在维护中。请稍后再试。\n\n加入我们的Telegram群组：https://t.me/kodu_group",
+        "az": "Cursor funksiyası təmirdədir. Zəhmət olmasa daha sonra yenidən cəhd edin.\n\nTelegram Qrupumuza Qatılın: https://t.me/kodu_group"
+      }
+    },
+    "windsurf": {
+      "enabled": true,
+      "maintenance": false,
+      "maintenance_message": {
+        "tr": "Windsurf özelliği bakımda. Lütfen daha sonra tekrar deneyin.\n\nTelegram Grubumuza Katılın: https://t.me/kodu_group",
+        "en": "Windsurf feature is under maintenance. Please try again later.\n\nJoin Our Telegram Group: https://t.me/kodu_group",
+        "ru": "Функция Windsurf находится на обслуживании. Пожалуйста, попробуйте позже.\n\nПрисоединяйтесь к нашей группе Telegram: https://t.me/kodu_group",
+        "zh": "Windsurf功能正在维护中。请稍后再试。\n\n加入我们的Telegram群组：https://t.me/kodu_group",
+        "az": "Windsurf funksiyası təmirdədir. Zəhmət olmasa daha sonra yenidən cəhd edin.\n\nTelegram Qrupumuza Qatılın: https://t.me/kodu_group"
+      }
+    }
+  }
+}
