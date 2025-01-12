@@ -7,22 +7,32 @@ import logging
 class BrowserManager:
     def __init__(self, headless=True):
         self.browser = None
-        self.headless = headless  # Varsayılan olarak True
+        self.headless = headless  
 
     def init_browser(self):
         """Tarayıcıyı başlatır"""
-        co = self._get_browser_options()
-        self.browser = Chromium(co)
-        return self.browser
+        try:
+            co = self._get_browser_options()
+            self.browser = Chromium(co)
+            return self.browser
+        except Exception as e:
+            logging.error(f"Tarayıcı başlatılırken hata oluştu: {e}")
+            raise
 
     def _get_browser_options(self):
         """Tarayıcı ayarlarını yapılandırır"""
         co = ChromiumOptions()
+
+        user_data_dir = os.path.join(
+            os.path.expanduser("~"), ".cursor_browser_data"
+        )
+        co.set_pref("user_data_dir", user_data_dir)
+
         try:
             extension_path = self._get_extension_path()
             co.add_extension(extension_path)
         except FileNotFoundError as e:
-            logging.warning(f"Uyarı: {e}")
+            logging.error(f"Eklenti yüklenirken hata oluştu: {e}")
 
         co.set_user_agent(
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -32,36 +42,30 @@ class BrowserManager:
         co.set_argument("--hide-crash-restore-bubble")
         co.auto_port()
 
-        # Headless mod ayarı (varsayılan olarak açık)
+        # Headless mod ayarı
         if self.headless:
             co.set_argument("--headless=new")
-        else:
-            co.set_argument("--headless=0")
 
-        # Mac sistemleri için özel ayarlar
-        if sys.platform == "darwin":
+        if sys.platform in ["darwin", "linux"]:
             co.set_argument("--no-sandbox")
-            co.set_argument("--disable-gpu")
+            co.set_argument(
+                "--disable-gpu"
+            )  
 
         return co
 
     def _get_extension_path(self):
-        """Eklenti yolunu alır"""
-        root_dir = os.getcwd()
-        extension_path = os.path.join(root_dir, "turnstilePatch")
-
-        if hasattr(sys, "_MEIPASS"):
-            extension_path = os.path.join(sys._MEIPASS, "turnstilePatch")
-
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        extension_path = os.path.join(current_dir, "turnstilePatch")
         if not os.path.exists(extension_path):
-            raise FileNotFoundError(f"Eklenti bulunamadı: {extension_path}")
-
+            raise FileNotFoundError(
+                f"Eklenti dizini bulunamadı: {extension_path}"
+            )
         return extension_path
 
     def quit(self):
-        """Tarayıcıyı kapatır"""
-        if self.browser:
-            try:
+        try:
+            if self.browser:
                 self.browser.quit()
-            except:
-                pass
+        except Exception as e:
+            logging.error(f"Tarayıcı kapatılırken hata oluştu: {e}")
