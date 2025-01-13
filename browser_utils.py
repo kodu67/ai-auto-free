@@ -1,7 +1,6 @@
 from DrissionPage import ChromiumOptions, Chromium
 import sys
 import os
-import logging
 
 
 class BrowserManager:
@@ -22,7 +21,7 @@ class BrowserManager:
             extension_path = self._get_extension_path()
             co.add_extension(extension_path)
         except FileNotFoundError as e:
-            logging.error(f"Eklenti yüklenirken hata oluştu: {e}")
+            print(f"Chrome extension loading error: {e}")
 
         co.set_user_agent(
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "

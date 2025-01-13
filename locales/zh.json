@@ -67,7 +67,8 @@
             "creating_account": "正在创建账户...",
             "filling_form": "正在填写注册表单...",
             "completing_onboarding": "正在完成入门步骤...",
-            "getting_token": "正在获取令牌并复制到剪贴板..."
+            "getting_token": "正在获取令牌并复制到剪贴板...",
+            "solving_turnstile": "正在解决Cloudflare验证..."
         },
         "steps": {
             "email": "正在获取临时电子邮件地址...",
@@ -148,5 +149,9 @@
     },
     "features": {
         "disabled": "{}功能当前已禁用。"
+    },
+    "usage_stats": {
+        "title": "最近创建的Cursor账户使用情况",
+        "requests": "请求"
     }
 }

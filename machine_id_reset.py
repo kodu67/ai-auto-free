@@ -4,7 +4,6 @@ import json
 import uuid
 import random
 import string
-import logging
 import platform
 from pathlib import Path
 from elevate import elevate
@@ -23,7 +22,6 @@ def is_admin():
 class MachineIDResetter:
     def __init__(self):
         self.storage_path = self._get_storage_path()
-        self.logger = logging.getLogger(__name__)
 
     def _get_storage_path(self):
         if platform.system() == "Windows":
@@ -41,7 +39,6 @@ class MachineIDResetter:
         try:
             return is_admin()
         except Exception as e:
-            self.logger.error(f"Yönetici yetki kontrolü başarısız: {str(e)}")
             return False
 
     def _generate_machine_id(self):
@@ -63,14 +60,14 @@ class MachineIDResetter:
                 with open(self.storage_path, 'r') as f:
                     return json.load(f)
         except Exception as e:
-            self.logger.warning(f"Yapılandırma okunamadı: {str(e)}")
+            print(f"Config read error: {str(e)}")
         return {}
 
     def _save_config(self, config):
         try:
             if os.path.exists(self.storage_path):
                 if not os.access(self.storage_path, os.W_OK):
-                    self.logger.error(f"Dosya yazma izni yok: {self.storage_path}")
+                    print(f"File write permission error: {self.storage_path}")
                     return False
 
             os.makedirs(os.path.dirname(self.storage_path), exist_ok=True)
@@ -82,20 +79,19 @@ class MachineIDResetter:
                 with open(self.storage_path, 'r') as f:
                     written_config = json.load(f)
                 if written_config == config:
-                    self.logger.info("Yapılandırma başarıyla kaydedildi")
                     return True
                 else:
-                    self.logger.error("Yapılandırma doğrulama başarısız")
+                    print("Config validation failed")
                     return False
             else:
-                self.logger.error("Dosya oluşturulamadı")
+                print("File creation failed")
                 return False
 
         except PermissionError as e:
-            self.logger.error(f"Yetki hatası: {str(e)}")
+            print(f"Permission error: {str(e)}")
             return False
         except Exception as e:
-            self.logger.error(f"Yapılandırma kaydedilemedi: {str(e)}")
+            print(f"Config save error: {str(e)}")
             return False
 
     def _format_id_change(self, id_type, old_id, new_id):
@@ -115,8 +111,8 @@ class MachineIDResetter:
             try:
                 elevate(graphical=False)
             except Exception as e:
-                self.logger.error(f"Yetki yükseltme başarısız: {str(e)}")
-                return False, "Bu işlem için yönetici yetkileri gerekiyor."
+                print(f"Permission elevation failed: {str(e)}")
+                return False, "This operation requires administrator privileges."
 
         self._kill_cursor_processes()
 

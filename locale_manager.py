@@ -1,7 +1,6 @@
 import json
 import os
 import locale
-import logging
 
 class LocaleManager:
     def __init__(self):
@@ -35,7 +34,6 @@ class LocaleManager:
                 self.translations = json.load(f)
 
         except Exception as e:
-            logging.error(f"Error loading locale: {str(e)}")
             # Hata durumunda varsayılan İngilizce metinleri kullan
             self.current_locale = 'en'
             self.translations = self._get_default_translations()
@@ -65,7 +63,6 @@ class LocaleManager:
                 value = value[key]
             return value
         except (KeyError, TypeError):
-            logging.error(f"Translation key not found: {key_path}")
             return f"[Missing: {key_path}]"
 
     def get_locale(self):

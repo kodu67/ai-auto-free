@@ -1,12 +1,12 @@
 import os
 import sys
-import logging
 import platform
 from locale_manager import LocaleManager
 from logo import print_logo
 from elevate import elevate
 import requests
 import json
+from cursor_usage import CursorUsageChecker
 
 def is_admin():
     """Yönetici yetkilerini kontrol eder"""
@@ -19,17 +19,10 @@ def is_admin():
     except:
         return False
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler("app.log", encoding="utf-8"),
-    ],
-)
-
 class AutoFreeApp:
     def __init__(self, test_mode=False):
+        checker = CursorUsageChecker()
+        self.usage = checker.get_usage()
         self.locale_manager = LocaleManager()
         self.running = True
         self.test_mode = test_mode
@@ -50,7 +43,6 @@ class AutoFreeApp:
         try:
             return is_admin()
         except Exception as e:
-            logging.error(f"Admin kontrol hatası: {str(e)}")
             return False
 
     def _request_admin(self):
@@ -60,7 +52,6 @@ class AutoFreeApp:
                 elevate(graphical=False)
                 sys.exit()
         except Exception as e:
-            logging.error(f"Yönetici yetkileri alınamadı: {str(e)}")
             return False
         return True
 
@@ -89,6 +80,15 @@ class AutoFreeApp:
         """Ana menüyü gösterir"""
         self.clear_screen()
         print_logo()
+        print("\n   " + self.locale_manager.get_text("menu.title"))
+
+        # Cursor kullanım istatistiklerini göster
+        if self.usage:
+            print("-" * 30)
+            print(" " + self.locale_manager.get_text("usage_stats.title"))
+            for model, requests in self.usage.items():
+                print(f"> {model}: [{requests:,} {self.locale_manager.get_text('usage_stats.requests')}]")
+            print("-" * 30 + "\n")
 
         # Telegram grubu davetini göster
         try:
@@ -110,27 +110,26 @@ class AutoFreeApp:
                 )
                 print("\n" + message_template.format(group_url))
         except Exception as e:
-            logging.error(f"Telegram grubu bilgisi alınamadı: {str(e)}")
+            pass
 
-        print("\n" + self.locale_manager.get_text("menu.title"))
         print("\n" + self.locale_manager.get_text("menu.select_option"))
-        print(self.locale_manager.get_text("menu.cursor"))
-        print(self.locale_manager.get_text('menu.windsurf'))
-        print(self.locale_manager.get_text("menu.machine_id_reset"))
-        print(self.locale_manager.get_text("menu.exit"))
+        print("   " + self.locale_manager.get_text("menu.cursor"))
+        print("   " + self.locale_manager.get_text('menu.windsurf'))
+        print("   " + self.locale_manager.get_text("menu.machine_id_reset"))
+        print("   " + self.locale_manager.get_text("menu.exit"))
 
     def run_cursor_creator(self):
         """Cursor hesap oluşturucuyu çalıştırır"""
         if not self.cursor_enabled:
-            print("\n" + self.locale_manager.get_text("features.disabled").format(
+            print("\n   " + self.locale_manager.get_text("features.disabled").format(
                 self.locale_manager.get_text("menu.cursor")
             ))
-            input("\n" + self.locale_manager.get_text("common.press_enter"))
+            input("\n   " + self.locale_manager.get_text("common.press_enter"))
             return
 
         if self.cursor_maintenance:
-            print(f"\n{self.cursor_maintenance_message}")
-            input("\n" + self.locale_manager.get_text("common.press_enter"))
+            print(f"\n   {self.cursor_maintenance_message}")
+            input("\n   " + self.locale_manager.get_text("common.press_enter"))
             return
 
         try:
@@ -146,9 +145,8 @@ class AutoFreeApp:
             main()
 
         except Exception as e:
-            logging.error(f"Cursor hesap oluşturucu çalıştırılamadı: {str(e)}")
-            print("\n" + self.locale_manager.get_text("cursor.registration_failed"))
-            input("\n" + self.locale_manager.get_text("common.press_enter"))
+            print("\n   " + self.locale_manager.get_text("cursor.registration_failed"))
+            input("\n   " + self.locale_manager.get_text("common.press_enter"))
 
     def run_machine_id_reset(self, show_continue=True):
         """Machine ID sıfırlama işlemini çalıştırır"""
@@ -161,15 +159,14 @@ class AutoFreeApp:
             success, message = resetter.reset_machine_id()
 
             if success:
-                print("\n" + self.locale_manager.get_text("machine_id_reset.success"))
-                print("\n" + self.locale_manager.get_text("machine_id_reset.changes"))
+                print("\n   " + self.locale_manager.get_text("machine_id_reset.success"))
+                print("\n   " + self.locale_manager.get_text("machine_id_reset.changes"))
                 print(message)
             else:
-                print("\n" + self.locale_manager.get_text("machine_id_reset.failed"))
+                print("\n   " + self.locale_manager.get_text("machine_id_reset.failed"))
                 print(message)
 
         except Exception as e:
-            logging.error(f"{self.locale_manager.get_text('common.error')}: {str(e)}")
             print("\n" + self.locale_manager.get_text("machine_id_reset.failed"))
         if show_continue:
             input("\n" + self.locale_manager.get_text("common.press_enter"))
@@ -177,19 +174,19 @@ class AutoFreeApp:
     def run_windsurf_creator(self):
         """Windsurf hesap oluşturucuyu çalıştırır"""
         if not self.windsurf_enabled:
-            print("\n" + self.locale_manager.get_text("features.disabled").format(
+            print("\n   " + self.locale_manager.get_text("features.disabled").format(
                 self.locale_manager.get_text("menu.windsurf")
             ))
-            input("\n" + self.locale_manager.get_text("common.press_enter"))
+            input("\n   " + self.locale_manager.get_text("common.press_enter"))
             return
 
         if self.windsurf_maintenance:
-            print(f"\n{self.windsurf_maintenance_message}")
-            input("\n" + self.locale_manager.get_text("common.press_enter"))
+            print(f"\n   {self.windsurf_maintenance_message}")
+            input("\n   " + self.locale_manager.get_text("common.press_enter"))
             return
 
         self.clear_screen()
-        print("\n" + self.locale_manager.get_text("windsurf.starting"))
+        print("\n   " + self.locale_manager.get_text("windsurf.starting"))
 
         try:
             from windsurf_account_creator import WindsurfAccountCreator
@@ -207,12 +204,11 @@ class AutoFreeApp:
                 print(f"| {self.locale_manager.get_text('common.token'):<15}: {result['token']:<52} |")
                 print("+" + "-"*70 + "+")
             else:
-                print("\n" + self.locale_manager.get_text("windsurf.registration_failed"))
-                print(f"{self.locale_manager.get_text('common.error')}: {result}")
+                print("\n   " + self.locale_manager.get_text("windsurf.registration_failed"))
+                print(f"   {self.locale_manager.get_text('common.error')}: {result}")
 
         except Exception as e:
-            logging.error(f"{self.locale_manager.get_text('common.error')}: {str(e)}")
-            print("\n" + self.locale_manager.get_text("windsurf.registration_failed"))
+            print("\n   " + self.locale_manager.get_text("windsurf.registration_failed"))
 
         input("\n" + self.locale_manager.get_text("common.press_enter"))
 
@@ -261,7 +257,7 @@ class AutoFreeApp:
                 self.windsurf_maintenance_message = windsurf_settings["maintenance_message"][self.locale_manager.current_locale]
 
         except Exception as e:
-            logging.error(f"Ayarlar alınamadı: {str(e)}")
+            pass
 
     def run(self):
         """Uygulamayı çalıştırır"""

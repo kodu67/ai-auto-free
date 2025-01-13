@@ -68,7 +68,8 @@
             "creating_account": "Creating account...",
             "filling_form": "Filling registration form...",
             "completing_onboarding": "Completing onboarding steps...",
-            "getting_token": "Getting token and copying to clipboard..."
+            "getting_token": "Getting token and copying to clipboard...",
+            "solving_turnstile": "Solving Cloudflare verification..."
         },
         "steps": {
             "email": "Getting temporary email address...",
@@ -149,5 +150,9 @@
     },
     "features": {
         "disabled": "{} feature is currently disabled."
+    },
+    "usage_stats": {
+        "title": "Last Created Cursor Account Usage",
+        "requests": "requests"
     }
 }

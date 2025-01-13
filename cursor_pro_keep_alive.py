@@ -6,26 +6,15 @@ os.environ["PYINSTALLER_VERBOSE"] = "0"
 import time
 import random
 from cursor_auth_manager import CursorAuthManager
-import logging
 from browser_utils import BrowserManager
 from get_email_code import EmailVerificationHandler
 from locale_manager import LocaleManager
 
-# Log ayarları
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler("cursor_keep_alive.log", encoding="utf-8"),
-    ],
-)
 
 # Sabit URL'ler
 LOGIN_URL = "https://authenticator.cursor.sh"
 SIGN_UP_URL = "https://authenticator.cursor.sh/sign-up"
 SETTINGS_URL = "https://www.cursor.com/settings"
-MAIL_URL = "https://tempmail.plus"
 
 def handle_turnstile(tab, locale):
     print(locale["cursor"]["process"]["turnstile"]["starting"])
@@ -73,7 +62,19 @@ def get_cursor_session_token(tab, locale, max_attempts=3, retry_interval=2):
             cookies = tab.cookies()
             for cookie in cookies:
                 if cookie.get("name") == "WorkosCursorSessionToken":
-                    return cookie["value"].split("%3A%3A")[1]
+                    raw_token = cookie["value"]  # Ham token'ı al
+
+                    # Cache dizinini oluştur
+                    cache_dir = os.path.join(os.path.expanduser("~"), ".cursor_cache")
+                    os.makedirs(cache_dir, exist_ok=True)
+
+                    # Token'ı cache'e kaydet
+                    cache_file = os.path.join(cache_dir, "session_token.txt")
+                    with open(cache_file, "w", encoding="utf-8") as f:
+                        f.write(raw_token)
+
+                    # Split edilmiş token'ı döndür
+                    return raw_token.split("%3A%3A")[1]
 
             attempts += 1
             if attempts < max_attempts:
@@ -202,7 +203,6 @@ def sign_up_account(browser, tab, email_handler, locale):
 
     print(locale["cursor"]["registration_success"])
     account_info = f"\n{locale['cursor']['account_info']}: {email}  {locale['cursor']['password']}: {password}"
-    logging.info(account_info)
     time.sleep(5)
     return True
 
@@ -271,9 +271,9 @@ def main():
         print(locale["cursor"]["completed"])
 
     except Exception as e:
-        logging.error(f"{locale['common']['error']}: {str(e)}")
+        print(f"{locale['common']['error']}: {str(e)}")
         import traceback
-        logging.error(traceback.format_exc())
+        print(str(traceback.format_exc()))
     finally:
         if browser_manager:
             browser_manager.quit()

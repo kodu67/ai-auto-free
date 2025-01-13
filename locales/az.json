@@ -67,7 +67,8 @@
             "creating_account": "Hesab yaradılır...",
             "filling_form": "Qeydiyyat forması doldurulur...",
             "completing_onboarding": "Başlanğıc mərhələləri tamamlanır...",
-            "getting_token": "Token alınır və buferə kopyalanır..."
+            "getting_token": "Token alınır və buferə kopyalanır...",
+            "solving_turnstile": "Cloudflare doğrulaması həll edilir..."
         },
         "steps": {
             "email": "Müvəqqəti e-poçt ünvanı alınır...",
@@ -148,5 +149,9 @@
     },
     "features": {
         "disabled": "{} funksiyası hazırda deaktivdir."
+    },
+    "usage_stats": {
+        "title": "Son Yaradılan Cursor Hesabının İstifadəsi",
+        "requests": "sorğu"
     }
 }

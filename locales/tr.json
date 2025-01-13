@@ -151,5 +151,9 @@
     },
     "features": {
         "disabled": "{} özelliği şu anda devre dışı."
+    },
+    "usage_stats": {
+        "title": "Son Oluşturulan Cursor Hesabının Kullanımı",
+        "requests": "istek"
     }
 }
