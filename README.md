@@ -1,5 +1,7 @@
 Supports English, Russian, Chinese, Turkish, and Azerbaijani languages.
 
+Download Latest: https://github.com/kodu67/ai-auto-free/releases/latest
+
 # Windows
 
 ![AI Free](public/windows.png)
