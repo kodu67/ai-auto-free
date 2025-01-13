@@ -105,7 +105,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='AI Auto Free v1.0.5',
+    name='AI Auto Free',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
