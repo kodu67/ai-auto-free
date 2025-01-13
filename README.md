@@ -238,7 +238,7 @@ pip install -r requirements.txt
 
 ## Contributing
 This project is open source and contributions are welcome through GitHub:
-https://github.com/kodu67/ai-auto-free/releases/latest
+https://github.com/kodu67/ai-auto-free/
 
 ### Contribution Steps
 1. Create a fork

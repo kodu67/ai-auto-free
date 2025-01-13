@@ -32,7 +32,7 @@ class MachineIDResetter:
             return os.path.join(home, "Library", "Application Support", "Cursor", "User", "globalStorage", "storage.json")
         else:
             home = str(Path.home())
-            return os.path.join(home, ".cursor", "User", "globalStorage", "storage.json")
+            return os.path.join(home, ".config", "Cursor", "User", "globalStorage", "storage.json")
 
     def _is_admin(self):
         """Yönetici yetkilerini kontrol eder"""
