@@ -5,7 +5,8 @@
         "cursor": "1. Cursor Account Creator",
         "windsurf": "2. Windsurf Account Creator",
         "machine_id_reset": "3. Reset Cursor Machine ID",
-        "exit": "4. Exit"
+        "exit": "4. Exit",
+        "invalid_choice": "Invalid choice. Press Enter to continue..."
     },
     "settings": {
         "title": "Settings",
@@ -67,7 +68,8 @@
             "creating_account": "Creating account...",
             "filling_form": "Filling registration form...",
             "completing_onboarding": "Completing onboarding steps...",
-            "getting_token": "Getting token and copying to clipboard..."
+            "getting_token": "Getting token and copying to clipboard...",
+            "solving_turnstile": "Solving Cloudflare verification..."
         },
         "steps": {
             "email": "Getting temporary email address...",
@@ -138,5 +140,19 @@
         "verification_failed": "Failed to get verification code",
         "almost_success": "Almost completed",
         "execution_failed": "Execution failed"
+    },
+    "updates": {
+        "available": "New Update Available!",
+        "message": "New version ({}) has been released. Please download the latest version:",
+        "download": "Download Link: {}",
+        "current_version": "Current Version: {}",
+        "latest_version": "Latest Version: {}"
+    },
+    "features": {
+        "disabled": "{} feature is currently disabled."
+    },
+    "usage_stats": {
+        "title": "Last Created Cursor Account Usage",
+        "requests": "requests"
     }
 }

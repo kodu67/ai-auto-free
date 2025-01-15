@@ -5,7 +5,8 @@
         "cursor": "1. Cursor Hesap Oluşturucu",
         "windsurf": "2. Windsurf Hesap Oluşturucu",
         "machine_id_reset": "3. Cursor Makine Kimliğini Sıfırla",
-        "exit": "4. Çıkış"
+        "exit": "4. Çıkış",
+        "invalid_choice": "Geçersiz seçim. Devam etmek için Enter'a basın..."
     },
     "settings": {
         "title": "Ayarlar",
@@ -67,7 +68,8 @@
             "creating_account": "Hesap oluşturuluyor...",
             "filling_form": "Kayıt formu dolduruluyor...",
             "completing_onboarding": "Onboarding adımları tamamlanıyor...",
-            "getting_token": "Token alınıyor ve panoya kopyalanıyor..."
+            "getting_token": "Token alınıyor ve panoya kopyalanıyor...",
+            "solving_turnstile": "Cloudflare doğrulaması çözülüyor..."
         },
         "steps": {
             "email": "Geçici e-posta adresi alınıyor...",
@@ -95,7 +97,8 @@
             "about_form": "About user formu atlanamadı",
             "source_form": "Source formu atlanamadı",
             "editor_page": "Editor sayfası yüklenemedi",
-            "token": "Token alınamadı"
+            "token": "Token alınamadı",
+            "turnstile": "Cloudflare doğrulaması başarısız oldu"
         },
         "token_usage": {
             "title": "Token Nasıl Kullanılır?",
@@ -138,5 +141,19 @@
         "verification_failed": "Doğrulama kodu alınamadı",
         "almost_success": "İşlem neredeyse tamamlandı",
         "execution_failed": "İşlem başarısız oldu"
+    },
+    "updates": {
+        "available": "Yeni Güncelleme Mevcut!",
+        "message": "Yeni sürüm ({}) yayınlandı. Lütfen en son sürümü indirin:",
+        "download": "İndirme Linki: {}",
+        "current_version": "Mevcut Sürüm: {}",
+        "latest_version": "En Son Sürüm: {}"
+    },
+    "features": {
+        "disabled": "{} özelliği şu anda devre dışı."
+    },
+    "usage_stats": {
+        "title": "Son Oluşturulan Cursor Hesabının Kullanımı",
+        "requests": "istek"
     }
 }

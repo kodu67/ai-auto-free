@@ -1,49 +1,98 @@
-import json
 import os
+import sys
+import json
 import uuid
-from pathlib import Path
+import random
+import string
 import platform
-from datetime import datetime
-import shutil
-import ctypes
+from pathlib import Path
+from elevate import elevate
+
+def is_admin():
+    """Yönetici yetkilerini kontrol eder"""
+    try:
+        if platform.system() == "Windows":
+            import ctypes
+            return ctypes.windll.shell32.IsUserAnAdmin()
+        else:  # Linux/macOS
+            return os.geteuid() == 0
+    except:
+        return False
 
 class MachineIDResetter:
     def __init__(self):
-        self.storage_file = self._get_storage_file()
+        self.storage_path = self._get_storage_path()
 
-    def _get_storage_file(self):
-        system = platform.system()
-        if system == "Windows":
-            return Path(os.getenv("APPDATA")) / "Cursor" / "User" / "globalStorage" / "storage.json"
-        elif system == "Darwin":  # macOS
-            return Path(os.path.expanduser("~")) / "Library" / "Application Support" / "Cursor" / "User" / "globalStorage" / "storage.json"
-        elif system == "Linux":
-            return Path(os.path.expanduser("~")) / ".config" / "Cursor" / "User" / "globalStorage" / "storage.json"
+    def _get_storage_path(self):
+        if platform.system() == "Windows":
+            appdata = os.getenv("APPDATA")
+            return os.path.join(appdata, "Cursor", "User", "globalStorage", "storage.json")
+        elif platform.system() == "Darwin":
+            home = str(Path.home())
+            return os.path.join(home, "Library", "Application Support", "Cursor", "User", "globalStorage", "storage.json")
         else:
-            raise OSError(f"Unsupported operating system: {system}")
+            home = str(Path.home())
+            return os.path.join(home, ".config", "Cursor", "User", "globalStorage", "storage.json")
 
-    def _backup_file(self):
-        if self.storage_file.exists():
-            backup_path = f"{self.storage_file}.backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-            shutil.copy2(self.storage_file, backup_path)
-
-    def _generate_ids(self):
-        return {
-            "telemetry.machineId": os.urandom(32).hex(),
-            "telemetry.macMachineId": os.urandom(32).hex(),
-            "telemetry.devDeviceId": str(uuid.uuid4()),
-        }
-
-    def _kill_cursor_processes(self):
+    def _is_admin(self):
+        """Yönetici yetkilerini kontrol eder"""
         try:
-            if platform.system() == "Windows":
-                os.system('taskkill /F /IM "Cursor.exe" 2>nul')
-                os.system('taskkill /F /IM "Cursor Helper.exe" 2>nul')
-            else:
-                os.system('pkill -f "Cursor"')
-            print("Cursor processes have been terminated.")
+            return is_admin()
         except Exception as e:
-            print(f"Failed to terminate Cursor processes: {e}")
+            return False
+
+    def _generate_machine_id(self):
+        return str(uuid.uuid4())
+
+    def _generate_device_id(self):
+        chars = string.ascii_letters + string.digits
+        return ''.join(random.choice(chars) for _ in range(32))
+
+    def _generate_mac_machine_id(self):
+        return str(uuid.uuid4())
+
+    def _generate_sqm_id(self):
+        return str(uuid.uuid4())
+
+    def _read_config(self):
+        try:
+            if os.path.exists(self.storage_path):
+                with open(self.storage_path, 'r') as f:
+                    return json.load(f)
+        except Exception as e:
+            print(f"Config read error: {str(e)}")
+        return {}
+
+    def _save_config(self, config):
+        try:
+            if os.path.exists(self.storage_path):
+                if not os.access(self.storage_path, os.W_OK):
+                    print(f"File write permission error: {self.storage_path}")
+                    return False
+
+            os.makedirs(os.path.dirname(self.storage_path), exist_ok=True)
+
+            with open(self.storage_path, 'w') as f:
+                json.dump(config, f, indent=2)
+
+            if os.path.exists(self.storage_path):
+                with open(self.storage_path, 'r') as f:
+                    written_config = json.load(f)
+                if written_config == config:
+                    return True
+                else:
+                    print("Config validation failed")
+                    return False
+            else:
+                print("File creation failed")
+                return False
+
+        except PermissionError as e:
+            print(f"Permission error: {str(e)}")
+            return False
+        except Exception as e:
+            print(f"Config save error: {str(e)}")
+            return False
 
     def _format_id_change(self, id_type, old_id, new_id):
         RED = '\033[91m'
@@ -53,40 +102,55 @@ class MachineIDResetter:
 
         return (
             f"{id_type}:\n"
-            f"  Old: {RED}{STRIKE}{old_id}{RESET}\n"
-            f"  New: {GREEN}{new_id}{RESET}"
+            f"  Eski: {RED}{STRIKE}{old_id}{RESET}\n"
+            f"  Yeni: {GREEN}{new_id}{RESET}"
         )
 
-    def reset_ids(self):
-        print("Important: Before running this script, make sure to log out and completely close Cursor. If Cursor is running in the background, it may revert the reset by restoring the previous device ID.")
+    def reset_machine_id(self):
+        if not self._is_admin():
+            try:
+                elevate(graphical=False)
+            except Exception as e:
+                print(f"Permission elevation failed: {str(e)}")
+                return False, "This operation requires administrator privileges."
 
         self._kill_cursor_processes()
 
-        self.storage_file.parent.mkdir(parents=True, exist_ok=True)
-        self._backup_file()
+        old_config = self._read_config()
+        new_config = old_config.copy()
 
-        if not self.storage_file.exists():
-            data = {}
+        changes = []
+
+        old_machine_id = old_config.get("telemetry.machineId", "Bulunamadı")
+        new_machine_id = self._generate_machine_id()
+        new_config["telemetry.machineId"] = new_machine_id
+        changes.append(self._format_id_change("Machine ID", old_machine_id, new_machine_id))
+
+        old_device_id = old_config.get("telemetry.devDeviceId", "Bulunamadı")
+        new_device_id = self._generate_device_id()
+        new_config["telemetry.devDeviceId"] = new_device_id
+        changes.append(self._format_id_change("Device ID", old_device_id, new_device_id))
+
+        old_mac_id = old_config.get("telemetry.macMachineId", "Bulunamadı")
+        new_mac_id = self._generate_mac_machine_id()
+        new_config["telemetry.macMachineId"] = new_mac_id
+        changes.append(self._format_id_change("Mac Machine ID", old_mac_id, new_mac_id))
+
+        if "telemetry.sqmId" not in new_config:
+            new_config["telemetry.sqmId"] = self._generate_sqm_id()
+
+        if self._save_config(new_config):
+            return True, "\n\n".join(changes)
         else:
-            with open(self.storage_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
+            return False, "Makine kimliği sıfırlanamadı."
 
-        old_ids = {
-            "telemetry.machineId": data.get("telemetry.machineId", "Not Found"),
-            "telemetry.macMachineId": data.get("telemetry.macMachineId", "Not Found"),
-            "telemetry.devDeviceId": data.get("telemetry.devDeviceId", "Not Found"),
-        }
-
-        new_ids = self._generate_ids()
-        data.update(new_ids)
-
-        with open(self.storage_file, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=2)
-
-        print("🎉 Device IDs have been successfully reset. The new device IDs are: \n")
-        for key, new_id in new_ids.items():
-            print(self._format_id_change(key, old_ids[key], new_id))
-
-if __name__ == "__main__":
-    resetter = MachineIDResetter()
-    resetter.reset_ids()
+    def _kill_cursor_processes(self):
+        try:
+            if platform.system() == "Windows":
+                os.system('taskkill /F /IM "Cursor.exe" 2>nul')
+                os.system('taskkill /F /IM "Cursor Helper.exe" 2>nul')
+            else:
+                os.system('pkill -f "Cursor"')
+            return True
+        except:
+            return False

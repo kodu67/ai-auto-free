@@ -1,4 +1,5 @@
 import os
+import logging
 
 os.environ["PYTHONVERBOSE"] = "0"
 os.environ["PYINSTALLER_VERBOSE"] = "0"
@@ -6,26 +7,16 @@ os.environ["PYINSTALLER_VERBOSE"] = "0"
 import time
 import random
 from cursor_auth_manager import CursorAuthManager
-import logging
 from browser_utils import BrowserManager
 from get_email_code import EmailVerificationHandler
 from locale_manager import LocaleManager
 
-# Log ayarları
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler("cursor_keep_alive.log", encoding="utf-8"),
-    ],
-)
 
 # Sabit URL'ler
 LOGIN_URL = "https://authenticator.cursor.sh"
 SIGN_UP_URL = "https://authenticator.cursor.sh/sign-up"
 SETTINGS_URL = "https://www.cursor.com/settings"
-MAIL_URL = "https://tempmail.plus"
+
 
 def handle_turnstile(tab, locale):
     print(locale["cursor"]["process"]["turnstile"]["starting"])
@@ -50,7 +41,14 @@ def handle_turnstile(tab, locale):
             except:
                 pass
 
-            if any(tab.ele(selector) for selector in ["@name=password", "@data-index=0", "Account Settings"]):
+            if any(
+                tab.ele(selector)
+                for selector in [
+                    "@name=password",
+                    "@data-index=0",
+                    "Account Settings",
+                ]
+            ):
                 print(locale["cursor"]["process"]["turnstile"]["success"])
                 break
 
@@ -73,20 +71,40 @@ def get_cursor_session_token(tab, locale, max_attempts=3, retry_interval=2):
             cookies = tab.cookies()
             for cookie in cookies:
                 if cookie.get("name") == "WorkosCursorSessionToken":
-                    return cookie["value"].split("%3A%3A")[1]
+                    raw_token = cookie["value"]  # Ham token'ı al
+
+                    # Cache dizinini oluştur
+                    cache_dir = os.path.join(
+                        os.path.expanduser("~"), ".cursor_cache"
+                    )
+                    os.makedirs(cache_dir, exist_ok=True)
+
+                    # Token'ı cache'e kaydet
+                    cache_file = os.path.join(cache_dir, "session_token.txt")
+                    with open(cache_file, "w", encoding="utf-8") as f:
+                        f.write(raw_token)
+
+                    # Split edilmiş token'ı döndür
+                    return raw_token.split("%3A%3A")[1]
 
             attempts += 1
             if attempts < max_attempts:
-                print(f"{locale['cursor']['process']['token_retry']} {attempts}: {locale['cursor']['process']['token_not_found']}, {retry_interval} {locale['cursor']['process']['seconds_retry']}")
+                print(
+                    f"{locale['cursor']['process']['token_retry']} {attempts}: {locale['cursor']['process']['token_not_found']}, {retry_interval} {locale['cursor']['process']['seconds_retry']}"
+                )
                 time.sleep(retry_interval)
             else:
-                print(f"{locale['cursor']['process']['max_attempts']} ({max_attempts})")
+                print(
+                    f"{locale['cursor']['process']['max_attempts']} ({max_attempts})"
+                )
 
         except Exception as e:
             print(f"{locale['cursor']['process']['token_error']}: {str(e)}")
             attempts += 1
             if attempts < max_attempts:
-                print(f"{locale['cursor']['process']['retry_in']} {retry_interval} {locale['cursor']['process']['seconds']}")
+                print(
+                    f"{locale['cursor']['process']['retry_in']} {retry_interval} {locale['cursor']['process']['seconds']}"
+                )
                 time.sleep(retry_interval)
 
     return None
@@ -100,8 +118,53 @@ def update_cursor_auth(email=None, access_token=None, refresh_token=None):
     return auth_manager.update_auth(email, access_token, refresh_token)
 
 
-def sign_up_account(browser, tab, account, password, first_name, last_name, email_handler, locale):
+def sign_up_account(browser, tab, email_handler, locale):
     print(locale["cursor"]["starting"])
+
+    # Yeni e-posta adresi oluştur
+    email, email_token = email_handler.create_email()
+    if not email:
+        print(locale["cursor"]["process"]["email_creation_failed"])
+        return False
+
+    # Rastgele şifre oluştur
+    password = "".join(
+        random.choices(
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*",
+            k=12,
+        )
+    )
+
+    # Rastgele isim seç
+    first_name = random.choice(
+        [
+            "Emma",
+            "Liam",
+            "Olivia",
+            "Noah",
+            "Ava",
+            "William",
+            "Sophia",
+            "James",
+            "Isabella",
+            "Oliver",
+        ]
+    )
+    last_name = random.choice(
+        [
+            "Smith",
+            "Johnson",
+            "Williams",
+            "Brown",
+            "Jones",
+            "Garcia",
+            "Miller",
+            "Davis",
+            "Rodriguez",
+            "Martinez",
+        ]
+    )
+
     tab.get(SIGN_UP_URL)
 
     try:
@@ -112,7 +175,7 @@ def sign_up_account(browser, tab, account, password, first_name, last_name, emai
             tab.actions.click("@name=last_name").input(last_name)
             time.sleep(random.uniform(1, 3))
 
-            tab.actions.click("@name=email").input(account)
+            tab.actions.click("@name=email").input(email)
             time.sleep(random.uniform(1, 3))
 
             tab.actions.click("@type=submit")
@@ -147,7 +210,7 @@ def sign_up_account(browser, tab, account, password, first_name, last_name, emai
             if tab.ele("Account Settings"):
                 break
             if tab.ele("@data-index=0"):
-                code = email_handler.get_verification_code(account)
+                code = email_handler.get_verification_code(email)
                 if not code:
                     return False
 
@@ -156,13 +219,17 @@ def sign_up_account(browser, tab, account, password, first_name, last_name, emai
                     time.sleep(random.uniform(0.1, 0.3))
                 break
         except Exception as e:
-            print(f"{locale['cursor']['process']['verification_code_error']}: {e}")
+            print(
+                f"{locale['cursor']['process']['verification_code_error']}: {e}"
+            )
 
     handle_turnstile(tab, locale)
 
     wait_time = random.randint(3, 6)
     for i in range(wait_time):
-        print(f"{locale['cursor']['process']['waiting']} {wait_time-i} {locale['cursor']['process']['seconds']}")
+        print(
+            f"{locale['cursor']['process']['waiting']} {wait_time-i} {locale['cursor']['process']['seconds']}"
+        )
         time.sleep(1)
 
     tab.get(SETTINGS_URL)
@@ -177,12 +244,14 @@ def sign_up_account(browser, tab, account, password, first_name, last_name, emai
         if usage_ele:
             usage_info = usage_ele.text
             total_usage = usage_info.split("/")[-1].strip()
-            print(f"{locale['cursor']['process']['usage_limit']}: {total_usage}")
+            print(
+                f"{locale['cursor']['process']['usage_limit']}: {total_usage}"
+            )
     except Exception as e:
         print(f"{locale['cursor']['process']['usage_limit_error']}: {e}")
 
     print(locale["cursor"]["registration_success"])
-    account_info = f"\n{locale['cursor']['account_info']}: {account}  {locale['cursor']['password']}: {password}"
+    account_info = f"\n{locale['cursor']['account_info']}: {email}  {locale['cursor']['password']}: {password}"
     logging.info(account_info)
     time.sleep(5)
     return True
@@ -198,8 +267,34 @@ class EmailGenerator:
                 k=12,
             )
         ),
-        first_name=random.choice(["Emma", "Liam", "Olivia", "Noah", "Ava", "William", "Sophia", "James", "Isabella", "Oliver"]),
-        last_name=random.choice(["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"]),
+        first_name=random.choice(
+            [
+                "Emma",
+                "Liam",
+                "Olivia",
+                "Noah",
+                "Ava",
+                "William",
+                "Sophia",
+                "James",
+                "Isabella",
+                "Oliver",
+            ]
+        ),
+        last_name=random.choice(
+            [
+                "Smith",
+                "Johnson",
+                "Williams",
+                "Brown",
+                "Jones",
+                "Garcia",
+                "Miller",
+                "Davis",
+                "Rodriguez",
+                "Martinez",
+            ]
+        ),
     ):
         self.domain = domain
         self.default_password = password
@@ -208,7 +303,9 @@ class EmailGenerator:
 
     def generate_email(self, length=8):
         """Rastgele email adresi oluşturur"""
-        random_str = "".join(random.choices("abcdefghijklmnopqrstuvwxyz", k=length))
+        random_str = "".join(
+            random.choices("abcdefghijklmnopqrstuvwxyz", k=length)
+        )
         timestamp = str(int(time.time()))[-6:]
         return f"{random_str}{timestamp}@{self.domain}"
 
@@ -225,30 +322,24 @@ class EmailGenerator:
 def main():
     locale = LocaleManager().get_locale()
     browser_manager = None
+    email = None
     try:
         browser_manager = BrowserManager()
         browser = browser_manager.init_browser()
 
-        email_handler = EmailVerificationHandler(browser)
-
-        email_generator = EmailGenerator()
-        account_info = email_generator.get_account_info()
-
-        account = account_info["email"]
-        password = account_info["password"]
-        first_name = account_info["first_name"]
-        last_name = account_info["last_name"]
+        email_handler = EmailVerificationHandler()
 
         tab = browser.latest_tab
         tab.run_js("try { turnstile.reset() } catch(e) { }")
 
         tab.get(LOGIN_URL)
 
-        if sign_up_account(browser, tab, account, password, first_name, last_name, email_handler, locale):
+        if sign_up_account(browser, tab, email_handler, locale):
             token = get_cursor_session_token(tab, locale)
             if token:
+                email = email_handler.email
                 update_cursor_auth(
-                    email=account, access_token=token, refresh_token=token
+                    email=email, access_token=token, refresh_token=token
                 )
             else:
                 print(locale["cursor"]["registration_failed"])
@@ -256,13 +347,15 @@ def main():
         print(locale["cursor"]["completed"])
 
     except Exception as e:
-        logging.error(f"{locale['common']['error']}: {str(e)}")
+        print(f"{locale['common']['error']}: {str(e)}")
         import traceback
-        logging.error(traceback.format_exc())
+
+        print(str(traceback.format_exc()))
     finally:
         if browser_manager:
             browser_manager.quit()
         input(f"\n{locale['common']['press_enter']}")
+
 
 if __name__ == "__main__":
     main()

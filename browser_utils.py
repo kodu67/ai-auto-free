@@ -7,7 +7,7 @@ import logging
 class BrowserManager:
     def __init__(self, headless=True):
         self.browser = None
-        self.headless = headless  
+        self.headless = headless
 
     def init_browser(self):
         """Tarayıcıyı başlatır"""
@@ -48,9 +48,7 @@ class BrowserManager:
 
         if sys.platform in ["darwin", "linux"]:
             co.set_argument("--no-sandbox")
-            co.set_argument(
-                "--disable-gpu"
-            )  
+            co.set_argument("--disable-gpu")
 
         return co
 

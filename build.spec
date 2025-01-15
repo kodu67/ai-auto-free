@@ -1,16 +1,23 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 import sys
+import os
 
 block_cipher = None
+
+# Icon yollarını belirle
+WINDOWS_ICON = os.path.join('assets', 'icons', 'icon.ico')
+MACOS_ICON = os.path.join('assets', 'icons', 'icon.icns')
 
 # İşletim sistemine göre özelleştirmeler
 if sys.platform == "linux" or sys.platform == "linux2":
     # Linux için özel ayarlar
     datas = [
         ('locales/*.json', 'locales'),
+        ('scripts/*.js', 'scripts'),
         ('logo.py', '.'),
         ('turnstilePatch', 'turnstilePatch'),
+        (WINDOWS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
     ]
     hiddenimports = [
         'browser_utils',
@@ -22,12 +29,16 @@ if sys.platform == "linux" or sys.platform == "linux2":
         'machine_id_reset',
         'windsurf_account_creator',
     ]
+    icon = WINDOWS_ICON
+
 elif sys.platform == "darwin":
     # macOS için özel ayarlar
     datas = [
         ('locales/*.json', 'locales'),
+        ('scripts/*.js', 'scripts'),
         ('logo.py', '.'),
         ('turnstilePatch', 'turnstilePatch'),
+        (MACOS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
     ]
     hiddenimports = [
         'browser_utils',
@@ -39,12 +50,16 @@ elif sys.platform == "darwin":
         'machine_id_reset',
         'windsurf_account_creator',
     ]
+    icon = MACOS_ICON
+
 elif sys.platform == "win32":
     # Windows için özel ayarlar
     datas = [
         ('locales/*.json', 'locales'),
+        ('scripts/*.js', 'scripts'),
         ('logo.py', '.'),
         ('turnstilePatch', 'turnstilePatch'),
+        (WINDOWS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
     ]
     hiddenimports = [
         'browser_utils',
@@ -56,6 +71,8 @@ elif sys.platform == "win32":
         'machine_id_reset',
         'windsurf_account_creator',
     ]
+    icon = WINDOWS_ICON
+
 else:
     raise Exception(f"Desteklenmeyen işletim sistemi: {sys.platform}")
 
@@ -96,6 +113,7 @@ exe = EXE(
     upx_exclude=[],
     runtime_tmpdir=None,
     console=True,
+    icon=icon,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
