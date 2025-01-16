@@ -50,7 +50,7 @@
             "usage_limit_error": "Failed to get usage limit"
         },
         "auth": {
-            "no_update_values": "No values provided for update",
+            "no_update_values": "Auto-login failed because you have not logged in before",
             "update_success": "{} updated successfully",
             "update_failed": "{} not found or value unchanged",
             "db_error": "Database error",
@@ -69,7 +69,8 @@
             "filling_form": "Filling registration form...",
             "completing_onboarding": "Completing onboarding steps...",
             "getting_token": "Getting token and copying to clipboard...",
-            "solving_turnstile": "Solving Cloudflare verification..."
+            "solving_turnstile": "Solving Cloudflare verification...",
+            "solving_turnstile_success": "Cloudflare verification successful"
         },
         "steps": {
             "email": "Getting temporary email address...",

@@ -110,7 +110,6 @@ requests==2.32.3
 cryptography==44.0.0
 psutil==6.1.1
 PyVirtualDisplay==3.0
-elevate>=0.1.3
 pyperclip
 ```
 

@@ -28,4 +28,3 @@ tldextract==5.1.3
 urllib3==2.3.0
 websocket-client==1.8.0
 pyperclip
-elevate>=0.1.3

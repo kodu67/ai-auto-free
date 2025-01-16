@@ -1,12 +1,15 @@
 from DrissionPage import ChromiumOptions, Chromium
 import sys
 import os
+from utils.helper import Helper
+from config import constants
 
 
-class BrowserManager:
-    def __init__(self, headless=True):
+class BrowserService:
+    def __init__(self):
         self.browser = None
-        self.headless = headless  # Varsayılan olarak True
+        self.headless = not constants.TEST_MODE
+        self.helper = Helper()
 
     def init_browser(self):
         """Tarayıcıyı başlatır"""
@@ -17,6 +20,10 @@ class BrowserManager:
     def _get_browser_options(self):
         """Tarayıcı ayarlarını yapılandırır"""
         co = ChromiumOptions()
+
+        co.set_argument("--lang=en-US")  # Dili İngilizce'ye ayarla
+        co.set_pref("intl.accept_languages", "en-US")
+
         try:
             extension_path = self._get_extension_path()
             co.add_extension(extension_path)
@@ -31,12 +38,12 @@ class BrowserManager:
         co.set_argument("--hide-crash-restore-bubble")
         co.auto_port()
 
-        # Headless mod ayarı
+        # Headless (tarayıcı görünürlüğü) mod ayarı
         if self.headless:
             co.set_argument("--headless=new")
 
-        # Mac sistemleri için özel ayarlar
-        if sys.platform == "darwin":
+        # Mac ve Linux sistemlerinde performans için özel ayarlar
+        if sys.platform in ["darwin", "linux"]:
             co.set_argument("--no-sandbox")
             co.set_argument("--disable-gpu")
 
@@ -44,10 +51,11 @@ class BrowserManager:
 
     def _get_extension_path(self):
         """Turnstile Patch eklentisinin yolunu döndürür"""
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        extension_path = os.path.join(current_dir, "turnstilePatch")
+        extension_path = os.path.join(
+            self.helper.get_src_path(), "scripts/turnstilePatch"
+        )
         if not os.path.exists(extension_path):
-            raise FileNotFoundError(f"Eklenti dizini bulunamadı: {extension_path}")
+            raise FileNotFoundError(f"Extension directory not found: {extension_path}")
         return extension_path
 
     def quit(self):

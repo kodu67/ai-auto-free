@@ -50,7 +50,7 @@
             "usage_limit_error": "İstifadə limiti alına bilmədi"
         },
         "auth": {
-            "no_update_values": "Yeniləmək üçün heç bir dəyər təqdim edilmədi",
+            "no_update_values": "Avtomatik giriş uğursuz oldu, çünki əvvəllər daxil olmamısınız",
             "update_success": "{} uğurla yeniləndi",
             "update_failed": "{} tapılmadı və ya dəyər dəyişmədi",
             "db_error": "Verilənlər bazası xətası",
@@ -68,7 +68,8 @@
             "filling_form": "Qeydiyyat forması doldurulur...",
             "completing_onboarding": "Başlanğıc mərhələləri tamamlanır...",
             "getting_token": "Token alınır və buferə kopyalanır...",
-            "solving_turnstile": "Cloudflare doğrulaması həll edilir..."
+            "solving_turnstile": "Cloudflare doğrulaması həll edilir...",
+            "solving_turnstile_success": "Cloudflare dogrulaması uğurlu oldu"
         },
         "steps": {
             "email": "Müvəqqəti e-poçt ünvanı alınır...",

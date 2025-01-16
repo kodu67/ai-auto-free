@@ -50,7 +50,7 @@
             "usage_limit_error": "Kullanım limiti alınamadı"
         },
         "auth": {
-            "no_update_values": "Güncellenecek herhangi bir değer sağlanmadı",
+            "no_update_values": "Otomatik giriş yapılamadı çünkü daha önce giriş yapmadınız",
             "update_success": "{} başarıyla güncellendi",
             "update_failed": "{} bulunamadı veya değer değişmedi",
             "db_error": "Veritabanı hatası",
@@ -69,7 +69,8 @@
             "filling_form": "Kayıt formu dolduruluyor...",
             "completing_onboarding": "Onboarding adımları tamamlanıyor...",
             "getting_token": "Token alınıyor ve panoya kopyalanıyor...",
-            "solving_turnstile": "Cloudflare doğrulaması çözülüyor..."
+            "solving_turnstile": "Cloudflare doğrulaması çözülüyor...",
+            "solving_turnstile_success": "Cloudflare dogrulaması başarılı"
         },
         "steps": {
             "email": "Geçici e-posta adresi alınıyor...",

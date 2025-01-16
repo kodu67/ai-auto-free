@@ -50,7 +50,7 @@
             "usage_limit_error": "无法获取使用限制"
         },
         "auth": {
-            "no_update_values": "未提供更新值",
+            "no_update_values": "自动登录失败，因为您之前没有登录过",
             "update_success": "{}更新成功",
             "update_failed": "{}未找到或值未更改",
             "db_error": "数据库错误",
@@ -68,7 +68,8 @@
             "filling_form": "正在填写注册表单...",
             "completing_onboarding": "正在完成入门步骤...",
             "getting_token": "正在获取令牌并复制到剪贴板...",
-            "solving_turnstile": "正在解决Cloudflare验证..."
+            "solving_turnstile": "正在解决Cloudflare验证...",
+            "solving_turnstile_success": "Cloudflare验证成功"
         },
         "steps": {
             "email": "正在获取临时电子邮件地址...",

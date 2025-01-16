@@ -13,63 +13,67 @@ MACOS_ICON = os.path.join('assets', 'icons', 'icon.icns')
 if sys.platform == "linux" or sys.platform == "linux2":
     # Linux için özel ayarlar
     datas = [
-        ('locales/*.json', 'locales'),
-        ('scripts/*.js', 'scripts'),
-        ('logo.py', '.'),
-        ('turnstilePatch', 'turnstilePatch'),
+        ('src/locales/*.json', 'locales'),
+        ('src/scripts/*.js', 'scripts'),
+        ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
+        ('src/config/settings.json', 'config'),
         (WINDOWS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
+        ('ai-auto-free-accounts.txt', '.'),  # Log dosyası ana dizine kopyalanacak
     ]
     hiddenimports = [
-        'browser_utils',
-        'cursor_auth_manager',
-        'cursor_pro_keep_alive',
-        'get_email_code',
-        'locale_manager',
-        'logo',
-        'machine_id_reset',
-        'windsurf_account_creator',
+        'src.utils.browser_utils',
+        'src.auth.cursor_auth',
+        'src.services.cursor_pro_keep_alive',
+        'src.utils.get_email_code',
+        'src.utils.locale_manager',
+        'src.core.logo',
+        'src.utils.machine_id_reset',
+        'src.auth.windsurf_auth',
+        'src.core.app'
     ]
     icon = WINDOWS_ICON
 
 elif sys.platform == "darwin":
     # macOS için özel ayarlar
     datas = [
-        ('locales/*.json', 'locales'),
-        ('scripts/*.js', 'scripts'),
-        ('logo.py', '.'),
-        ('turnstilePatch', 'turnstilePatch'),
+        ('src/locales/*.json', 'locales'),
+        ('src/scripts/*.js', 'scripts'),
+        ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
+        ('src/config/settings.json', 'config'),
         (MACOS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
+        ('ai-auto-free-accounts.txt', '.'),  # Log dosyası ana dizine kopyalanacak
     ]
     hiddenimports = [
-        'browser_utils',
-        'cursor_auth_manager',
-        'cursor_pro_keep_alive',
-        'get_email_code',
-        'locale_manager',
-        'logo',
-        'machine_id_reset',
-        'windsurf_account_creator',
+        'src.utils.browser_utils',
+        'src.auth.cursor_auth',
+        'src.services.cursor_pro_keep_alive',
+        'src.utils.get_email_code',
+        'src.utils.locale_manager',
+        'src.utils.machine_id_reset',
+        'src.auth.windsurf_auth',
+        'src.core.app'
     ]
     icon = MACOS_ICON
 
 elif sys.platform == "win32":
     # Windows için özel ayarlar
     datas = [
-        ('locales/*.json', 'locales'),
-        ('scripts/*.js', 'scripts'),
-        ('logo.py', '.'),
-        ('turnstilePatch', 'turnstilePatch'),
+        ('src/locales/*.json', 'locales'),
+        ('src/scripts/*.js', 'scripts'),
+        ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
+        ('src/config/settings.json', 'config'),
         (WINDOWS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
+        ('ai-auto-free-accounts.txt', '.'),  # Log dosyası ana dizine kopyalanacak
     ]
     hiddenimports = [
-        'browser_utils',
-        'cursor_auth_manager',
-        'cursor_pro_keep_alive',
-        'get_email_code',
-        'locale_manager',
-        'logo',
-        'machine_id_reset',
-        'windsurf_account_creator',
+        'src.utils.browser_utils',
+        'src.auth.cursor_auth',
+        'src.services.cursor_pro_keep_alive',
+        'src.utils.get_email_code',
+        'src.utils.locale_manager',
+        'src.utils.machine_id_reset',
+        'src.auth.windsurf_auth',
+        'src.core.app'
     ]
     icon = WINDOWS_ICON
 
@@ -78,7 +82,7 @@ else:
 
 a = Analysis(
     ['main.py'],
-    pathex=[],
+    pathex=['src'],
     binaries=[],
     datas=datas,
     hiddenimports=hiddenimports,
