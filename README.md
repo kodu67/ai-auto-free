@@ -252,3 +252,6 @@ https://github.com/kodu67/ai-auto-free/
 - Modular and reusable code
 - Test coverage
 - Security best practices
+
+# Important Notice
+This tool is developed for research and educational purposes only. Please use responsibly. The developer assumes no liability for any issues that may arise from using this tool.
