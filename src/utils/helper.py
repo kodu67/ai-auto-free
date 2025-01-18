@@ -37,7 +37,7 @@ class Helper:
     def show_bitcoin(self):
         """Bitcoin adresini gösterir"""
         btc = self.settings.get_bitcoin_address()
-        print(f" {self.locale.get_text("bitcoin").format(f"({btc['name']})\n {btc['address']}\n")}")
+        print(" " + self.locale.get_text("bitcoin").format("(" + btc["name"] + ")\n " + btc["address"] + "\n"))
 
     def show_repo(self):
         """Repo adresini gösterir"""
