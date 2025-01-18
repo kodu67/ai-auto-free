@@ -15,6 +15,7 @@
         "headless_disabled": "Выключен",
         "back": "Вернуться в главное меню"
     },
+    "bitcoin": "Поддержка с Bitcoin: {}",
     "cursor": {
         "starting": "Начинается создание аккаунта Cursor...",
         "browser_init": "Инициализация браузера...",

@@ -39,13 +39,12 @@ class AutoFreeApp:
 
         # Cursor kullanım istatistiklerini göster
         if self.cursor_usage:
-            print("-" * 30)
-            print(" " + self.locale.get_text("usage_stats.title"))
+            print(f"- Cursor {"-" * 10}")
             for model, requests in self.cursor_usage.items():
                 print(
-                    f"> {model}: [{requests:,} {self.locale.get_text('usage_stats.requests')}]"
+                    f"⪧ {model}: {requests}"
                 )
-            print("-" * 30 + "\n")
+            print("-" * 19 + "\n")
 
         # Giriş mesajını göster
         try:
@@ -54,7 +53,11 @@ class AutoFreeApp:
             landing_message = settings.get("message", {}).get(
                 self.locale.current_locale, ""
             )
-            print("\n " + landing_message)
+            print(f" {landing_message}")
+            self.helper.show_repo()
+            print("")
+            self.helper.show_bitcoin()
+
         except Exception as e:
             print(e)
 

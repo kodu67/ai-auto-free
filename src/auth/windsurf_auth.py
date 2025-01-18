@@ -88,6 +88,7 @@ class WindsurfAuthManager:
     def create_account(self):
         """Windsurf hesabı oluşturur"""
         print("[*] " + self.locale.get_text("windsurf.progress.creating_account"))
+        self.firebase_token = None  # Token'ı saklamak için
 
         # Email oluştur
         email = self._generate_email()
@@ -106,14 +107,18 @@ class WindsurfAuthManager:
 
             # Kayıt sayfasına git
             tab.get(self.LOGIN_URL)
-
             time.sleep(0.5)
-
             tab.get(self.REGISTER_URL)
 
             print("[*] " + self.locale.get_text("windsurf.progress.filling_form"))
-
             time.sleep(random.uniform(1, 3))
+
+
+            TOKEN_URL = 'identitytoolkit.googleapis.com'
+            ERROR_URL = 'web-backend.codeium.com'
+
+            # Network dinlemeyi başlat
+            tab.listen.start(TOKEN_URL)
 
             # Form elementlerini doldur
             email_input = tab.ele("@type=email", timeout=10)
@@ -150,43 +155,64 @@ class WindsurfAuthManager:
             signup_button = tab.ele("text=Sign up", timeout=10)
             if not signup_button:
                 return False, self.locale.get_text("windsurf.errors.signup_button")
+
+            # Network isteğini bekle ve token'ı al
+            tab.listen.start()
+
             signup_button.click()
-            if not tab.wait.ele_displayed("@placeholder=Your first name", timeout=30):
-                time.sleep(6)
+
+            packet = tab.listen.wait(timeout=10)
+            if packet and TOKEN_URL in packet.url:
+                if packet.response and packet.response.body:
+                    self.firebase_token = packet.response.body.get('idToken')
+
+
+            tab.listen.stop()  # Dinlemeyi durdur
+
+            if not tab.wait.ele_displayed("@placeholder=Your first name", timeout=20):
+                print("[!] Cursor API ERR: - [{packet.response.status}]")
+                print("Retrying...")
+                time.sleep(3)
+                self.helper.clear_screen()
+                return self.create_account()
 
             tab.get(self.PROFILE_URL)
             time.sleep(3)  # Sayfanın yüklenmesini bekle
 
             print("[*] " + self.locale.get_text("windsurf.progress.getting_token"))
-            token = self._get_firebase_token(tab, max_attempts=3, retry_interval=3)
-            if not token:
-                return False, self.locale.get_text("windsurf.errors.token")
 
-            # Token'ı panoya kopyala
-            pyperclip.copy(token)
-            print("[*] " + self.locale.get_text("windsurf.token_copied"))
+            if self.firebase_token:
+                # Token'ı panoya kopyala
+                pyperclip.copy(self.firebase_token)
+                print("[*] " + self.locale.get_text("windsurf.token_copied"))
 
-            # Token kullanım talimatlarını göster
-            self._print_token_usage()
+                # Token kullanım talimatlarını göster
+                self._print_token_usage()
 
-            account_data = {"email": email, "password": password, "token": token}
+                account_data = {
+                    "email": email,
+                    "password": password,
+                    "token": self.firebase_token
+                }
 
-            self.logger.log_account("windsurf", account_data)
+                self.logger.log_account("windsurf", account_data)
 
-            print("\n" + self.locale.get_text("windsurf.registration_success"))
-            print("\n" + self.locale.get_text("common.account_info"))
-            print("+" + "-" * 50 + "+")
-            print(f"| {self.locale.get_text('common.email'):<15}: {email:<32} |")
-            print(f"| {self.locale.get_text('common.password'):<15}: {password:<32} |")
-            print("+" + "-" * 50 + "+")
-            print("\n" + "+" + "-" * 70 + "+")
-            print(f"| {self.locale.get_text('windsurf.token_copied'):<15} |")
-            print("+" + "-" * 70 + "+")
+                print("\n" + self.locale.get_text("windsurf.registration_success"))
+                print("\n" + self.locale.get_text("common.account_info"))
+                print("+" + "-" * 50 + "+")
+                print(f"| {self.locale.get_text('common.email'):<15}: {email:<32} |")
+                print(f"| {self.locale.get_text('common.password'):<15}: {password:<32} |")
+                print("+" + "-" * 50 + "+")
+                print("\n" + "+" + "-" * 70 + "+")
+                print(f"| {self.locale.get_text('windsurf.token_copied'):<15} |")
+                print("+" + "-" * 70 + "+")
+            else:
+                print("[!] Token alınamadı")
 
         except Exception as e:
             print(f"{self.locale.get_text('logging.account_error')}: {str(e)}")
             print("\n   " + self.locale.get_text("windsurf.registration_failed"))
-            print(f"   {self.locale.get_text('common.error')}: {account_data}")
+            print(f"   {self.locale.get_text('common.error')}: {str(e)}")
 
         finally:
             self.helper.press_enter()

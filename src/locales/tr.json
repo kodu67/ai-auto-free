@@ -15,6 +15,7 @@
         "headless_disabled": "Kapalı",
         "back": "Ana Menüye Dön"
     },
+    "bitcoin": "Bitcoin ile Destek Ol: {}",
     "cursor": {
         "starting": "Cursor hesap oluşturma başlatılıyor...",
         "browser_init": "Tarayıcı başlatılıyor...",

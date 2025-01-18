@@ -14,11 +14,18 @@ class Settings:
             with open(settings_path, "r", encoding="utf-8") as f:
                 self.settings = json.load(f)
         else:
-            response = requests.get(constants.SETTINGS_URL, timeout=5)
-            self.settings = response.json()
-
+            if self.settings is None:
+                response = requests.get(constants.SETTINGS_URL, timeout=5)
+                self.settings = response.json()
         return self.settings
 
     def get_version(self):
         local_settings = self.get_settings_json(local=True)
         return local_settings.get("version", "1.0.0")
+
+    def get_repo_address(self):
+        return constants.REPO_URL
+
+    def get_bitcoin_address(self):
+        settings = self.get_settings_json()
+        return settings.get("bitcoin", {})

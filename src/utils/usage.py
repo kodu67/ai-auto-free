@@ -59,11 +59,11 @@ class UsageChecker:
                     if (
                         stats.get("numRequests", 0) > 0
                     ):  # Sadece kullanılmış modelleri göster
-                        usage_info[model] = stats["numRequests"]
+                        renamed_model = model.replace("gpt-4", "Premium").replace("gpt-3.5-turbo", "Free")
+                        usage_info[renamed_model] = f"{stats['numRequests']}/{stats['maxRequestUsage']}"
 
                 return usage_info
             else:
-                print(f"API isteği başarısız: {response.status_code}")
                 return None
 
         except Exception:

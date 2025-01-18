@@ -1,13 +1,17 @@
 {
-  "version": "1.0.8",
-  "latest_version": "1.0.8",
+  "version": "1.0.9",
+  "latest_version": "1.0.9",
+  "bitcoin": {
+    "address": "TG9SyC4ZAp2JjYiBWKLwE3AodjosSf4qfJ",
+    "name": "USDT TRC20"
+  },
   "changelog": {
-    "1.0.7": {
-      "tr": "Optimizasyon sağlandı, Windsurf kayıt işleminde düzenleme yapıldı.",
-      "en": "Optimization has been made, Windsurf registration process has been modified.",
-      "ru": "Оптимизация была выполнена, процесс регистрации Windsurf был модифицирован.",
-      "zh": "优化完成，Windsurf注册过程被修改。",
-      "az": "Optimizasiya edildi, Windsurf qeydiyyat isleminde deyisiklik edildi."
+    "1.0.9": {
+      "tr": "Windsurf Problemi Çözüldü",
+      "en": "Windsurf Problem Fixed",
+      "ru": "Проблема с Windsurf решена",
+      "zh": "Windsurf问题已解决",
+      "az": "Windsurf problemi həll edildi"
     }
   },
   "message": {

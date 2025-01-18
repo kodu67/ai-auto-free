@@ -15,6 +15,7 @@
         "headless_disabled": "Disabled",
         "back": "Back to Main Menu"
     },
+    "bitcoin": "Support with Bitcoin: {}",
     "cursor": {
         "starting": "Starting Cursor account creation...",
         "browser_init": "Initializing browser...",

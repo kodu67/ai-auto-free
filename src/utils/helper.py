@@ -34,6 +34,15 @@ class Helper:
         else:
             os.system("clear")
 
+    def show_bitcoin(self):
+        """Bitcoin adresini gösterir"""
+        btc = self.settings.get_bitcoin_address()
+        print(f" {self.locale.get_text("bitcoin").format(f"({btc['name']})\n {btc['address']}\n")}")
+
+    def show_repo(self):
+        """Repo adresini gösterir"""
+        print(f" Repository: {self.settings.get_repo_address()}")
+
     def show_main(self):
         """Ana menüyü gösterir"""
         self.clear_screen()

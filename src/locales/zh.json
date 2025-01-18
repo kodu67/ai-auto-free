@@ -15,6 +15,7 @@
         "headless_disabled": "禁用",
         "back": "返回主菜单"
     },
+    "bitcoin": "支持比特币: {}",
     "cursor": {
         "starting": "正在启动Cursor账户创建...",
         "browser_init": "正在初始化浏览器...",
