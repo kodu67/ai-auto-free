@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
-        python-version: ['3.11']
+        python-version: ['3.13.1']
         include:
           - os: windows-latest
             asset_name: ai-auto-free-windows.zip
