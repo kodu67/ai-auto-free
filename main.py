@@ -1,8 +1,9 @@
 import os
 import sys
 
-# src klasörünü Python path'ine ekle
-sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
+# Proje kök dizinini al ve src klasörünü Python path'ine ekle
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(BASE_DIR, "src"))
 
 from core.app import AutoFreeApp
 

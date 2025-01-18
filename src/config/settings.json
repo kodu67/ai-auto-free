@@ -1,12 +1,12 @@
 {
-  "version": "1.0.9",
-  "latest_version": "1.0.9",
+  "version": "1.1.0",
+  "latest_version": "1.1.0",
   "bitcoin": {
     "address": "TG9SyC4ZAp2JjYiBWKLwE3AodjosSf4qfJ",
     "name": "USDT TRC20"
   },
   "changelog": {
-    "1.0.9": {
+    "1.1.0": {
       "tr": "Windsurf Problemi Çözüldü",
       "en": "Windsurf Problem Fixed",
       "ru": "Проблема с Windsurf решена",

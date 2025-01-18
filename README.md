@@ -197,20 +197,27 @@ pyperclip
 ### Project Structure
 ```
 ai-auto-free/
-├── main.py                    # Main program
-├── cursor_auth_manager.py     # Authentication management
-├── cursor_pro_keep_alive.py   # Session maintenance
-├── browser_utils.py           # Browser automation
-├── cursor_usage.py           # Usage tracking
-├── get_email_code.py         # Email verification
-├── locale_manager.py         # Language management
-├── machine_id_reset.py       # Machine ID reset
-├── windsurf_account_creator.py # Windsurf account management
-├── settings.json             # Configuration
-├── locales/                  # Language files
-├── scripts/                  # JavaScript files
-├── turnstilePatch/          # CAPTCHA solver
-└── requirements.txt         # Dependencies
+├── src/                      # Source code directory
+│   ├── core/                 # Core application modules
+│   │   ├── __init__.py
+│   │   ├── app.py           # Main application class
+│   │   ├── auth_manager.py  # Authentication management
+│   │   └── usage.py         # Usage tracking
+│   ├── utils/               # Utility modules
+│   │   ├── __init__.py
+│   │   ├── browser.py       # Browser automation
+│   │   ├── email.py         # Email verification
+│   │   └── machine.py       # Machine ID management
+│   └── services/            # External service integrations
+│       ├── __init__.py
+│       ├── cursor.py        # Cursor service
+│       └── windsurf.py      # Windsurf service
+├── main.py                  # Main program
+├── settings.json            # Configuration
+├── locales/                 # Language files
+├── scripts/                 # JavaScript files
+├── turnstilePatch/         # CAPTCHA helper
+└── requirements.txt        # Dependencies
 ```
 
 ### Installation Steps
