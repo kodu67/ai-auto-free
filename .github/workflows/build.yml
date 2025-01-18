@@ -49,9 +49,20 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
 
+    - name: Set PYTHONPATH
+      run: |
+        echo "PYTHONPATH=${{ github.workspace }}/src" >> $GITHUB_ENV
+      shell: bash
+
     - name: Build with PyInstaller
       run: |
-        pyinstaller --clean --noconfirm build.spec
+        if [ "${{ matrix.os }}" = "windows-latest" ]; then
+          $env:PYTHONPATH="${{ github.workspace }}/src"
+          pyinstaller --clean --noconfirm build.spec
+        else
+          PYTHONPATH=${{ github.workspace }}/src pyinstaller --clean --noconfirm build.spec
+        fi
+      shell: bash
 
     - name: Create ZIP archive
       run: |
