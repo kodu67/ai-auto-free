@@ -64,13 +64,15 @@ jobs:
     - name: Build with PyInstaller (Windows)
       if: matrix.os == 'windows-latest'
       run: |
+        $env:PYTHONPATH = "${{ github.workspace }};${{ github.workspace }}/src"
         pyinstaller --clean --noconfirm build.spec
       shell: pwsh
 
     - name: Build with PyInstaller (Unix)
       if: matrix.os != 'windows-latest'
       run: |
-        PYTHONPATH=${{ github.workspace }}/src pyinstaller --clean --noconfirm build.spec
+        export PYTHONPATH="${{ github.workspace }}:${{ github.workspace }}/src"
+        pyinstaller --clean --noconfirm build.spec
       shell: bash
 
     - name: Create ZIP archive

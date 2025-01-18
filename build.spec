@@ -14,11 +14,18 @@ common_datas = [
     ('src/locales', 'locales'),
     ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
     ('src/config/settings.json', 'src/config'),
-    ('ai-auto-free-accounts.txt', '.')
+    ('ai-auto-free-accounts.txt', '.'),
+    ('src', 'src')  # Tüm src klasörünü kopyala
 ]
 
 # Ortak gizli importlar
 common_imports = [
+    'src',  # src paketinin kendisi
+    'src.auth',
+    'src.config',
+    'src.core',
+    'src.services',
+    'src.utils',
     'src.auth.cursor_auth',
     'src.auth.windsurf_auth',
     'src.auth.machine_id',
@@ -32,26 +39,7 @@ common_imports = [
     'src.utils.usage',
     'src.config.user_settings',
     'src.config.constants',
-    'src.config.settings',
-    'utils',
-    'utils.helper',
-    'utils.locale',
-    'utils.logger',
-    'utils.storage',
-    'utils.usage',
-    'config',
-    'config.constants',
-    'config.settings',
-    'config.user_settings',
-    'core',
-    'core.app',
-    'services',
-    'services.browser_service',
-    'services.email_service',
-    'auth',
-    'auth.cursor_auth',
-    'auth.windsurf_auth',
-    'auth.machine_id'
+    'src.config.settings'
 ]
 
 # İşletim sistemine göre özelleştirmeler
@@ -72,7 +60,7 @@ else:
 
 a = Analysis(
     ['main.py'],
-    pathex=['src', 'src/config'],
+    pathex=['src', os.path.abspath('src')],  # Mutlak yol ekle
     binaries=[],
     datas=datas,
     hiddenimports=common_imports,
