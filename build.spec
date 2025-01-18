@@ -13,7 +13,7 @@ MACOS_ICON = os.path.join('assets', 'icons', 'icon.icns')
 common_datas = [
     ('src/locales', 'locales'),
     ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
-    ('src/config/settings.json', 'config'),
+    ('src/config/settings.json', 'src/config'),
     ('ai-auto-free-accounts.txt', '.')
 ]
 
@@ -31,6 +31,27 @@ common_imports = [
     'src.utils.storage',
     'src.utils.usage',
     'src.config.user_settings',
+    'src.config.constants',
+    'src.config.settings',
+    'utils',
+    'utils.helper',
+    'utils.locale',
+    'utils.logger',
+    'utils.storage',
+    'utils.usage',
+    'config',
+    'config.constants',
+    'config.settings',
+    'config.user_settings',
+    'core',
+    'core.app',
+    'services',
+    'services.browser_service',
+    'services.email_service',
+    'auth',
+    'auth.cursor_auth',
+    'auth.windsurf_auth',
+    'auth.machine_id'
 ]
 
 # İşletim sistemine göre özelleştirmeler
@@ -51,7 +72,7 @@ else:
 
 a = Analysis(
     ['main.py'],
-    pathex=['src'],
+    pathex=['src', 'src/config'],
     binaries=[],
     datas=datas,
     hiddenimports=common_imports,
