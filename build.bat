@@ -1,18 +1,19 @@
 @echo off
 
-:: Gerekli paketleri yükle
+:: Install required packages
 pip install -r requirements.txt
 pip install pyinstaller
 
-:: Temizlik
+:: Clean up
 rmdir /s /q build dist
 
-:: PyInstaller ile build al
+:: Build with PyInstaller
 pyinstaller build.spec
 
-:: Çıktı dizinini kontrol et
-if exist "dist\AI Auto Free" (
-    echo Build başarılı: dist\AI Auto Free
+:: Check output directory
+if exist "dist\AI Auto Free.exe" (
+    echo Build successful: dist\AI Auto Free.exe
 ) else (
+    echo Build failed!
     exit /b 1
 )

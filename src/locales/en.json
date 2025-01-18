@@ -4,16 +4,23 @@
         "select_option": "Please select an option:",
         "cursor": "1. Cursor Account Creator",
         "windsurf": "2. Windsurf Account Creator",
-        "machine_id_reset": "3. Reset Cursor Machine ID",
-        "exit": "4. Exit",
-        "invalid_choice": "Invalid choice. Press Enter to continue..."
+        "machine_id_reset": "3. Reset Machine ID",
+        "settings": "4. Settings",
+        "exit": "5. Exit",
+        "back": "Back",
+        "invalid_choice": "Invalid choice! Press Enter to continue..."
     },
     "settings": {
         "title": "Settings",
-        "headless_mode": "Headless Mode",
-        "headless_enabled": "Enabled (Default)",
-        "headless_disabled": "Disabled",
-        "back": "Back to Main Menu"
+        "browser_visibility": "Browser Visibility",
+        "enabled": "Enabled",
+        "disabled": "Disabled",
+        "saved": "Settings saved successfully!",
+        "back": "Back to Main Menu",
+        "yes": "Yes",
+        "no": "No",
+        "current_value": "Current value",
+        "select_option": "Your choice (Y/N)"
     },
     "bitcoin": "Support with Bitcoin: {}",
     "cursor": {

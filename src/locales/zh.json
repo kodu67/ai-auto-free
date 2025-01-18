@@ -2,18 +2,25 @@
     "menu": {
         "title": "AI Auto Free",
         "select_option": "请选择一个选项：",
-        "cursor": "1. Cursor账户创建器",
-        "windsurf": "2. Windsurf账户创建器",
-        "machine_id_reset": "3. 重置Cursor机器ID",
-        "exit": "4. 退出",
-        "invalid_choice": "选择无效。按Enter继续..."
+        "cursor": "1. Cursor 账户创建器",
+        "windsurf": "2. Windsurf 账户创建器",
+        "machine_id_reset": "3. 重置机器 ID",
+        "settings": "4. 设置",
+        "exit": "5. 退出",
+        "back": "返回",
+        "invalid_choice": "无效选择！按 Enter 继续..."
     },
     "settings": {
         "title": "设置",
-        "headless_mode": "无头模式",
-        "headless_enabled": "启用（默认）",
-        "headless_disabled": "禁用",
-        "back": "返回主菜单"
+        "browser_visibility": "浏览器可见性",
+        "enabled": "启用",
+        "disabled": "禁用",
+        "saved": "设置保存成功！",
+        "back": "返回主菜单",
+        "yes": "是",
+        "no": "否",
+        "current_value": "当前值",
+        "select_option": "您的选择 (Y/N)"
     },
     "bitcoin": "支持比特币: {}",
     "cursor": {

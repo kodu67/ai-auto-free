@@ -20,13 +20,6 @@ class WindsurfAuthManager:
         self.logger = Logger()
         self.email_service = EmailService()
 
-        # JavaScript dosyasını yükle
-        script_path = os.path.join(
-            self.helper.get_src_path(), "scripts", "firebase_token.js"
-        )
-        with open(script_path, "r", encoding="utf-8") as f:
-            self.firebase_token_script = f.read()
-
         self.create_account()
 
     def _generate_email(self):

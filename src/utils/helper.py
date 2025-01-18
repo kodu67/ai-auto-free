@@ -43,6 +43,14 @@ class Helper:
         """Repo adresini gösterir"""
         print(f" Repository: {self.settings.get_repo_address()}")
 
+    def show_landing_message(self):
+        """Giriş mesajını gösterir"""
+        landing_message = self.settings.get_settings_json().get("message", {}).get(
+                self.locale.current_locale, ""
+            )
+        if landing_message:
+            print(f" {landing_message}")
+
     def show_main(self):
         """Ana menüyü gösterir"""
         self.clear_screen()

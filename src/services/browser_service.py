@@ -3,12 +3,15 @@ import sys
 import os
 from utils.helper import Helper
 from config import constants
+from config.user_settings import UserSettings
 
 
 class BrowserService:
     def __init__(self):
+        self.user_settings = UserSettings()
         self.browser = None
-        self.headless = not constants.TEST_MODE
+        # Test modunda değilse veya kullanıcı görünmez mod seçtiyse headless olsun
+        self.headless = not constants.TEST_MODE and not self.user_settings.is_browser_visible()
         self.helper = Helper()
 
     def init_browser(self):
@@ -26,8 +29,9 @@ class BrowserService:
 
         try:
             extension_path = self._get_extension_path()
-            co.add_extension(extension_path)
-        except FileNotFoundError as e:
+            if extension_path:
+                co.add_extension(extension_path)
+        except Exception as e:
             print(f"Chrome extension loading error: {e}")
 
         co.set_user_agent(
@@ -51,12 +55,29 @@ class BrowserService:
 
     def _get_extension_path(self):
         """Turnstile Patch eklentisinin yolunu döndürür"""
-        extension_path = os.path.join(
-            self.helper.get_src_path(), "scripts/turnstilePatch"
-        )
-        if not os.path.exists(extension_path):
-            raise FileNotFoundError(f"Extension directory not found: {extension_path}")
-        return extension_path
+        try:
+            if getattr(sys, 'frozen', False):
+                # PyInstaller ile paketlenmiş
+                base_path = sys._MEIPASS
+                extension_path = os.path.join(base_path, "scripts", "turnstilePatch")
+            else:
+                # Normal Python çalışma zamanı
+                extension_path = os.path.join(
+                    self.helper.get_src_path(), "scripts", "turnstilePatch"
+                )
+
+            if not os.path.exists(extension_path):
+                raise FileNotFoundError(f"Extension directory not found: {extension_path}")
+
+            # Dizin içeriğini kontrol et
+            if not os.path.exists(os.path.join(extension_path, "manifest.json")):
+                raise FileNotFoundError(f"manifest.json not found in extension directory")
+
+            return extension_path
+
+        except Exception as e:
+            print(f"Extension path error: {str(e)}")
+            return None
 
     def quit(self):
         """Tarayıcıyı kapatır"""

@@ -3,6 +3,7 @@ from utils.helper import Helper
 from utils.usage import UsageChecker
 from config.settings import Settings
 from config import constants
+from config.user_settings import UserSettings
 
 
 class AutoFreeApp:
@@ -12,6 +13,7 @@ class AutoFreeApp:
         self.cursor_usage = self.usage_checker.cursor_get_usage()
         self.locale = Locale()
         self.settings = Settings()
+        self.user_settings = UserSettings()
         self.running = True
 
         # Özellik durumları
@@ -39,21 +41,16 @@ class AutoFreeApp:
 
         # Cursor kullanım istatistiklerini göster
         if self.cursor_usage:
-            print(f"- Cursor {"-" * 10}")
+            print("- Cursor " + "-" * 10)
             for model, requests in self.cursor_usage.items():
                 print(
-                    f"⪧ {model}: {requests}"
+                    f" > {model}: {requests}"
                 )
             print("-" * 19 + "\n")
 
         # Giriş mesajını göster
         try:
-            settings = self.settings.get_settings_json()
-
-            landing_message = settings.get("message", {}).get(
-                self.locale.current_locale, ""
-            )
-            print(f" {landing_message}")
+            self.helper.show_landing_message()
             self.helper.show_repo()
             print("")
             self.helper.show_bitcoin()
@@ -65,6 +62,7 @@ class AutoFreeApp:
         print("   " + self.locale.get_text("menu.cursor"))
         print("   " + self.locale.get_text("menu.windsurf"))
         print("   " + self.locale.get_text("menu.machine_id_reset"))
+        print("   " + self.locale.get_text("menu.settings"))
         print("   " + self.locale.get_text("menu.exit"))
 
     def run_cursor_creator(self):
@@ -207,6 +205,44 @@ class AutoFreeApp:
         except Exception as e:
             print(e)
 
+    def show_settings_menu(self):
+        """Ayarlar menüsünü gösterir"""
+        while True:
+            self.helper.show_main()
+            print("\n " + self.locale.get_text("settings.title"))
+
+            # Tarayıcı görünürlüğü ayarı
+            current_visibility = self.user_settings.is_browser_visible()
+            print("\n   1. " + self.locale.get_text("settings.browser_visibility"))
+            print(f"      {self.locale.get_text('settings.current_value')}: " +
+                  f"[{self.locale.get_text('settings.yes') if current_visibility else self.locale.get_text('settings.no')}]")
+
+            print("\n   2. " + self.locale.get_text("menu.back"))
+
+            choice = input("\n > ")
+
+            if choice == "1":
+                print("\n   " + self.locale.get_text("settings.select_option"))
+                option = input("   > ").strip().lower()
+
+                if option in ['y', 'yes', 'e', 'evet']:
+                    if not current_visibility:
+                        self.user_settings.toggle_browser_visibility()
+                    print("\n   " + self.locale.get_text("settings.saved"))
+                    self.helper.press_enter()
+                elif option in ['n', 'no', 'h', 'hayır']:
+                    if current_visibility:
+                        self.user_settings.toggle_browser_visibility()
+                    print("\n   " + self.locale.get_text("settings.saved"))
+                    self.helper.press_enter()
+                else:
+                    input("\n" + self.locale.get_text("menu.invalid_choice"))
+
+            elif choice == "2":
+                break
+            else:
+                input("\n" + self.locale.get_text("menu.invalid_choice"))
+
     def run(self):
         """Uygulamayı çalıştırır"""
         while self.running:
@@ -220,6 +256,8 @@ class AutoFreeApp:
             elif choice == "3":
                 self.run_machine_id_reset()
             elif choice == "4":
+                self.show_settings_menu()
+            elif choice == "5":
                 self.running = False
             else:
                 input("\n" + self.locale.get_text("menu.invalid_choice"))

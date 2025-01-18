@@ -9,74 +9,43 @@ block_cipher = None
 WINDOWS_ICON = os.path.join('assets', 'icons', 'icon.ico')
 MACOS_ICON = os.path.join('assets', 'icons', 'icon.icns')
 
+# Ortak veri dosyaları
+common_datas = [
+    ('src/locales', 'locales'),
+    ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
+    ('src/config/settings.json', 'config'),
+    ('ai-auto-free-accounts.txt', '.')
+]
+
+# Ortak gizli importlar
+common_imports = [
+    'src.auth.cursor_auth',
+    'src.auth.windsurf_auth',
+    'src.auth.machine_id',
+    'src.core.app',
+    'src.services.browser_service',
+    'src.services.email_service',
+    'src.utils.helper',
+    'src.utils.locale',
+    'src.utils.logger',
+    'src.utils.storage',
+    'src.utils.usage',
+    'src.config.user_settings',
+]
+
 # İşletim sistemine göre özelleştirmeler
-if sys.platform == "linux" or sys.platform == "linux2":
-    # Linux için özel ayarlar
-    datas = [
-        ('src/locales/*.json', 'locales'),
-        ('src/scripts/*.js', 'scripts'),
-        ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
-        ('src/config/settings.json', 'config'),
-        (WINDOWS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
-        ('ai-auto-free-accounts.txt', '.'),  # Log dosyası ana dizine kopyalanacak
-    ]
-    hiddenimports = [
-        'src.utils.browser_utils',
-        'src.auth.cursor_auth',
-        'src.services.cursor_pro_keep_alive',
-        'src.utils.get_email_code',
-        'src.utils.locale_manager',
-        'src.core.logo',
-        'src.utils.machine_id_reset',
-        'src.auth.windsurf_auth',
-        'src.core.app'
-    ]
+if sys.platform == "win32":
+    datas = common_datas + [(WINDOWS_ICON, 'assets/icons')]
     icon = WINDOWS_ICON
-
+    console = True
 elif sys.platform == "darwin":
-    # macOS için özel ayarlar
-    datas = [
-        ('src/locales/*.json', 'locales'),
-        ('src/scripts/*.js', 'scripts'),
-        ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
-        ('src/config/settings.json', 'config'),
-        (MACOS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
-        ('ai-auto-free-accounts.txt', '.'),  # Log dosyası ana dizine kopyalanacak
-    ]
-    hiddenimports = [
-        'src.utils.browser_utils',
-        'src.auth.cursor_auth',
-        'src.services.cursor_pro_keep_alive',
-        'src.utils.get_email_code',
-        'src.utils.locale_manager',
-        'src.utils.machine_id_reset',
-        'src.auth.windsurf_auth',
-        'src.core.app'
-    ]
+    datas = common_datas + [(MACOS_ICON, 'assets/icons')]
     icon = MACOS_ICON
-
-elif sys.platform == "win32":
-    # Windows için özel ayarlar
-    datas = [
-        ('src/locales/*.json', 'locales'),
-        ('src/scripts/*.js', 'scripts'),
-        ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
-        ('src/config/settings.json', 'config'),
-        (WINDOWS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
-        ('ai-auto-free-accounts.txt', '.'),  # Log dosyası ana dizine kopyalanacak
-    ]
-    hiddenimports = [
-        'src.utils.browser_utils',
-        'src.auth.cursor_auth',
-        'src.services.cursor_pro_keep_alive',
-        'src.utils.get_email_code',
-        'src.utils.locale_manager',
-        'src.utils.machine_id_reset',
-        'src.auth.windsurf_auth',
-        'src.core.app'
-    ]
+    console = True
+elif sys.platform.startswith("linux"):
+    datas = common_datas + [(WINDOWS_ICON, 'assets/icons')]
     icon = WINDOWS_ICON
-
+    console = True
 else:
     raise Exception(f"Desteklenmeyen işletim sistemi: {sys.platform}")
 
@@ -85,7 +54,7 @@ a = Analysis(
     pathex=['src'],
     binaries=[],
     datas=datas,
-    hiddenimports=hiddenimports,
+    hiddenimports=common_imports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -96,6 +65,7 @@ a = Analysis(
     noarchive=False,
 )
 
+# Collect all files
 pyz = PYZ(
     a.pure,
     a.zipped_data,
@@ -116,7 +86,7 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,
+    console=console,
     icon=icon,
     disable_windowed_traceback=False,
     argv_emulation=False,
@@ -124,3 +94,17 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None
 )
+
+# macOS için ek yapılandırma
+if sys.platform == "darwin":
+    app = BUNDLE(
+        exe,
+        name='AI Auto Free.app',
+        icon=MACOS_ICON,
+        bundle_identifier='com.aifree.app',
+        info_plist={
+            'CFBundleShortVersionString': '1.1.1',
+            'CFBundleVersion': '1.1.1',
+            'NSHighResolutionCapable': 'True'
+        }
+    )

@@ -4,16 +4,23 @@
         "select_option": "Zəhmət olmasa bir seçim edin:",
         "cursor": "1. Cursor Hesab Yaradıcı",
         "windsurf": "2. Windsurf Hesab Yaradıcı",
-        "machine_id_reset": "3. Cursor Maşın ID-sini Sıfırla",
-        "exit": "4. Çıxış",
-        "invalid_choice": "Yanlış seçim. Davam etmək üçün Enter düyməsinə basın..."
+        "machine_id_reset": "3. Maşın ID-ni Sıfırla",
+        "settings": "4. Parametrlər",
+        "exit": "5. Çıxış",
+        "back": "Geri",
+        "invalid_choice": "Yanlış seçim! Davam etmək üçün Enter düyməsini basın..."
     },
     "settings": {
         "title": "Parametrlər",
-        "headless_mode": "Başsız Rejim",
-        "headless_enabled": "Aktiv (Standart)",
-        "headless_disabled": "Deaktiv",
-        "back": "Əsas Menyuya Qayıt"
+        "browser_visibility": "Brauzer Görünürlüyü",
+        "enabled": "Aktiv",
+        "disabled": "Deaktiv",
+        "saved": "Parametrlər uğurla yadda saxlanıldı!",
+        "back": "Əsas Menyuya Qayıt",
+        "yes": "Bəli",
+        "no": "Xeyr",
+        "current_value": "Cari dəyər",
+        "select_option": "Seçiminiz (Y/N)"
     },
     "bitcoin": "Bitcoin ilə Destek Ol: {}",
     "cursor": {

@@ -5,15 +5,22 @@
         "cursor": "1. Cursor Hesap Oluşturucu",
         "windsurf": "2. Windsurf Hesap Oluşturucu",
         "machine_id_reset": "3. Cursor Makine Kimliğini Sıfırla",
-        "exit": "4. Çıkış",
+        "settings": "4. Ayarlar",
+        "exit": "5. Çıkış",
+        "back": "Geri",
         "invalid_choice": "Geçersiz seçim. Devam etmek için Enter'a basın..."
     },
     "settings": {
         "title": "Ayarlar",
-        "headless_mode": "Görünmez Mod",
-        "headless_enabled": "Açık (Varsayılan)",
-        "headless_disabled": "Kapalı",
-        "back": "Ana Menüye Dön"
+        "browser_visibility": "Tarayıcı Görünürlüğü",
+        "enabled": "Aktif",
+        "disabled": "Pasif",
+        "saved": "Ayarlar başarıyla kaydedildi!",
+        "back": "Ana Menüye Dön",
+        "yes": "Evet",
+        "no": "Hayır",
+        "current_value": "Mevcut değer",
+        "select_option": "Seçiminiz (Y/N)"
     },
     "bitcoin": "Bitcoin ile Destek Ol: {}",
     "cursor": {

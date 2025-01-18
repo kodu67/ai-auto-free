@@ -1,25 +1,17 @@
 {
-  "version": "1.1.0",
-  "latest_version": "1.1.0",
+  "version": "1.1.1",
+  "latest_version": "1.1.1",
   "bitcoin": {
     "address": "TG9SyC4ZAp2JjYiBWKLwE3AodjosSf4qfJ",
     "name": "USDT TRC20"
   },
-  "changelog": {
-    "1.1.0": {
-      "tr": "Windsurf Problemi Çözüldü",
-      "en": "Windsurf Problem Fixed",
-      "ru": "Проблема с Windsurf решена",
-      "zh": "Windsurf问题已解决",
-      "az": "Windsurf problemi həll edildi"
-    }
-  },
+  "changelog": {},
   "message": {
-    "tr": "Telegram Grubumuza Katılın: https://t.me/kodu_group",
-    "en": "Join Our Telegram Group: https://t.me/kodu_group",
-    "ru": "Присоединяйтесь к нашей группе Telegram: https://t.me/kodu_group",
-    "zh": "加入我们的Telegram群组：https://t.me/kodu_group",
-    "az": "Telegram Qrupumuza Qatılın: https://t.me/kodu_group"
+    "tr": "",
+    "en": "",
+    "ru": "",
+    "zh": "",
+    "az": ""
   },
   "features": {
     "cursor": {

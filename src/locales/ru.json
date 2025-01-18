@@ -4,16 +4,23 @@
         "select_option": "Пожалуйста, выберите опцию:",
         "cursor": "1. Создание аккаунта Cursor",
         "windsurf": "2. Создание аккаунта Windsurf",
-        "machine_id_reset": "3. Сброс ID машины Cursor",
-        "exit": "4. Выход",
-        "invalid_choice": "Неверный выбор. Нажмите Enter для продолжения..."
+        "machine_id_reset": "3. Сброс Machine ID",
+        "settings": "4. Настройки",
+        "exit": "5. Выход",
+        "back": "Назад",
+        "invalid_choice": "Неверный выбор! Нажмите Enter, чтобы продолжить..."
     },
     "settings": {
         "title": "Настройки",
-        "headless_mode": "Фоновый режим",
-        "headless_enabled": "Включен (По умолчанию)",
-        "headless_disabled": "Выключен",
-        "back": "Вернуться в главное меню"
+        "browser_visibility": "Видимость браузера",
+        "enabled": "Включено",
+        "disabled": "Отключено",
+        "saved": "Настройки успешно сохранены!",
+        "back": "Вернуться в главное меню",
+        "yes": "Да",
+        "no": "Нет",
+        "current_value": "Текущее значение",
+        "select_option": "Ваш выбор (Y/N)"
     },
     "bitcoin": "Поддержка с Bitcoin: {}",
     "cursor": {
