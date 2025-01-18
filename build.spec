@@ -5,84 +5,65 @@ import os
 
 block_cipher = None
 
-# Icon yollarını belirle
+# Icon paths
 WINDOWS_ICON = os.path.join('assets', 'icons', 'icon.ico')
 MACOS_ICON = os.path.join('assets', 'icons', 'icon.icns')
 
-# İşletim sistemine göre özelleştirmeler
+# Base imports for all platforms
+base_hiddenimports = [
+    'core.app',
+    'core.auth_manager',
+    'core.usage',
+    'utils.browser',
+    'utils.email',
+    'utils.machine',
+    'services.cursor',
+    'services.windsurf'
+]
+
+# Platform specific configurations
 if sys.platform == "linux" or sys.platform == "linux2":
-    # Linux için özel ayarlar
     datas = [
         ('src/locales/*.json', 'locales'),
         ('src/scripts/*.js', 'scripts'),
         ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
         ('src/config/settings.json', 'config'),
-        (WINDOWS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
-        ('ai-auto-free-accounts.txt', '.'),  # Log dosyası ana dizine kopyalanacak
+        (WINDOWS_ICON, 'assets/icons'),
+        ('ai-auto-free-accounts.txt', '.'),
     ]
-    hiddenimports = [
-        'src.utils.browser_utils',
-        'src.auth.cursor_auth',
-        'src.services.cursor_pro_keep_alive',
-        'src.utils.get_email_code',
-        'src.utils.locale_manager',
-        'src.core.logo',
-        'src.utils.machine_id_reset',
-        'src.auth.windsurf_auth',
-        'src.core.app'
-    ]
+    hiddenimports = base_hiddenimports
     icon = WINDOWS_ICON
 
 elif sys.platform == "darwin":
-    # macOS için özel ayarlar
     datas = [
         ('src/locales/*.json', 'locales'),
         ('src/scripts/*.js', 'scripts'),
         ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
         ('src/config/settings.json', 'config'),
-        (MACOS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
-        ('ai-auto-free-accounts.txt', '.'),  # Log dosyası ana dizine kopyalanacak
+        (MACOS_ICON, 'assets/icons'),
+        ('ai-auto-free-accounts.txt', '.'),
     ]
-    hiddenimports = [
-        'src.utils.browser_utils',
-        'src.auth.cursor_auth',
-        'src.services.cursor_pro_keep_alive',
-        'src.utils.get_email_code',
-        'src.utils.locale_manager',
-        'src.utils.machine_id_reset',
-        'src.auth.windsurf_auth',
-        'src.core.app'
-    ]
+    hiddenimports = base_hiddenimports
     icon = MACOS_ICON
 
 elif sys.platform == "win32":
-    # Windows için özel ayarlar
     datas = [
         ('src/locales/*.json', 'locales'),
         ('src/scripts/*.js', 'scripts'),
         ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
         ('src/config/settings.json', 'config'),
-        (WINDOWS_ICON, 'assets/icons'),  # Icon'u assets klasörüne kopyala
-        ('ai-auto-free-accounts.txt', '.'),  # Log dosyası ana dizine kopyalanacak
+        (WINDOWS_ICON, 'assets/icons'),
+        ('ai-auto-free-accounts.txt', '.'),
     ]
-    hiddenimports = [
-        'src.utils.browser_utils',
-        'src.auth.cursor_auth',
-        'src.services.cursor_pro_keep_alive',
-        'src.utils.get_email_code',
-        'src.utils.locale_manager',
-        'src.utils.machine_id_reset',
-        'src.auth.windsurf_auth',
-        'src.core.app'
-    ]
+    hiddenimports = base_hiddenimports
     icon = WINDOWS_ICON
 
 else:
-    raise Exception(f"Desteklenmeyen işletim sistemi: {sys.platform}")
+    raise Exception(f"Unsupported platform: {sys.platform}")
 
 a = Analysis(
     ['main.py'],
-    pathex=['src'],
+    pathex=['src', os.path.abspath('.')],
     binaries=[],
     datas=datas,
     hiddenimports=hiddenimports,
