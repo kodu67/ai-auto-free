@@ -50,18 +50,27 @@ jobs:
         pip install pyinstaller
 
     - name: Set PYTHONPATH
+      if: matrix.os != 'windows-latest'
       run: |
         echo "PYTHONPATH=${{ github.workspace }}/src" >> $GITHUB_ENV
       shell: bash
 
-    - name: Build with PyInstaller
+    - name: Set PYTHONPATH (Windows)
+      if: matrix.os == 'windows-latest'
       run: |
-        if [ "${{ matrix.os }}" = "windows-latest" ]; then
-          $env:PYTHONPATH="${{ github.workspace }}/src"
-          pyinstaller --clean --noconfirm build.spec
-        else
-          PYTHONPATH=${{ github.workspace }}/src pyinstaller --clean --noconfirm build.spec
-        fi
+        echo "PYTHONPATH=${{ github.workspace }}\src" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      shell: pwsh
+
+    - name: Build with PyInstaller (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        pyinstaller --clean --noconfirm build.spec
+      shell: pwsh
+
+    - name: Build with PyInstaller (Unix)
+      if: matrix.os != 'windows-latest'
+      run: |
+        PYTHONPATH=${{ github.workspace }}/src pyinstaller --clean --noconfirm build.spec
       shell: bash
 
     - name: Create ZIP archive
