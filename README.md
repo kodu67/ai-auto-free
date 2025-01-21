@@ -2,225 +2,111 @@
 
 AI Auto Free is a comprehensive automation tool that enables unlimited usage of AI-powered IDEs like Cursor and Windsurf. The project offers cross-platform support and includes multiple language capabilities.
 
-## Supported Languages
-- English
-- Russian
-- Chinese
-- Turkish
-- Azerbaijani
+## Important Notice
+This tool is developed for research and educational purposes only. Please use responsibly. The developer assumes no liability for any issues that may arise from using this tool.
 
-Download Latest Version: https://github.com/kodu67/ai-auto-free/releases/latest
+## Supported Languages
+
+| Language    |
+|------------|
+| English    |
+| Русский    |
+| 中文       |
+| Türkçe     |
+| Azərbaycan |
 
 ## Screenshots
 
 ### Windows
 ![AI Free](public/windows.png)
+___
+![AI Free](public/windows-2.png)
+___
+### Requirements:
+- Make sure you have installed the latest version of the software (https://github.com/kodu67/ai-auto-free/releases/latest)
+- Google Chrome browser must be installed
+- You must be logged into a Cursor or Windsurf account (Required for automatic login)
+- If you are using a proxy or VPN, it must be turned off
 
-### Linux - Archlinux
-![AI Free](public/linux.png)
+### Cursor Account Creator
+It's fully automatic. You don't need to do anything.
 
-## Technical Architecture
+### Windsurf Account Creator
+The account is created automatically. When the account creation process is successfully completed, you will receive a token. This token code is automatically copied. It can be pasted with Ctrl + V.
 
-### 1. Authentication System (cursor_auth_manager.py)
-- SQLite database for credential management
-- OS-specific configuration file handling
-- Secure session token storage
-- Error handling and logging system
-- Platform-based database path management:
-  - Windows: %APPDATA%/Cursor/User/globalStorage/state.vscdb
-  - MacOS: ~/Library/Application Support/Cursor/User/globalStorage/state.vscdb
-  - Linux: ~/.config/Cursor/User/globalStorage/state.vscdb
+We will use this token here:
+On the Windsurf screen, press CTRL + SHIFT + P
+Search and select `Windsurf: Provide Auth Token (Backup Login)` option.
+A browser window will open, you can close it.
+Return to the Windsurf screen and paste the token in this field. You will be logged in automatically.
+___
+### Settings
+Browser Visibility: By default, the browser is hidden while operations are being performed. If you want to see how automatic account creation processes are done, enable this option.
 
-### 2. Session Management (cursor_pro_keep_alive.py)
-- Automated account creation
-- Turnstile CAPTCHA solver
-- Session token management
-- Email verification system
-- Random user information generation
-- Detailed error handling and retry mechanisms
-- Usage limit monitoring and reporting
-- Secure token storage and management
-- Automated form filling and interaction systems
+Email Verifier: By default, the "Temporary" option is selected. If this option is selected, it will perform email verification using temp mail services. However, since the services we create accounts for block temp mail services, there is a chance of encountering problems. In this case, you can select the "IMAP" option.
 
-### 3. Browser Automation (browser_utils.py)
-- Chromium-based automation (DrissionPage integration)
-- Custom browser settings
-- Extension management
-- Cross-platform support
-- Headless mode support
-- Custom user agent
-- Security and privacy settings
-- Automatic port management
+If the IMAP option is selected, it will perform email verification using IMAP services. This service can be your Google Mail account or your own server. As an example, I will explain how it's done with the "GMAIL" option.
+___
+### Using IMAP
+Select the "IMAP" option from the settings. When you make the selection, another option will be added to the settings section where you can configure IMAP settings. When you select that option, a notepad will open. You should correctly add your IMAP settings to this notepad and save it.
 
-### 4. Email Verification System (get_email_code.py)
-- Temporary email service integration (temp-mail.io API)
-- Automated email creation
-- Verification code capture and processing
-- Error handling and retry mechanism
-- API communication management
-- Custom HTTP headers
+We will get our IMAP settings from "gmail.com". After logging into Gmail, click on the settings gear (⚙️) in the top right.
+Select "See all settings" in the opened section.
 
-### 5. Usage Tracking (cursor_usage.py)
-- API-based usage statistics tracking
-- Token-based authentication
-- Model-based usage analysis
-- Cache management
-- Detailed error reporting
-- User-based statistics collection
-- API response processing and filtering
+![Gmail Settings](public/s1.png)
 
-### 6. Language Management (locale_manager.py)
-- JSON-based multilingual support
-- Dynamic language switching
-- User preference storage
-- System language auto-detection
-- Default language support
-- Fallback translations
+Click on the "Forwarding and POP/IMAP" tab on the opened page.
 
-### 7. Machine ID Management (machine_id_reset.py)
-- Machine ID reset functionality
-- Device ID management
-- Platform-based configuration
-- Administrator privileges check
-- Secure ID generation
-- Process management
-- Configuration file operations
+![Gmail Settings](public/s2.png)
 
-### 8. Windsurf Account Management (windsurf_account_creator.py)
-- Automated account creation
-- Firebase integration
-- Token management
-- Form automation
-- CAPTCHA solution
-- Secure password generation
-- JavaScript injection
-- Clipboard integration
+Enable IMAP here.
 
-## System Requirements
+![Gmail Settings](public/s3.png)
 
-### Software Requirements
-- Python 3.x
-- Chromium-based browser
-- SQLite3
+and click "Save Changes" button.
 
-### Python Dependencies
-```
-DrissionPage==4.1.0.9
-requests==2.32.3
-cryptography==44.0.0
-psutil==6.1.1
-PyVirtualDisplay==3.0
-pyperclip
-```
+Finally, we need to create a password from Google's security page.
+Detailed information: https://support.google.com/accounts/answer/185833
 
-### Hardware Requirements
-- Processor: x64 architecture
-- RAM: Minimum 4GB recommended
-- Disk: 100MB free space
-- Internet connection
+Let's do it step by step:
+- Go to this address: https://myaccount.google.com/apppasswords
+- Log in to your Google account
+- Choose an app name (e.g., AI Auto Free)
+- Click "Generate App Password" button
+- Copy the password given to you
 
-## Security Features
+Now you have all the information.
 
-### 1. Authentication Security
-- Encrypted token storage
-- Secure session management
-- Automatic session renewal
-- Secure database access
-- Machine ID protection
+Let's return to the IMAP settings file. Here:
+- IMAP_SERVER=imap.gmail.com
+- IMAP_PORT=993
+- IMAP_USER={your_gmail}@gmail.com
+- IMAP_PASSWORD=app password you created in the previous step
 
-### 2. System Security
-- Administrator privileges check
-- Secure file operations
-- Error catching and recovery mechanisms
-- Secure cache management
-- Process isolation
+Update the information as shown above.
 
-### 3. Browser Security
-- Custom user agent
-- Secure extension management
-- Isolated browser sessions
-- Custom security headers
-- JavaScript security
+Now you can proceed with the account creation process.
+___
+### Common Issues
+- #### Unauthorized Request
+This is an error seen on the Cursor side. It indicates that the email/email domain you are using has been blocked by Cursor services.
 
-## Features and Functions
+- #### Windsurf Registration Server is Unavailable
+The Windsurf registration server may sometimes become unavailable. In this case, we have no choice but to wait for the Windsurf servers. You can try again later.
 
-### 1. Account Management
-- Automated account creation
-  - Random user information
-  - Strong password generation
-  - Email verification
-- Token management
-  - Session token creation
-  - Token renewal
-  - Token verification
-- Session maintenance
-  - Automatic renewal
-  - Error state recovery
+- #### Windsurf Token Not Accepted
+The account creation process might not have been completed successfully. This is related to the above issue.
+___
+### Frequently Asked Questions
+- #### What does this tool do?
+IDEs like Cursor and Windsurf that help us code with artificial intelligence have limited usage in the free plan. You can use this tool to overcome this limit.
 
-### 2. Automation Features
-- CAPTCHA solution
-  - Turnstile support
-  - Automatic detection
-  - Shadow DOM support
-- Automated form filling
-  - Smart waiting times
-  - Human-like interaction
-  - Element control
-- Browser interactions
-  - Page load control
-  - Element waiting
-  - JavaScript execution
-- Error state recovery
-  - Retry mechanisms
-  - State control
-  - Logging
-
-### 3. Multi-Platform Support
-- Windows compatibility
-  - AppData location management
-  - Windows-specific settings
-  - Registry access
-  - Process management
-- Linux support
-  - .config directory management
-  - X11 support
-  - System permissions
-  - Process control
-- MacOS support
-  - Application Support directory management
-  - Darwin-specific settings
-  - Sandbox compatibility
-  - Process management
-
-## Development Guide
-
-### Project Structure
-```
-ai-auto-free/
-├── src/                      # Source code directory
-│   ├── core/                 # Core application modules
-│   │   ├── __init__.py
-│   │   ├── app.py           # Main application class
-│   │   ├── auth_manager.py  # Authentication management
-│   │   └── usage.py         # Usage tracking
-│   ├── utils/               # Utility modules
-│   │   ├── __init__.py
-│   │   ├── browser.py       # Browser automation
-│   │   ├── email.py         # Email verification
-│   │   └── machine.py       # Machine ID management
-│   └── services/            # External service integrations
-│       ├── __init__.py
-│       ├── cursor.py        # Cursor service
-│       └── windsurf.py      # Windsurf service
-├── main.py                  # Main program
-├── settings.json            # Configuration
-├── locales/                 # Language files
-├── scripts/                 # JavaScript files
-├── turnstilePatch/         # CAPTCHA helper
-└── requirements.txt        # Dependencies
-```
-
+- #### If I create a new account, will my codes or conversations with AI (context) be deleted?
+No, they won't be deleted.
+___
 ### Installation Steps
+
+You can download it from the releases section or run the application with the source code as follows:
 
 1. Setting Up Development Environment
 ```bash
@@ -241,24 +127,3 @@ pip install -r requirements.txt
 # Linux/MacOS
 ./build.sh
 ```
-
-## Contributing
-This project is open source and contributions are welcome through GitHub:
-https://github.com/kodu67/ai-auto-free/
-
-### Contribution Steps
-1. Create a fork
-2. Create a feature branch
-3. Commit your changes
-4. Open a pull request
-
-### Code Standards
-- PEP 8 compliant code
-- Detailed docstring usage
-- Comprehensive error handling
-- Modular and reusable code
-- Test coverage
-- Security best practices
-
-# Important Notice
-This tool is developed for research and educational purposes only. Please use responsibly. The developer assumes no liability for any issues that may arise from using this tool.

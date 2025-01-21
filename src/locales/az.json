@@ -20,7 +20,10 @@
         "yes": "Bəli",
         "no": "Xeyr",
         "current_value": "Cari dəyər",
-        "select_option": "Seçiminiz (Y/N)"
+        "select_option": "Seçiminiz (Y/N)",
+        "email_verifier": "E-poçt Doğrulayıcı",
+        "select_email_verifier": "E-poçt doğrulayıcı seçin",
+        "imap_settings": "IMAP Parametrləri"
     },
     "bitcoin": "Bitcoin ilə Destek Ol: {}",
     "cursor": {
@@ -147,7 +150,12 @@
         "processing": "İşlənir...",
         "verification_failed": "Doğrulama kodu alına bilmədi",
         "almost_success": "Demək olar ki, tamamlandı",
-        "execution_failed": "İcra uğursuz oldu"
+        "execution_failed": "İcra uğursuz oldu",
+        "imap_connecting": "IMAP-a qoşulur: {}",
+        "imap_login_success": "IMAP Giriş uğurlu oldu",
+        "imap_new_mail_waiting": "Yeni məktub gözlənilir... (Cəhd {}/{})",
+        "imap_content_read_error": "Məzmun oxuma xətası: {}",
+        "imap_error": "IMAP Xətası: {}"
     },
     "updates": {
         "available": "Yeni Yeniləmə Mövcuddur!",

@@ -20,7 +20,10 @@
         "yes": "是",
         "no": "否",
         "current_value": "当前值",
-        "select_option": "您的选择 (Y/N)"
+        "select_option": "您的选择 (Y/N)",
+        "email_verifier": "电子邮件验证器",
+        "select_email_verifier": "选择电子邮件验证器",
+        "imap_settings": "IMAP 设置"
     },
     "bitcoin": "支持比特币: {}",
     "cursor": {
@@ -147,7 +150,12 @@
         "processing": "处理中...",
         "verification_failed": "获取验证码失败",
         "almost_success": "即将完成",
-        "execution_failed": "执行失败"
+        "execution_failed": "执行失败",
+        "imap_connecting": "正在连接到 IMAP: {}",
+        "imap_login_success": "IMAP 登录成功",
+        "imap_new_mail_waiting": "等待新邮件... (尝试 {}/{})",
+        "imap_content_read_error": "内容读取错误: {}",
+        "imap_error": "IMAP 错误: {}"
     },
     "updates": {
         "available": "有新的更新可用！",

@@ -20,7 +20,10 @@
         "yes": "Evet",
         "no": "Hayır",
         "current_value": "Mevcut değer",
-        "select_option": "Seçiminiz (Y/N)"
+        "select_option": "Seçiminiz (Y/N)",
+        "email_verifier": "Email Doğrulayıcı",
+        "select_email_verifier": "Email doğrulayıcı seçiniz",
+        "imap_settings": "IMAP Ayarları"
     },
     "bitcoin": "Bitcoin ile Destek Ol: {}",
     "cursor": {
@@ -149,7 +152,12 @@
         "processing": "İşlem devam ediyor...",
         "verification_failed": "Doğrulama kodu alınamadı",
         "almost_success": "İşlem neredeyse tamamlandı",
-        "execution_failed": "İşlem başarısız oldu"
+        "execution_failed": "İşlem başarısız oldu",
+        "imap_connecting": "IMAP Bağlantısı kuruluyor: {}",
+        "imap_login_success": "IMAP Giriş başarılı",
+        "imap_new_mail_waiting": "Yeni mail bekleniyor... (Deneme {}/{})",
+        "imap_content_read_error": "İçerik okuma hatası: {}",
+        "imap_error": "IMAP Hatası: {}"
     },
     "updates": {
         "available": "Yeni Güncelleme Mevcut!",

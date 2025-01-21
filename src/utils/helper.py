@@ -3,6 +3,8 @@ import random
 import platform
 from .locale import Locale
 from config.settings import Settings
+from rich.panel import Panel
+from rich.console import Console
 
 
 class Helper:
@@ -35,13 +37,17 @@ class Helper:
             os.system("clear")
 
     def show_bitcoin(self):
-        """Bitcoin adresini gösterir"""
+        """Bitcoin bağış bilgisini gösterir"""
         btc = self.settings.get_bitcoin_address()
-        print(" " + self.locale.get_text("bitcoin").format("(" + btc["name"] + ")\n " + btc["address"] + "\n"))
+        console = Console()
+        console.print(Panel.fit(self.locale.get_text("bitcoin").format("(" + btc["name"] + ")\n " + btc["address"]),
+            title="💰 Donate",
+            border_style="yellow",
+        ))
 
     def show_repo(self):
         """Repo adresini gösterir"""
-        print(f" Repository: {self.settings.get_repo_address()}")
+        return self.settings.get_repo_address()
 
     def show_landing_message(self):
         """Giriş mesajını gösterir"""

@@ -20,7 +20,10 @@
         "yes": "Yes",
         "no": "No",
         "current_value": "Current value",
-        "select_option": "Your choice (Y/N)"
+        "select_option": "Your choice (Y/N)",
+        "email_verifier": "Email Verifier",
+        "select_email_verifier": "Select email verifier",
+        "imap_settings": "IMAP Settings"
     },
     "bitcoin": "Support with Bitcoin: {}",
     "cursor": {
@@ -148,7 +151,12 @@
         "processing": "Processing...",
         "verification_failed": "Failed to get verification code",
         "almost_success": "Almost completed",
-        "execution_failed": "Execution failed"
+        "execution_failed": "Execution failed",
+        "imap_connecting": "Connecting to IMAP: {}",
+        "imap_login_success": "IMAP Login successful",
+        "imap_new_mail_waiting": "Waiting for new mail... (Attempt {}/{})",
+        "imap_content_read_error": "Content read error: {}",
+        "imap_error": "IMAP Error: {}"
     },
     "updates": {
         "available": "New Update Available!",

@@ -1,4 +1,3 @@
-import os
 import time
 import json
 import random
@@ -106,9 +105,7 @@ class WindsurfAuthManager:
             print("[*] " + self.locale.get_text("windsurf.progress.filling_form"))
             time.sleep(random.uniform(1, 3))
 
-
-            TOKEN_URL = 'identitytoolkit.googleapis.com'
-            ERROR_URL = 'web-backend.codeium.com'
+            TOKEN_URL = "identitytoolkit.googleapis.com"
 
             # Network dinlemeyi başlat
             tab.listen.start(TOKEN_URL)
@@ -157,15 +154,16 @@ class WindsurfAuthManager:
             packet = tab.listen.wait(timeout=10)
             if packet and TOKEN_URL in packet.url:
                 if packet.response and packet.response.body:
-                    self.firebase_token = packet.response.body.get('idToken')
-
+                    self.firebase_token = packet.response.body.get("idToken")
 
             tab.listen.stop()  # Dinlemeyi durdur
 
             if not tab.wait.ele_displayed("@placeholder=Your first name", timeout=20):
-                print("[!] Cursor API ERR: - [{packet.response.status}]")
-                print("Retrying...")
-                time.sleep(3)
+                print(
+                    "Windsurf registration server is unavailable. Please try again later."
+                )
+                print("Retrying... (5 sec)")
+                time.sleep(5)
                 self.helper.clear_screen()
                 return self.create_account()
 
@@ -185,7 +183,7 @@ class WindsurfAuthManager:
                 account_data = {
                     "email": email,
                     "password": password,
-                    "token": self.firebase_token
+                    "token": self.firebase_token,
                 }
 
                 self.logger.log_account("windsurf", account_data)
@@ -194,7 +192,9 @@ class WindsurfAuthManager:
                 print("\n" + self.locale.get_text("common.account_info"))
                 print("+" + "-" * 50 + "+")
                 print(f"| {self.locale.get_text('common.email'):<15}: {email:<32} |")
-                print(f"| {self.locale.get_text('common.password'):<15}: {password:<32} |")
+                print(
+                    f"| {self.locale.get_text('common.password'):<15}: {password:<32} |"
+                )
                 print("+" + "-" * 50 + "+")
                 print("\n" + "+" + "-" * 70 + "+")
                 print(f"| {self.locale.get_text('windsurf.token_copied'):<15} |")

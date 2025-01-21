@@ -39,7 +39,10 @@ common_imports = [
     'src.utils.usage',
     'src.config.user_settings',
     'src.config.constants',
-    'src.config.settings'
+    'src.config.settings',
+    'elevate',
+    'rich',
+    'questionary',
 ]
 
 # İşletim sistemine göre özelleştirmeler

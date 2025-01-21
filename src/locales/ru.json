@@ -20,7 +20,10 @@
         "yes": "Да",
         "no": "Нет",
         "current_value": "Текущее значение",
-        "select_option": "Ваш выбор (Y/N)"
+        "select_option": "Ваш выбор (Y/N)",
+        "email_verifier": "Проверка Email",
+        "select_email_verifier": "Выберите проверку email",
+        "imap_settings": "Настройки IMAP"
     },
     "bitcoin": "Поддержка с Bitcoin: {}",
     "cursor": {
@@ -148,7 +151,12 @@
         "processing": "Обработка...",
         "verification_failed": "Не удалось получить код подтверждения",
         "almost_success": "Почти завершено",
-        "execution_failed": "Выполнение не удалось"
+        "execution_failed": "Выполнение не удалось",
+        "imap_connecting": "Подключение к IMAP: {}",
+        "imap_login_success": "Вход в IMAP успешен",
+        "imap_new_mail_waiting": "Ожидание нового письма... (Попытка {}/{})",
+        "imap_content_read_error": "Ошибка чтения содержимого: {}",
+        "imap_error": "Ошибка IMAP: {}"
     },
     "updates": {
         "available": "Доступно новое обновление!",

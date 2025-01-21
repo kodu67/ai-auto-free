@@ -1,17 +1,25 @@
 {
-  "version": "1.1.1",
-  "latest_version": "1.1.1",
+  "version": "1.1.2",
+  "latest_version": "1.1.2",
   "bitcoin": {
     "address": "TG9SyC4ZAp2JjYiBWKLwE3AodjosSf4qfJ",
     "name": "USDT TRC20"
   },
-  "changelog": {},
+  "changelog": {
+    "1.1.2": {
+      "tr": "IMAP entegrasyonu eklendi. CLI görünümü güncellendi.",
+      "en": "IMAP integration added. CLI view updated.",
+      "ru": "Добавлена интеграция IMAP. Обновлен вид CLI.",
+      "zh": "IMAP集成已添加。CLI视图已更新。",
+      "az": "IMAP enteqrasyası əlavə edildi. CLI görünümü yeniləndi."
+    }
+  },
   "message": {
-    "tr": "",
-    "en": "",
-    "ru": "",
-    "zh": "",
-    "az": ""
+    "tr": "Cursor için Temporary Mail ile hesap oluşturma özelliği şuanda çalışmamaktadır. Ayarlar kısmından IMAP özelliğini aktif edip kullanmaya devam edebilirsiniz. Repository üzerinde nasıl kullanılacağı yazılmıştır.",
+    "en": "The account creation feature with Temporary Mail for Cursor is currently not working. You can continue to use the IMAP feature by activating it in the settings. The repository contains instructions on how to use it.",
+    "ru": "Функция создания учетной записи с временным почтовым ящиком для Cursor в настоящее время не работает. Вы можете продолжать использовать функцию IMAP, активировав ее в настройках. В репозитории есть инструкции по ее использованию.",
+    "zh": "Cursor的临时邮箱账户创建功能目前无法使用。您可以通过在设置中激活IMAP功能来继续使用该功能。在仓库中可以找到如何使用它的说明。",
+    "az": "Cursor üçün Temporary Mail ilə hesab yaradma xüsusiyyəti indi işləmir. İmaptını aktivləşdirib, onu istifadə etmək üçün ayarlar bölümündən istifadə edə bilərsiniz. Repository üzərində onu necə istifadə etmək barədə məlumatlar var."
   },
   "features": {
     "cursor": {
@@ -29,11 +37,11 @@
       "enabled": true,
       "maintenance": false,
       "maintenance_message": {
-        "tr": "Windsurf özelliği bakımda. Lütfen daha sonra tekrar deneyin.\n\nTelegram Grubumuza Katılın: https://t.me/kodu_group",
-        "en": "Windsurf feature is under maintenance. Please try again later.\n\nJoin Our Telegram Group: https://t.me/kodu_group",
-        "ru": "Функция Windsurf находится на обслуживании. Пожалуйста, попробуйте позже.\n\nПрисоединяйтесь к нашей группе Telegram: https://t.me/kodu_group",
-        "zh": "Windsurf功能正在维护中。请稍后再试。\n\n加入我们的Telegram群组：https://t.me/kodu_group",
-        "az": "Windsurf funksiyası təmirdədir. Zəhmət olmasa daha sonra yenidən cəhd edin.\n\nTelegram Qrupumuza Qatılın: https://t.me/kodu_group"
+        "tr": "",
+        "en": "",
+        "ru": "",
+        "zh": "",
+        "az": ""
       }
     }
   }
