@@ -37,18 +37,9 @@ class CursorMachineIDResetter:
 
     def _save_config(self, config):
         try:
-            if not self.storage.cursor_storage_json_exist():
-                os.makedirs(
-                    os.path.dirname(self.cursor_storage_json_path), exist_ok=True
-                )
-
             with open(self.cursor_storage_json_path, "w") as f:
                 json.dump(config, f, indent=2)
-
-            with open(self.cursor_storage_json_path, "r") as f:
-                written_config = json.load(f)
-                if written_config == config:
-                    return True
+                return True
 
         except PermissionError as e:
             print(f"Permission error: {str(e)}")

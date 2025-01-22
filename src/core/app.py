@@ -10,15 +10,18 @@ from rich.panel import Panel
 from rich.table import Table
 from rich import print as rprint
 from questionary import Choice, Style, select
+from .ui import MainUI
 
 class AutoFreeApp:
     def __init__(self):
+        self.locale = Locale()
         self.helper = Helper()
         self.usage_checker = UsageChecker()
         self.cursor_usage = self.usage_checker.cursor_get_usage()
-        self.locale = Locale()
         self.settings = Settings()
         self.user_settings = UserSettings()
+        self.ui = MainUI(self.locale, self.helper, self.settings, self.user_settings)
+        self.ui.run()
         self.running = True
         self.console = Console()
         self.custom_style = Style([

@@ -11,23 +11,24 @@ class Helper:
     def __init__(self):
         self.locale = Locale()
         self.settings = Settings()
+        self.system = platform.system()
 
     def print_logo(self):
         """Logo yazdırır"""
         print(f"""
     ╔═╗╦  ╔═╗╦ ╦╔╦╗╔═╗  ╔═╗╦═╗╔═╗╔═╗
     ╠═╣║  ╠═╣║ ║ ║ ║ ║  ╠╣ ╠╦╝║╣ ║╣
-    ╩ ╩╩  ╩ ╩╩═╩ ╩ ╚═╝  ╚  ╩╚═╚═╝╚═╝ v{self.settings.get_version()}
+    ╩ ╩╩  ╩ ╩╩═╩ ╩ ╚═╝  ╩  ╩╚═╚═╝╚═╝ v{self.settings.get_version()} - {self.system}
         """)
 
     def is_windows(self):
-        return os.name == "nt"
+        return self.system == "Windows"
 
     def is_macos(self):
-        return os.name == "posix" and "darwin" in os.uname().sysname.lower()
+        return self.system == "Darwin"
 
     def is_linux(self):
-        return not self.is_windows() and not self.is_macos()
+        return self.system == "Linux"
 
     def clear_screen(self):
         """Ekranı temizler"""
@@ -55,7 +56,7 @@ class Helper:
                 self.locale.current_locale, ""
             )
         if landing_message:
-            print(f" {landing_message}")
+            print(f" {landing_message}\n")
 
     def show_main(self):
         """Ana menüyü gösterir"""

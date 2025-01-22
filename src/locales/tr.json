@@ -2,11 +2,11 @@
     "menu": {
         "title": "AI Auto Free",
         "select_option": "Lütfen bir seçenek seçin:",
-        "cursor": "1. Cursor Hesap Oluşturucu",
-        "windsurf": "2. Windsurf Hesap Oluşturucu",
-        "machine_id_reset": "3. Cursor Makine Kimliğini Sıfırla",
-        "settings": "4. Ayarlar",
-        "exit": "5. Çıkış",
+        "cursor": "Cursor Hesap Oluşturucu",
+        "windsurf": "Windsurf Hesap Oluşturucu",
+        "machine_id_reset": "Cursor Makine Kimliğini Sıfırla",
+        "settings": "Ayarlar",
+        "exit": "Çıkış",
         "back": "Geri",
         "invalid_choice": "Geçersiz seçim. Devam etmek için Enter'a basın..."
     },

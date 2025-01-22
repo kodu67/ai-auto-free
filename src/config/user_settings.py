@@ -77,6 +77,7 @@ class UserSettings:
     def set_imap_email_settings(self):
         """IMAP E-mail seçenekleri için düzenleme dosyasını açar"""
         # IMAP dosyasını notepad ile aç (Windows / MacOS / Linux)
+        print(f"IMAP Settings: {self.imap_settings_file}")
         if self.helper.is_windows():
             os.system(f"notepad {self.imap_settings_file}")
         elif self.helper.is_macos():
