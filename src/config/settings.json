@@ -1,17 +1,17 @@
 {
-  "version": "1.1.2",
+  "version": "1.1.3",
   "latest_version": "1.1.3",
   "bitcoin": {
     "address": "TG9SyC4ZAp2JjYiBWKLwE3AodjosSf4qfJ",
     "name": "USDT TRC20"
   },
   "changelog": {
-    "1.1.2": {
-      "tr": "IMAP entegrasyonu eklendi. CLI görünümü güncellendi.",
-      "en": "IMAP integration added. CLI view updated.",
-      "ru": "Добавлена интеграция IMAP. Обновлен вид CLI.",
-      "zh": "IMAP集成已添加。CLI视图已更新。",
-      "az": "IMAP enteqrasyası əlavə edildi. CLI görünümü yeniləndi."
+    "1.1.3": {
+      "tr": "GUI eklendi, Cursor hesapları arasında geçiş yapılabilir ve kalan limitler görülebilir. Hesaplarınız artık cihazınızda kaydedilmektedir.",
+      "en": "GUI added, you can switch between Cursor accounts and see remaining limits. Your accounts are now saved on your device.",
+      "ru": "GUI добавлен, вы можете переключаться между учетными записями Cursor и видеть оставшиеся лимиты. Ваши учетные записи теперь сохраняются на вашем устройстве.",
+      "zh": "GUI已添加，您可以在Cursor账户之间切换并查看剩余限制。您的账户现在保存在您的设备上。",
+      "az": "GUI əlavə edildi, Cursor hesabları arasında geçiş mümkündür və kalan limitləri görə bilərsiniz. Hesablarınız artıq cihazınızda saxlınır."
     }
   },
   "message": {
@@ -26,11 +26,11 @@
       "enabled": true,
       "maintenance": false,
       "maintenance_message": {
-        "tr": "Cursor özelliği bakımda. Lütfen daha sonra tekrar deneyin.\n\nTelegram Grubumuza Katılın: https://t.me/kodu_group",
-        "en": "Cursor feature is under maintenance. Please try again later.\n\nJoin Our Telegram Group: https://t.me/kodu_group",
-        "ru": "Функция Cursor находится на обслуживании. Пожалуйста, попробуйте позже.\n\nПрисоединяйтесь к нашей группе Telegram: https://t.me/kodu_group",
-        "zh": "Cursor功能正在维护中。请稍后再试。\n\n加入我们的Telegram群组：https://t.me/kodu_group",
-        "az": "Cursor funksiyası təmirdədir. Zəhmət olmasa daha sonra yenidən cəhd edin.\n\nTelegram Qrupumuza Qatılın: https://t.me/kodu_group"
+        "tr": "",
+        "en": "",
+        "ru": "",
+        "zh": "",
+        "az": ""
       }
     },
     "windsurf": {

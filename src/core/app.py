@@ -5,11 +5,6 @@ from utils.logger import Logger
 from config.settings import Settings
 from config import constants
 from config.user_settings import UserSettings
-from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
-from rich import print as rprint
-from questionary import Choice, Style, select
 
 class AutoFreeApp:
     def __init__(self):

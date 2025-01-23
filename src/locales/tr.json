@@ -22,7 +22,8 @@
             "message": "Yeni sürüm ({}) yayınlandı. Lütfen en son sürümü indirin:",
             "download": "İndirme Linki: {}",
             "changelog": "Değişiklikler:\n{}"
-        }
+        },
+        "donate": "Bağış (Bitcoin): {}"
     },
     "settings": {
         "title": "Ayarlar",
@@ -96,6 +97,12 @@
             "filling_form": "Kayıt formu dolduruluyor...",
             "completing_onboarding": "Onboarding adımları tamamlanıyor...",
             "getting_token": "Token alınıyor..."
+        },
+        "turnstile": {
+            "starting": "Turnstile doğrulaması başlatılıyor...",
+            "started": "Doğrulama başlatıldı",
+            "success": "Doğrulama başarılı",
+            "failed": "Doğrulama başarısız"
         },
         "steps": {
             "email": "Geçici e-posta adresi alınıyor...",
@@ -184,7 +191,8 @@
         "message": "Yeni sürüm ({}) yayınlandı. Lütfen en son sürümü indirin:",
         "download": "İndirme Linki: {}",
         "current_version": "Mevcut Sürüm: {}",
-        "latest_version": "En Son Sürüm: {}"
+        "latest_version": "En Son Sürüm: {}",
+        "changelog": "Değişiklikler:"
     },
     "features": {
         "disabled": "{} özelliği şuanda devre dışı."

@@ -187,14 +187,14 @@ class WindsurfAuthManager:
             browser_service.quit()
 
     def handle_turnstile(self, tab):
-        yield "[*] " + self.locale.get_text("windsurf.progress.solving_turnstile")
+        yield "[*] " + self.locale.get_text("windsurf.turnstile.started")
         try:
             while True:
                 # Başarı durumunu kontrol et
                 response_input = tab.ele("@name=cf-turnstile-response")
                 if response_input and response_input.attr("value"):
                     yield "[*] " + self.locale.get_text(
-                        "windsurf.progress.solving_turnstile_success"
+                        "windsurf.turnstile.success"
                     )
                     return True
 
@@ -209,7 +209,7 @@ class WindsurfAuthManager:
                     if iframe:
                         time.sleep(3)
                         yield "[*] " + self.locale.get_text(
-                            "windsurf.progress.solving_turnstile"
+                            "windsurf.turnstile.starting"
                         )
                         time.sleep(random.uniform(1, 3))
                         iframe.click()
@@ -219,7 +219,7 @@ class WindsurfAuthManager:
                         response_input = tab.ele("@name=cf-turnstile-response")
                         if response_input and response_input.attr("value"):
                             yield "[*] " + self.locale.get_text(
-                                "windsurf.progress.solving_turnstile_success"
+                                "windsurf.turnstile.success"
                             )
                             return True
 
@@ -227,7 +227,7 @@ class WindsurfAuthManager:
                 signup_button = tab.ele("text=Sign up")
                 if signup_button and not signup_button.attr("disabled"):
                     yield "[*] " + self.locale.get_text(
-                        "windsurf.progress.solving_turnstile_success"
+                        "windsurf.turnstile.success"
                     )
                     return True
 

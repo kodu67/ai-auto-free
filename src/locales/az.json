@@ -21,8 +21,11 @@
             "title": "Yeniləmə Mövcuddur",
             "message": "Yeni versiya ({}) yayımlandı. Zəhmət olmasa ən son versiyanı yükləyin:",
             "download": "Yükləmə Linki: {}",
-            "changelog": "Dəyişikliklər:\n{}"
-        }
+            "changelog": "Dəyişikliklər",
+            "current_version": "Mövcud Sürüm: {}",
+            "latest_version": "En Son Sürüm: {}"
+        },
+        "donate": "Bağış (Bitcoin): {}"
     },
     "settings": {
         "title": "Tənzimləmələr",
@@ -96,6 +99,12 @@
             "filling_form": "Qeydiyyat forması doldurulur...",
             "completing_onboarding": "Onboarding mərhələləri tamamlanır...",
             "getting_token": "Token alınır..."
+        },
+        "turnstile": {
+            "starting": "Turnstile doğrulaması başlatılır...",
+            "started": "Doğrulama başlatıldı",
+            "success": "Doğrulama başarılı",
+            "failed": "Doğrulama başarısız"
         },
         "steps": {
             "email": "Müvəqqəti email ünvanı alınır...",

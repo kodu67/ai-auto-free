@@ -21,8 +21,11 @@
             "title": "有可用更新",
             "message": "新版本 ({}) 已发布。请下载最新版本：",
             "download": "下载链接：{}",
-            "changelog": "更新日志：\n{}"
-        }
+            "changelog": "更新日志",
+            "current_version": "当前版本：{}",
+            "latest_version": "最新版本：{}"
+        },
+        "donate": "支持比特币：{}"
     },
     "settings": {
         "title": "设置",
@@ -96,6 +99,12 @@
             "filling_form": "正在填写注册表单...",
             "completing_onboarding": "正在完成入门步骤...",
             "getting_token": "正在获取令牌..."
+        },
+        "turnstile": {
+            "starting": "正在开始 Turnstile 验证...",
+            "started": "验证已开始",
+            "success": "验证成功",
+            "failed": "验证失败"
         },
         "steps": {
             "email": "正在获取临时邮箱地址...",

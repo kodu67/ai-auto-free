@@ -7,20 +7,14 @@ This tool is developed for research and educational purposes only. Please use re
 
 ## Supported Languages
 
-| Language    |
-|------------|
-| English    |
-| Русский    |
-| 中文       |
-| Türkçe     |
-| Azərbaycan |
+| Language |  |  |  |  |
+|----------|----------|----------|----------|----------|
+| English  | Русский  | 中文     | Türkçe   | Azərbaycan |
 
 ## Screenshots
 
 ### Windows
-![AI Free](public/windows.png)
-___
-![AI Free](public/windows-2.png)
+![AI Free](public/gui.png)
 ___
 ### Requirements:
 - Make sure you have installed the latest version of the software (https://github.com/kodu67/ai-auto-free/releases/latest)

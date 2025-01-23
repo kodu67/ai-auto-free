@@ -21,8 +21,11 @@
             "title": "Update Available",
             "message": "New version ({}) has been released. Please download the latest version:",
             "download": "Download Link: {}",
-            "changelog": "Changelog:\n{}"
-        }
+            "changelog": "Changelog",
+            "current_version": "Current Version: {}",
+            "latest_version": "Latest Version: {}"
+        },
+        "donate": "Donate (Bitcoin): {}"
     },
     "settings": {
         "title": "Settings",
@@ -96,6 +99,12 @@
             "filling_form": "Filling registration form...",
             "completing_onboarding": "Completing onboarding steps...",
             "getting_token": "Getting token..."
+        },
+        "turnstile": {
+            "starting": "Starting Turnstile verification...",
+            "started": "Verification started",
+            "success": "Verification successful",
+            "failed": "Verification failed"
         },
         "steps": {
             "email": "Getting temporary email address...",

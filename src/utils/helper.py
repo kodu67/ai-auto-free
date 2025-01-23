@@ -3,8 +3,6 @@ import random
 import platform
 from .locale import Locale
 from config.settings import Settings
-from rich.panel import Panel
-from rich.console import Console
 
 
 class Helper:
@@ -34,26 +32,21 @@ class Helper:
         """Ekranı temizler"""
         return "-CLEAR-"
 
-    def show_bitcoin(self):
+    def get_bitcoin(self):
         """Bitcoin bağış bilgisini gösterir"""
         btc = self.settings.get_bitcoin_address()
-        console = Console()
-        console.print(Panel.fit(self.locale.get_text("bitcoin").format("(" + btc["name"] + ")\n " + btc["address"]),
-            title="💰 Donate",
-            border_style="yellow",
-        ))
+        return self.locale.get_text("bitcoin").format("(" + btc["name"] + ")\n " + btc["address"])
 
     def show_repo(self):
         """Repo adresini gösterir"""
         return self.settings.get_repo_address()
 
-    def show_landing_message(self):
+    def get_landing_message(self):
         """Giriş mesajını gösterir"""
         landing_message = self.settings.get_settings_json().get("message", {}).get(
                 self.locale.current_locale, ""
             )
-        if landing_message:
-            print(f" {landing_message}\n")
+        return landing_message
 
     def show_main(self):
         """Ana menüyü gösterir"""
@@ -64,7 +57,6 @@ class Helper:
         return input("\n   " + self.locale.get_text("common.press_enter"))
 
     def kill_cursor_processes(self):
-        return
         try:
             if self.is_windows():
                 import subprocess

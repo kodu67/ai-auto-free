@@ -141,7 +141,9 @@ class MainUI(AutoFreeApp):
                  sg.Input(key='-DETAIL-USAGE-', size=(70,1), readonly=True)],
                 [sg.Text(f"{self.locale.get_text('common.date')}:", size=(10,1)),
                  sg.Input(key='-DETAIL-DATE-', size=(70,1), readonly=True)]
-            ], key='-DETAIL-FRAME-', visible=False, expand_x=True)]
+            ], key='-DETAIL-FRAME-', visible=False, expand_x=True)],
+            [sg.Text(self.helper.get_landing_message(), key='-LANDING-MESSAGE-', size=(80, None), visible=True, expand_x=True, text_color='#467246')],
+            [sg.Input(self.locale.get_text("menu.donate").format(self.settings.get_bitcoin_address()["name"] + ": " + self.settings.get_bitcoin_address()["address"]), size=(80, 1), visible=True, readonly=True, text_color='#471E45', border_width=0)]
         ]
 
         # Sağ panel - Konsol
@@ -309,7 +311,7 @@ class MainUI(AutoFreeApp):
                 )
 
                 if update_info["changelog"]:
-                    update_message += f"\n\n{self.locale.get_text('updates.changelog')}:\n{update_info['changelog']}"
+                    update_message += f"\n\n{self.locale.get_text('updates.changelog')}\n{update_info['changelog']}"
 
                 sg.popup_scrolled(
                     update_message,
