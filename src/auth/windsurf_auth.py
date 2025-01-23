@@ -19,79 +19,53 @@ class WindsurfAuthManager:
         self.logger = Logger()
         self.email_service = EmailService()
 
-        self.create_account()
-
     def _generate_email(self):
         """Geçici e-posta adresi oluşturur"""
-        print("[*] " + self.locale.get_text("windsurf.steps.email"))
+        yield "[*] " + self.locale.get_text("windsurf.steps.email")
 
         try:
             email, _ = self.email_service.create_email()
-            if email:
-                self.email_service.email = email
-                return email
-            else:
-                print(self.locale.get_text("logging.email_error"))
-                return None
+            return email
         except Exception as e:
-            print(f"{self.locale.get_text('logging.email_error')}: {str(e)}")
+            yield f"{self.locale.get_text('logging.email_error')}: {e}"
             return None
-
-    def _get_firebase_token(self, tab, max_attempts=3, retry_interval=2):
-        """Firebase token'ını alır"""
-        attempts = 0
-
-        while attempts < max_attempts:
-            try:
-                # JavaScript kodunu çalıştır
-                result = tab.run_js(
-                    f"{self.firebase_token_script}\nreturn getFirebaseAuthToken();"
-                )
-                token_data = json.loads(result)
-                return token_data.get("accessToken")
-
-            except Exception:
-                attempts += 1
-                if attempts < max_attempts:
-                    print(
-                        f"{self.locale.get_text('cursor.process.token_retry')} {attempts}: "
-                        f"{self.locale.get_text('cursor.process.token_not_found')}, "
-                        f"{retry_interval} {self.locale.get_text('cursor.process.seconds_retry')}"
-                    )
-                    time.sleep(retry_interval)
-                else:
-                    print(
-                        f"{self.locale.get_text('cursor.process.max_attempts')} ({max_attempts})"
-                    )
-
-        return None
 
     def _print_token_usage(self):
         """Token kullanım talimatlarını yazdırır"""
-        print("\n" + self.locale.get_text("windsurf.token_usage.title"))
-        print(self.locale.get_text("windsurf.token_usage.step1"))
-        print(self.locale.get_text("windsurf.token_usage.step2"))
-        print(self.locale.get_text("windsurf.token_usage.step3"))
-        print(self.locale.get_text("windsurf.token_usage.command"))
-        print(self.locale.get_text("windsurf.token_usage.step4"))
-        print(self.locale.get_text("windsurf.token_usage.step5"))
-        print()
+        yield "\n" + self.locale.get_text("windsurf.token_usage.title")
+        yield self.locale.get_text("windsurf.token_usage.step1")
+        yield self.locale.get_text("windsurf.token_usage.step2")
+        yield self.locale.get_text("windsurf.token_usage.step3")
+        yield self.locale.get_text("windsurf.token_usage.command")
+        yield self.locale.get_text("windsurf.token_usage.step4")
+        yield self.locale.get_text("windsurf.token_usage.step5")
+        yield self.locale.get_text("windsurf.token_usage.command")
 
     def create_account(self):
         """Windsurf hesabı oluşturur"""
-        print("[*] " + self.locale.get_text("windsurf.progress.creating_account"))
+        yield "[*] " + self.locale.get_text("windsurf.progress.creating_account")
         self.firebase_token = None  # Token'ı saklamak için
 
         # Email oluştur
-        email = self._generate_email()
-        if not email:
-            return False, self.locale.get_text("windsurf.errors.email_creation")
+        email_generator = self._generate_email()
+        try:
+            while True:
+                yield next(email_generator)
+        except StopIteration as e:
+            email = e.value
+            if not email:
+                return False, self.locale.get_text("windsurf.errors.email_creation")
 
         # Şifre oluştur
         password = self.helper.generate_password()
 
         browser_service = BrowserService()
-        browser = browser_service.init_browser()
+        browser_generator = browser_service.init_browser()
+        try:
+            while True:
+                yield next(browser_generator)
+        except StopIteration as e:
+            browser = e.value
 
         try:
             tab = browser.latest_tab
@@ -102,7 +76,7 @@ class WindsurfAuthManager:
             time.sleep(0.5)
             tab.get(self.REGISTER_URL)
 
-            print("[*] " + self.locale.get_text("windsurf.progress.filling_form"))
+            yield "[*] " + self.locale.get_text("windsurf.progress.filling_form")
             time.sleep(random.uniform(1, 3))
 
             TOKEN_URL = "identitytoolkit.googleapis.com"
@@ -138,8 +112,13 @@ class WindsurfAuthManager:
             time.sleep(random.uniform(1, 2))
 
             # Cloudflare Turnstile çözümü
-            if not self.handle_turnstile(tab):
-                return False, self.locale.get_text("windsurf.errors.turnstile")
+            handle_turnstile_generator = self.handle_turnstile(tab)
+            try:
+                while True:
+                    yield next(handle_turnstile_generator)
+            except StopIteration as e:
+                if not e.value:
+                    return False, self.locale.get_text("windsurf.errors.turnstile")
 
             # Kayıt ol butonuna tıkla
             signup_button = tab.ele("text=Sign up", timeout=10)
@@ -159,26 +138,24 @@ class WindsurfAuthManager:
             tab.listen.stop()  # Dinlemeyi durdur
 
             if not tab.wait.ele_displayed("@placeholder=Your first name", timeout=20):
-                print(
-                    "Windsurf registration server is unavailable. Please try again later."
-                )
-                print("Retrying... (5 sec)")
+                yield "Windsurf registration server is unavailable. Please try again later."
+                yield "Retrying... (5 sec)"
                 time.sleep(5)
-                self.helper.clear_screen()
-                return self.create_account()
+                yield self.helper.clear_screen()
+                yield from self.create_account()
 
             tab.get(self.PROFILE_URL)
             time.sleep(3)  # Sayfanın yüklenmesini bekle
 
-            print("[*] " + self.locale.get_text("windsurf.progress.getting_token"))
+            yield "[*] " + self.locale.get_text("windsurf.progress.getting_token")
 
             if self.firebase_token:
                 # Token'ı panoya kopyala
                 pyperclip.copy(self.firebase_token)
-                print("[*] " + self.locale.get_text("windsurf.token_copied"))
+                yield "[*] " + self.locale.get_text("windsurf.token_copied")
 
                 # Token kullanım talimatlarını göster
-                self._print_token_usage()
+                yield from self._print_token_usage()
 
                 account_data = {
                     "email": email,
@@ -186,43 +163,38 @@ class WindsurfAuthManager:
                     "token": self.firebase_token,
                 }
 
-                self.logger.log_account("windsurf", account_data)
+                yield from self.logger.log_account("Windsurf", account_data)
+                yield "-REFRESH-TABLE-"
 
-                print("\n" + self.locale.get_text("windsurf.registration_success"))
-                print("\n" + self.locale.get_text("common.account_info"))
-                print("+" + "-" * 50 + "+")
-                print(f"| {self.locale.get_text('common.email'):<15}: {email:<32} |")
-                print(
-                    f"| {self.locale.get_text('common.password'):<15}: {password:<32} |"
-                )
-                print("+" + "-" * 50 + "+")
-                print("\n" + "+" + "-" * 70 + "+")
-                print(f"| {self.locale.get_text('windsurf.token_copied'):<15} |")
-                print("+" + "-" * 70 + "+")
+                yield "\n" + self.locale.get_text("windsurf.registration_success")
+                yield "\n" + self.locale.get_text("common.account_info")
+                yield "+" + "-" * 50 + "+"
+                yield f"| {self.locale.get_text('common.email'):<15}: {email:<32} |"
+                yield f"| {self.locale.get_text('common.password'):<15}: {password:<32} |"
+                yield "+" + "-" * 50 + "+"
+                yield "\n" + "+" + "-" * 70 + "+"
+                yield f"| {self.locale.get_text('windsurf.token_copied'):<15} |"
+                yield "+" + "-" * 70 + "+"
             else:
-                print("[!] Token alınamadı")
+                yield "[!] Token not found"
 
         except Exception as e:
-            print(f"{self.locale.get_text('logging.account_error')}: {str(e)}")
-            print("\n   " + self.locale.get_text("windsurf.registration_failed"))
-            print(f"   {self.locale.get_text('common.error')}: {str(e)}")
+            yield f"{self.locale.get_text('logging.account_error')}: {str(e)}"
+            yield "\n   " + self.locale.get_text("windsurf.registration_failed")
+            yield f"   {self.locale.get_text('common.error')}: {str(e)}"
 
         finally:
-            self.helper.press_enter()
             browser_service.quit()
 
     def handle_turnstile(self, tab):
-        print("[*] " + self.locale.get_text("windsurf.progress.solving_turnstile"))
+        yield "[*] " + self.locale.get_text("windsurf.progress.solving_turnstile")
         try:
             while True:
                 # Başarı durumunu kontrol et
                 response_input = tab.ele("@name=cf-turnstile-response")
                 if response_input and response_input.attr("value"):
-                    print(
-                        "[*] "
-                        + self.locale.get_text(
-                            "windsurf.progress.solving_turnstile_success"
-                        )
+                    yield "[*] " + self.locale.get_text(
+                        "windsurf.progress.solving_turnstile_success"
                     )
                     return True
 
@@ -236,11 +208,8 @@ class WindsurfAuthManager:
 
                     if iframe:
                         time.sleep(3)
-                        print(
-                            "[*] "
-                            + self.locale.get_text(
-                                "windsurf.progress.solving_turnstile"
-                            )
+                        yield "[*] " + self.locale.get_text(
+                            "windsurf.progress.solving_turnstile"
                         )
                         time.sleep(random.uniform(1, 3))
                         iframe.click()
@@ -249,27 +218,22 @@ class WindsurfAuthManager:
                         # Başarı kontrolü
                         response_input = tab.ele("@name=cf-turnstile-response")
                         if response_input and response_input.attr("value"):
-                            print(
-                                "[*] "
-                                + self.locale.get_text(
-                                    "windsurf.progress.solving_turnstile_success"
-                                )
+                            yield "[*] " + self.locale.get_text(
+                                "windsurf.progress.solving_turnstile_success"
                             )
                             return True
 
                 # Sign up butonu aktif mi kontrol et
                 signup_button = tab.ele("text=Sign up")
                 if signup_button and not signup_button.attr("disabled"):
-                    print(
-                        "[*] "
-                        + self.locale.get_text(
-                            "windsurf.progress.solving_turnstile_success"
-                        )
+                    yield "[*] " + self.locale.get_text(
+                        "windsurf.progress.solving_turnstile_success"
                     )
                     return True
 
                 time.sleep(random.uniform(1, 2))
+                break
 
         except Exception as e:
-            print(f"{self.locale.get_text('windsurf.errors.turnstile')}: {e}")
+            yield f"{self.locale.get_text('windsurf.errors.turnstile')}: {e}"
             return False

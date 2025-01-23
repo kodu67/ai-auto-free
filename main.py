@@ -14,15 +14,14 @@ SRC_DIR = os.path.join(BASE_DIR, "src")
 if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
-from core.app import AutoFreeApp
+from core.ui import MainUI
 
 
 def main():
     try:
-        app = AutoFreeApp()
-        if app.check_admin_rights():
-            app.check_settings()
-            app.run()
+        ui = MainUI()
+        if ui.check_admin_rights():
+            ui.run()
         else:
             sys.exit(1)
     except SystemExit:

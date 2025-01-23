@@ -1,36 +1,42 @@
 from datetime import datetime
-
+from config.user_settings import UserSettings
+import os
+import json
 
 class Logger:
     def __init__(self):
-        self.log_file = "ai-auto-free-accounts.txt"
+        self.user_settings = UserSettings()
+        self.accounts_file = os.path.join(self.user_settings.settings_dir, "accounts.json")
+
+    def _get_accounts(self):
+        try:
+            with open(self.accounts_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            return []
+
+    def get_accounts_as_list(self):
+        accounts = self._get_accounts()
+        return [
+            [account["service"], account["email"], account["password"], account["token"], "", account["date"]]
+            for account in reversed(accounts)
+        ]
 
     def log_account(self, service_type, account_data):
-        """Log account information
-
-        Args:
-            service_type (str): Service type ("cursor" or "windsurf")
-            account_data (dict): Account information
-        """
         try:
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            accounts = self._get_accounts()
+            date = datetime.now().strftime("%Y-%m-%d %H:%M")
 
-            # Format the log message
-            if service_type == "cursor":
-                log_message = f"[{current_time}] CURSOR ACCOUNT\n"
-                log_message += f"Email: {account_data['email']}\n"
-                log_message += f"Password: {account_data['password']}\n"
-            else:
-                log_message = f"[{current_time}] WINDSURF ACCOUNT\n"
-                log_message += f"Email: {account_data['email']}\n"
-                log_message += f"Password: {account_data['password']}\n"
-                log_message += f"Token: {account_data['token']}\n"
+            accounts.append({
+                "service": service_type,
+                "email": account_data["email"],
+                "date": date,
+                "password": account_data["password"],
+                "token": account_data["token"]
+            })
 
-            log_message += "-" * 50 + "\n"
-
-            # Append to file
-            with open(self.log_file, "a", encoding="utf-8") as f:
-                f.write(log_message)
+            with open(self.accounts_file, "w", encoding="utf-8") as f:
+                json.dump(accounts, f, indent=4)
 
         except Exception as e:
-            print(f"Error while logging account: {str(e)}")
+            yield f"Error while logging account: {str(e)}"

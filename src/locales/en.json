@@ -2,13 +2,27 @@
     "menu": {
         "title": "AI Auto Free",
         "select_option": "Please select an option:",
-        "cursor": "1. Cursor Account Creator",
-        "windsurf": "2. Windsurf Account Creator",
-        "machine_id_reset": "3. Reset Machine ID",
-        "settings": "4. Settings",
-        "exit": "5. Exit",
+        "cursor": "Cursor Account Creator",
+        "windsurf": "Windsurf Account Creator",
+        "machine_id_reset": "Reset Machine ID",
+        "settings": "Settings",
+        "exit": "Exit",
         "back": "Back",
-        "invalid_choice": "Invalid choice! Press Enter to continue..."
+        "invalid_choice": "Invalid choice!",
+        "table_headers": [
+            "Name",
+            "Email",
+            "Password",
+            "Token",
+            "Limit",
+            "Creation Date"
+        ],
+        "updates": {
+            "title": "Update Available",
+            "message": "New version ({}) has been released. Please download the latest version:",
+            "download": "Download Link: {}",
+            "changelog": "Changelog:\n{}"
+        }
     },
     "settings": {
         "title": "Settings",
@@ -16,6 +30,7 @@
         "enabled": "Enabled",
         "disabled": "Disabled",
         "saved": "Settings saved successfully!",
+        "failed": "Failed to save IMAP",
         "back": "Back to Main Menu",
         "yes": "Yes",
         "no": "No",
@@ -23,7 +38,8 @@
         "select_option": "Your choice (Y/N)",
         "email_verifier": "Email Verifier",
         "select_email_verifier": "Select email verifier",
-        "imap_settings": "IMAP Settings"
+        "imap_settings": "IMAP Settings",
+        "save_imap": "Save IMAP"
     },
     "bitcoin": "Support with Bitcoin: {}",
     "cursor": {
@@ -79,9 +95,7 @@
             "creating_account": "Creating account...",
             "filling_form": "Filling registration form...",
             "completing_onboarding": "Completing onboarding steps...",
-            "getting_token": "Getting token and copying to clipboard...",
-            "solving_turnstile": "Solving Cloudflare verification...",
-            "solving_turnstile_success": "Cloudflare verification successful"
+            "getting_token": "Getting token..."
         },
         "steps": {
             "email": "Getting temporary email address...",
@@ -109,7 +123,8 @@
             "about_form": "Failed to skip about user form",
             "source_form": "Failed to skip source form",
             "editor_page": "Failed to load editor page",
-            "token": "Failed to get token"
+            "token": "Failed to get token",
+            "turnstile": "Cloudflare verification failed"
         },
         "token_usage": {
             "title": "How to Use the Token?",
@@ -135,11 +150,16 @@
     },
     "common": {
         "press_enter": "Press Enter to continue...",
-        "error": "Error",
-        "account_info": "Account Information",
+        "service": "Service",
         "email": "Email",
         "password": "Password",
-        "token": "Token"
+        "token": "Token",
+        "date": "Date",
+        "error": "Error",
+        "account_info": "Account Information",
+        "copied": "Copied!",
+        "switch_account": "Switch Account",
+        "switch_account_success": "Your account has been switched! Please restart Cursor."
     },
     "logging": {
         "email_error": "Email creation error",
@@ -159,6 +179,7 @@
         "imap_error": "IMAP Error: {}"
     },
     "updates": {
+        "title": "Update Available!",
         "available": "New Update Available!",
         "message": "New version ({}) has been released. Please download the latest version:",
         "download": "Download Link: {}",
@@ -170,6 +191,6 @@
     },
     "usage_stats": {
         "title": "Last Created Cursor Account Usage",
-        "requests": "requests"
+        "requests": "Requests"
     }
 }

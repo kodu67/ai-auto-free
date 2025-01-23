@@ -49,15 +49,10 @@ class CursorMachineIDResetter:
             return False
 
     def _format_id_change(self, id_type, old_id, new_id):
-        RED = "\033[91m"
-        GREEN = "\033[92m"
-        RESET = "\033[0m"
-        STRIKE = "\033[9m"
-
         return (
             f"{id_type}:\n"
-            f"  - : {RED}{STRIKE}{old_id}{RESET}\n"
-            f"  + : {GREEN}{new_id}{RESET}"
+            f"  - : {old_id}\n"
+            f"  + : {new_id}"
         )
 
     def reset_machine_id(self):

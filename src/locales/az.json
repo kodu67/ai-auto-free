@@ -2,30 +2,46 @@
     "menu": {
         "title": "AI Auto Free",
         "select_option": "Zəhmət olmasa bir seçim edin:",
-        "cursor": "1. Cursor Hesab Yaradıcı",
-        "windsurf": "2. Windsurf Hesab Yaradıcı",
-        "machine_id_reset": "3. Maşın ID-ni Sıfırla",
-        "settings": "4. Parametrlər",
-        "exit": "5. Çıxış",
+        "cursor": "Cursor Hesab Yaradıcı",
+        "windsurf": "Windsurf Hesab Yaradıcı",
+        "machine_id_reset": "Machine ID Sıfırla",
+        "settings": "Tənzimləmələr",
+        "exit": "Çıxış",
         "back": "Geri",
-        "invalid_choice": "Yanlış seçim! Davam etmək üçün Enter düyməsini basın..."
+        "invalid_choice": "Yanlış seçim!",
+        "table_headers": [
+            "Ad",
+            "Email",
+            "Şifrə",
+            "Token",
+            "Limit",
+            "Yaradılma Tarixi"
+        ],
+        "updates": {
+            "title": "Yeniləmə Mövcuddur",
+            "message": "Yeni versiya ({}) yayımlandı. Zəhmət olmasa ən son versiyanı yükləyin:",
+            "download": "Yükləmə Linki: {}",
+            "changelog": "Dəyişikliklər:\n{}"
+        }
     },
     "settings": {
-        "title": "Parametrlər",
+        "title": "Tənzimləmələr",
         "browser_visibility": "Brauzer Görünürlüyü",
         "enabled": "Aktiv",
         "disabled": "Deaktiv",
-        "saved": "Parametrlər uğurla yadda saxlanıldı!",
-        "back": "Əsas Menyuya Qayıt",
+        "saved": "Tənzimləmələr uğurla yadda saxlanıldı!",
+        "failed": "IMAP yadda saxlanılarkən xəta baş verdi",
+        "back": "Ana Menyuya Qayıt",
         "yes": "Bəli",
         "no": "Xeyr",
-        "current_value": "Cari dəyər",
+        "current_value": "Mövcud dəyər",
         "select_option": "Seçiminiz (Y/N)",
-        "email_verifier": "E-poçt Doğrulayıcı",
-        "select_email_verifier": "E-poçt doğrulayıcı seçin",
-        "imap_settings": "IMAP Parametrləri"
+        "email_verifier": "Email Doğrulayıcı",
+        "select_email_verifier": "Email doğrulayıcı seçin",
+        "imap_settings": "IMAP Tənzimləmələri",
+        "save_imap": "IMAP-ı Yadda Saxla"
     },
-    "bitcoin": "Bitcoin ilə Destek Ol: {}",
+    "bitcoin": "Bitcoin ilə Dəstək: {}",
     "cursor": {
         "starting": "Cursor hesabı yaradılır...",
         "browser_init": "Brauzer başladılır...",
@@ -33,7 +49,7 @@
         "registration_failed": "Qeydiyyat uğursuz oldu",
         "verification_code": "Doğrulama kodu alınır...",
         "account_info": "Hesab Məlumatları",
-        "email": "E-poçt",
+        "email": "Email",
         "password": "Şifrə",
         "process": {
             "cursor_closed": "Cursor bağlandı.",
@@ -46,10 +62,10 @@
             "getting_token": "Cookie alınır...",
             "token_retry": "Cəhd",
             "token_not_found": "Token tapılmadı",
-            "seconds_retry": "saniyə sonra təkrar cəhd ediləcək",
+            "seconds_retry": "saniyə sonra yenidən cəhd ediləcək",
             "max_attempts": "Maksimum cəhd sayına çatıldı",
             "token_error": "Cookie alına bilmədi",
-            "retry_in": "Təkrar cəhd müddəti",
+            "retry_in": "Yenidən cəhd müddəti",
             "seconds": "saniyə",
             "registration_page_error": "Qeydiyyat səhifəsi açıla bilmədi",
             "processing": "İşlənir...",
@@ -61,12 +77,13 @@
             "usage_limit_error": "İstifadə limiti alına bilmədi"
         },
         "auth": {
-            "no_update_values": "Avtomatik giriş uğursuz oldu, çünki əvvəllər daxil olmamısınız",
+            "no_update_values": "Avtomatik giriş uğursuz oldu çünki əvvəllər giriş etməmisiniz",
             "update_success": "{} uğurla yeniləndi",
             "update_failed": "{} tapılmadı və ya dəyər dəyişmədi",
             "db_error": "Verilənlər bazası xətası",
             "error": "Xəta baş verdi"
-        }
+        },
+        "completed": "Proses tamamlandı"
     },
     "windsurf": {
         "starting": "Windsurf hesabı yaradılır...",
@@ -77,47 +94,46 @@
         "progress": {
             "creating_account": "Hesab yaradılır...",
             "filling_form": "Qeydiyyat forması doldurulur...",
-            "completing_onboarding": "Başlanğıc mərhələləri tamamlanır...",
-            "getting_token": "Token alınır və buferə kopyalanır...",
-            "solving_turnstile": "Cloudflare doğrulaması həll edilir...",
-            "solving_turnstile_success": "Cloudflare dogrulaması uğurlu oldu"
+            "completing_onboarding": "Onboarding mərhələləri tamamlanır...",
+            "getting_token": "Token alınır..."
         },
         "steps": {
-            "email": "Müvəqqəti e-poçt ünvanı alınır...",
+            "email": "Müvəqqəti email ünvanı alınır...",
             "password": "Güclü şifrə yaradılır...",
             "browser": "Brauzer başladılır...",
             "register_page": "Qeydiyyat səhifəsi açılır...",
             "form": "Form doldurulur...",
             "submit": "Qeydiyyat forması göndərilir...",
             "profile": "Profil səhifəsinə yönləndirilir...",
-            "token": "Firebase tokeni alınır...",
+            "token": "Firebase token alınır...",
             "complete": "Proses tamamlanır...",
             "close": "Brauzer bağlanır..."
         },
         "errors": {
-            "email_creation": "E-poçt yaradıla bilmədi",
-            "email_field": "E-poçt sahəsi tapılmadı",
+            "email_creation": "Email yaradıla bilmədi",
+            "email_field": "Email sahəsi tapılmadı",
             "password_fields": "Şifrə sahələri tapılmadı",
-            "terms_checkbox": "Şərtlər qutucuğu tapılmadı",
+            "terms_checkbox": "Şərtlər checkbox-ı tapılmadı",
             "signup_button": "Qeydiyyat düyməsi tapılmadı",
             "firstname_input": "Ad sahəsi tapılmadı",
             "lastname_input": "Soyad sahəsi tapılmadı",
-            "continue_button": "Davam düyməsi tapılmadı",
+            "continue_button": "Davam et düyməsi tapılmadı",
             "skip_button": "Keç düyməsi tapılmadı",
-            "name_form": "Ad forması yüklənə və ya doldurula bilmədi",
+            "name_form": "Ad forması yüklənə bilmədi və ya doldurularkən xəta baş verdi",
             "about_form": "İstifadəçi haqqında forması keçilə bilmədi",
             "source_form": "Mənbə forması keçilə bilmədi",
             "editor_page": "Redaktor səhifəsi yüklənə bilmədi",
-            "token": "Token alına bilmədi"
+            "token": "Token alına bilmədi",
+            "turnstile": "Cloudflare doğrulaması uğursuz oldu"
         },
         "token_usage": {
             "title": "Token Necə İstifadə Edilir?",
-            "step1": "1. Windsurf'u açın",
+            "step1": "1. Windsurf-u açın",
             "step2": "2. Windows/Linux üçün Ctrl+Shift+P, MacOS üçün Cmd+Shift+P düymələrinə basın",
-            "step3": "3. Əmr panelinə yazın:",
+            "step3": "3. Açılan əmr panelinə bunu yazın:",
             "command": "    Windsurf: Provide Auth Token (Backup Login)",
-            "step4": "4. Bu əmr brauzer pəncərəsi açacaq, onu bağlaya bilərsiniz",
-            "step5": "5. Kopyalanmış tokeni Windsurf'də token daxiletmə sahəsinə yapışdırın"
+            "step4": "4. Bu əmr brauzer pəncərəsi açacaq, pəncərəni bağlaya bilərsiniz",
+            "step5": "5. Windsurf-də açılan token daxiletmə sahəsinə kopyalanan tokeni yapışdırın"
         }
     },
     "machine_id_reset": {
@@ -129,19 +145,24 @@
     },
     "admin": {
         "need_admin": "Bu proqram administrator səlahiyyətləri tələb edir.",
-        "requesting": "Administrator səlahiyyətləri tələb edilir...",
+        "requesting": "Administrator səlahiyyətləri istənilir...",
         "failed": "Administrator səlahiyyətləri alına bilmədi. Zəhmət olmasa proqramı administrator kimi işə salın."
     },
     "common": {
-        "press_enter": "Davam etmək üçün Enter düyməsinə basın...",
+        "press_enter": "Davam etmək üçün Enter-ə basın...",
+        "service": "Servis",
+        "email": "Email",
+        "password": "Şifrə",
+        "token": "Token",
+        "date": "Tarix",
         "error": "Xəta",
         "account_info": "Hesab Məlumatları",
-        "email": "E-poçt",
-        "password": "Şifrə",
-        "token": "Token"
+        "copied": "Kopyalandı!",
+        "switch_account": "Hesab Dəyişikliyi",
+        "switch_account_success": "Hesabınız dəyişdirildi! Cursor-u yenidən başladın."
     },
     "logging": {
-        "email_error": "E-poçt yaratma xətası",
+        "email_error": "Email yaratma xətası",
         "token_error": "Token alma xətası",
         "account_error": "Hesab yaratma xətası",
         "name_form_attempt": "Ad forması cəhdi {}"
@@ -149,7 +170,7 @@
     "email": {
         "processing": "İşlənir...",
         "verification_failed": "Doğrulama kodu alına bilmədi",
-        "almost_success": "Demək olar ki, tamamlandı",
+        "almost_success": "Proses demək olar ki tamamlandı",
         "execution_failed": "İcra uğursuz oldu",
         "imap_connecting": "IMAP-a qoşulur: {}",
         "imap_login_success": "IMAP Giriş uğurlu oldu",
@@ -158,9 +179,10 @@
         "imap_error": "IMAP Xətası: {}"
     },
     "updates": {
+        "title": "Yeniləmə Mövcuddur!",
         "available": "Yeni Yeniləmə Mövcuddur!",
-        "message": "Yeni versiya ({}) yayımlanıb. Zəhmət olmasa ən son versiyanı endirin:",
-        "download": "Endirmə Linki: {}",
+        "message": "Yeni versiya ({}) yayımlandı. Zəhmət olmasa ən son versiyanı yükləyin:",
+        "download": "Yükləmə Linki: {}",
         "current_version": "Mövcud Versiya: {}",
         "latest_version": "Ən Son Versiya: {}"
     },
@@ -169,6 +191,6 @@
     },
     "usage_stats": {
         "title": "Son Yaradılan Cursor Hesabının İstifadəsi",
-        "requests": "sorğu"
+        "requests": "Sorğu"
     }
 }

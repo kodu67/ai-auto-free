@@ -14,7 +14,6 @@ common_datas = [
     ('src/locales', 'locales'),
     ('src/scripts/turnstilePatch', 'scripts/turnstilePatch'),
     ('src/config/settings.json', 'src/config'),
-    ('ai-auto-free-accounts.txt', '.'),
     ('src', 'src')  # Tüm src klasörünü kopyala
 ]
 
@@ -30,6 +29,7 @@ common_imports = [
     'src.auth.windsurf_auth',
     'src.auth.machine_id',
     'src.core.app',
+    'src.core.ui',
     'src.services.browser_service',
     'src.services.email_service',
     'src.utils.helper',
@@ -41,23 +41,22 @@ common_imports = [
     'src.config.constants',
     'src.config.settings',
     'elevate',
-    'rich',
-    'questionary',
+    'PySimpleGUI',
 ]
 
 # İşletim sistemine göre özelleştirmeler
 if sys.platform == "win32":
     datas = common_datas + [(WINDOWS_ICON, 'assets/icons')]
     icon = WINDOWS_ICON
-    console = True
+    console = False
 elif sys.platform == "darwin":
     datas = common_datas + [(MACOS_ICON, 'assets/icons')]
     icon = MACOS_ICON
-    console = True
+    console = False
 elif sys.platform.startswith("linux"):
     datas = common_datas + [(WINDOWS_ICON, 'assets/icons')]
     icon = WINDOWS_ICON
-    console = True
+    console = False
 else:
     raise Exception(f"Desteklenmeyen işletim sistemi: {sys.platform}")
 
@@ -115,8 +114,8 @@ if sys.platform == "darwin":
         icon=MACOS_ICON,
         bundle_identifier='com.aifree.app',
         info_plist={
-            'CFBundleShortVersionString': '1.1.1',
-            'CFBundleVersion': '1.1.1',
+            'CFBundleShortVersionString': '1.1.3',
+            'CFBundleVersion': '1.1.3',
             'NSHighResolutionCapable': 'True'
         }
     )

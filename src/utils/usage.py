@@ -8,16 +8,6 @@ class UsageChecker:
         self.cache_file = os.path.join(self.cache_dir, "session_token.txt")
         self.api_url = "https://www.cursor.com/api/usage"
 
-    def _cursor_get_cached_token(self):
-        """Cache'den token'ı okur"""
-        try:
-            if os.path.exists(self.cache_file):
-                with open(self.cache_file, "r", encoding="utf-8") as f:
-                    return f.read().strip()
-            return None
-        except Exception:
-            return None
-
     def _cursor_get_user_id(self, raw_token):
         """Token'dan user ID'yi ayıklar"""
         try:
@@ -25,15 +15,14 @@ class UsageChecker:
         except Exception:
             return None
 
-    def cursor_get_usage(self):
+    def cursor_get_usage(self, raw_token):
         """Cursor kullanım istatistiklerini getirir"""
-        raw_token = self._cursor_get_cached_token()
         if not raw_token:
-            return None
+            return ""
 
         user_id = self._cursor_get_user_id(raw_token)
         if not user_id:
-            return None
+            return ""
 
         headers = {
             "Cookie": f"WorkosCursorSessionToken={raw_token}",
@@ -61,10 +50,10 @@ class UsageChecker:
                     ):  # Sadece kullanılmış modelleri göster
                         renamed_model = model.replace("gpt-4", "Premium").replace("gpt-3.5-turbo", "Free")
                         usage_info[renamed_model] = f"{stats['numRequests']}/{stats['maxRequestUsage']}"
-
-                return usage_info
+                usage_str = "\n".join([f"{model}: {usage}" for model, usage in usage_info.items()])
+                return usage_str
             else:
-                return None
+                return ""
 
         except Exception:
-            return None
+            return ""

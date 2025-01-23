@@ -32,10 +32,7 @@ class Helper:
 
     def clear_screen(self):
         """Ekranı temizler"""
-        if self.is_windows():
-            os.system("cls")
-        else:
-            os.system("clear")
+        return "-CLEAR-"
 
     def show_bitcoin(self):
         """Bitcoin bağış bilgisini gösterir"""
@@ -67,6 +64,7 @@ class Helper:
         return input("\n   " + self.locale.get_text("common.press_enter"))
 
     def kill_cursor_processes(self):
+        return
         try:
             if self.is_windows():
                 import subprocess
@@ -106,3 +104,68 @@ class Helper:
                 return os.geteuid() == 0
         except Exception as e:
             raise e
+
+    def check_updates(self):
+        """Güncellemeleri kontrol eder ve güncelleme bilgilerini döndürür"""
+        try:
+            settings_json = self.settings.get_settings_json()
+            current_version = self.settings.get_version()
+            latest_version = settings_json.get("latest_version")
+            update_info = {
+                "needs_update": False,
+                "latest_version": latest_version,
+                "changelog": "",
+                "features": {
+                    "cursor": {"enabled": True, "maintenance": False, "message": ""},
+                    "windsurf": {"enabled": True, "maintenance": False, "message": ""}
+                }
+            }
+
+            # Versiyon kontrolü
+            if latest_version and current_version:
+                # Versiyon numaralarını parçalara ayır
+                current_parts = [int(x) for x in current_version.split('.')]
+                latest_parts = [int(x) for x in latest_version.split('.')]
+
+                # Eksik parçaları 0 ile doldur
+                while len(current_parts) < 3:
+                    current_parts.append(0)
+                while len(latest_parts) < 3:
+                    latest_parts.append(0)
+
+                # Versiyon karşılaştırması
+                for i in range(3):
+                    if latest_parts[i] > current_parts[i]:
+                        update_info["needs_update"] = True
+                        update_info["changelog"] = (
+                            settings_json.get("changelog", {})
+                            .get(latest_version, {})
+                            .get(self.locale.current_locale, "")
+                        )
+                        break
+                    elif latest_parts[i] < current_parts[i]:
+                        break
+
+            # Özellik kontrolü
+            features = settings_json.get("features", {})
+
+            # Cursor kontrolü
+            cursor_settings = features.get("cursor", {})
+            if not cursor_settings.get("enabled", True):
+                update_info["features"]["cursor"]["enabled"] = False
+            if cursor_settings.get("maintenance", False):
+                update_info["features"]["cursor"]["maintenance"] = True
+                update_info["features"]["cursor"]["message"] = cursor_settings["maintenance_message"][self.locale.current_locale]
+
+            # Windsurf kontrolü
+            windsurf_settings = features.get("windsurf", {})
+            if not windsurf_settings.get("enabled", True):
+                update_info["features"]["windsurf"]["enabled"] = False
+            if windsurf_settings.get("maintenance", False):
+                update_info["features"]["windsurf"]["maintenance"] = True
+                update_info["features"]["windsurf"]["message"] = windsurf_settings["maintenance_message"][self.locale.current_locale]
+
+            return update_info
+
+        except Exception as e:
+            raise Exception(f"Update Check Error: {str(e)}")

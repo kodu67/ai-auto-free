@@ -30,7 +30,7 @@ class EmailService:
         # IMAP kullanılıyorsa IMAP ayarlarından e-posta oluştur
         if self.user_settings.get_email_verifier() == "imap":
             imap_settings = self.user_settings.get_imap_settings()
-            email_parts = imap_settings["user"].split("@")
+            email_parts = imap_settings["IMAP_USER"].split("@")
             random_suffix = ''.join(random.choices(string.ascii_letters + string.digits, k=5))
 
             # Gmail.com'u bazen googlemail.com'a çevir
@@ -40,7 +40,7 @@ class EmailService:
 
             # Rastgele nokta ekle (düşük olasılıkla)
             username = email_parts[0]
-            if len(username) > 3 and random.random() < 0.2:
+            if len(username) > 3 and random.random() < 0.5:
                 pos = random.randint(1, len(username)-1)
                 username = username[:pos] + "." + username[pos:]
 
@@ -61,21 +61,31 @@ class EmailService:
                 return self.email, result.get("token")
             return None, None
 
-        except Exception:
-            return None, None
+        except Exception as e:
+            raise e
 
     def get_verification_code(self, email, max_attempts=20, delay=2):
         """E-posta adresine gelen doğrulama kodunu alır"""
-        print(self.locale.get_text("email.processing"))
+        yield self.locale.get_text("email.processing")
 
         try:
             if self.user_settings.get_email_verifier() == "imap":
-                return self._get_verification_code_imap(email, max_attempts, delay)
+                imap_generator = self._get_verification_code_imap(email, max_attempts, delay)
+                while True:
+                    try:
+                        yield next(imap_generator)
+                    except StopIteration as e:
+                        return e.value
             else:
-                return self._get_verification_code_api(email, max_attempts, delay)
+                api_generator = self._get_verification_code_api(email, max_attempts, delay)
+                while True:
+                    try:
+                        yield next(api_generator)
+                    except StopIteration as e:
+                        return e.value
 
         except Exception as e:
-            print(self.locale.get_text("email.execution_failed") + " - " + str(e))
+            yield self.locale.get_text("email.execution_failed") + " - " + str(e)
             return None
 
     def _get_verification_code_api(self, email, max_attempts, delay):
@@ -96,14 +106,12 @@ class EmailService:
                         line = line.strip()
                         # Sadece rakamlardan oluşan 6 haneli kodları ara
                         if line.isdigit() and len(line) == 6:
-                            print(
-                                f"{self.locale.get_text('cursor.verification_code')}: {line}"
-                            )
+                            yield f"{self.locale.get_text('cursor.verification_code')}: {line}"
                             return line
 
             time.sleep(delay)
 
-        print(self.locale.get_text("email.verification_failed"))
+        yield self.locale.get_text("email.verification_failed")
         return None
     def _get_verification_code_imap(self, email, max_attempts, delay):
         """IMAP üzerinden doğrulama kodunu alır"""
@@ -111,10 +119,10 @@ class EmailService:
 
         for attempt in range(max_attempts):
             try:
-                print(self.locale.get_text("email.imap_connecting").format(imap_settings["server"]))
-                imap = imaplib.IMAP4_SSL(imap_settings["server"], int(imap_settings["port"]))
-                imap.login(imap_settings["user"], imap_settings["password"])
-                print(self.locale.get_text("email.imap_login_success"))
+                yield self.locale.get_text("email.imap_connecting").format(imap_settings["IMAP_SERVER"])
+                imap = imaplib.IMAP4_SSL(imap_settings["IMAP_SERVER"], int(imap_settings["IMAP_PORT"]))
+                imap.login(imap_settings["IMAP_USER"], imap_settings["IMAP_PASS"])
+                yield self.locale.get_text("email.imap_login_success")
                 imap.select("INBOX")
 
                 # Son 1 dakika içinde gelen okunmamış mesajları ara
@@ -124,7 +132,7 @@ class EmailService:
                 message_nums = messages[0].split()
 
                 if not message_nums:
-                    print(self.locale.get_text("email.imap_new_mail_waiting").format(attempt + 1, max_attempts))
+                    yield self.locale.get_text("email.imap_new_mail_waiting").format(attempt + 1, max_attempts)
                     imap.close()
                     imap.logout()
                     time.sleep(delay)
@@ -143,7 +151,7 @@ class EmailService:
                                 content = part.get_payload(decode=True).decode()
                                 body_text += content + "\n"
                             except Exception as e:
-                                print(self.locale.get_text("email.imap_content_read_error").format(str(e)))
+                                yield self.locale.get_text("email.imap_content_read_error").format(str(e))
                                 continue
                 else:
                     body_text = email_body.get_payload(decode=True).decode()
@@ -153,7 +161,7 @@ class EmailService:
 
                 if codes:
                     code = codes[0]
-                    print(f"{self.locale.get_text('cursor.verification_code')}: {code}")
+                    yield f"{self.locale.get_text('cursor.verification_code')}: {code}"
 
                     # Mesajı sil
                     imap.store(latest_email_id, '+FLAGS', '\\Deleted')
@@ -168,8 +176,8 @@ class EmailService:
                 time.sleep(delay)
 
             except Exception as e:
-                print(self.locale.get_text("email.imap_error").format(str(e)))
+                yield self.locale.get_text("email.imap_error").format(str(e))
                 return None
 
-        print(self.locale.get_text("email.verification_failed"))
+        yield self.locale.get_text("email.verification_failed")
         return None

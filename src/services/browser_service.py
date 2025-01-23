@@ -11,14 +11,19 @@ class BrowserService:
         self.user_settings = UserSettings()
         self.browser = None
         # Test modunda değilse veya kullanıcı görünmez mod seçtiyse headless olsun
-        self.headless = not constants.TEST_MODE and not self.user_settings.is_browser_visible()
+        self.headless = not self.user_settings.is_browser_visible()
         self.helper = Helper()
 
     def init_browser(self):
         """Tarayıcıyı başlatır"""
-        co = self._get_browser_options()
-        self.browser = Chromium(co)
-        return self.browser
+        co_generator = self._get_browser_options()
+        try:
+            while True:
+                yield next(co_generator)
+        except StopIteration as e:
+            co = e.value
+            self.browser = Chromium(co)
+            return self.browser
 
     def _get_browser_options(self):
         """Tarayıcı ayarlarını yapılandırır"""
@@ -28,11 +33,15 @@ class BrowserService:
         co.set_pref("intl.accept_languages", "en-US")
 
         try:
-            extension_path = self._get_extension_path()
-            if extension_path:
-                co.add_extension(extension_path)
+            extension_path_generator = self._get_extension_path()
+            while True:
+                yield next(extension_path_generator)
+        except StopIteration as e:
+            if e.value:
+                co.add_extension(e.value)
         except Exception as e:
-            print(f"Chrome extension loading error: {e}")
+            yield f"Chrome extension loading error: {e}"
+
 
         co.set_user_agent(
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -76,7 +85,7 @@ class BrowserService:
             return extension_path
 
         except Exception as e:
-            print(f"Extension path error: {str(e)}")
+            yield f"Extension path error: {str(e)}"
             return None
 
     def quit(self):

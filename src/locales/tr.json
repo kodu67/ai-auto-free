@@ -4,11 +4,25 @@
         "select_option": "Lütfen bir seçenek seçin:",
         "cursor": "Cursor Hesap Oluşturucu",
         "windsurf": "Windsurf Hesap Oluşturucu",
-        "machine_id_reset": "Cursor Makine Kimliğini Sıfırla",
+        "machine_id_reset": "Machine ID Sıfırla",
         "settings": "Ayarlar",
         "exit": "Çıkış",
         "back": "Geri",
-        "invalid_choice": "Geçersiz seçim. Devam etmek için Enter'a basın..."
+        "invalid_choice": "Geçersiz seçim!",
+        "table_headers": [
+            "İsim",
+            "Email",
+            "Şifre",
+            "Token",
+            "Limit",
+            "Oluşturma Tarihi"
+        ],
+        "updates": {
+            "title": "Güncelleme Mevcut",
+            "message": "Yeni sürüm ({}) yayınlandı. Lütfen en son sürümü indirin:",
+            "download": "İndirme Linki: {}",
+            "changelog": "Değişiklikler:\n{}"
+        }
     },
     "settings": {
         "title": "Ayarlar",
@@ -16,6 +30,7 @@
         "enabled": "Aktif",
         "disabled": "Pasif",
         "saved": "Ayarlar başarıyla kaydedildi!",
+        "failed": "IMAP kaydedilirken bir hata oluştu",
         "back": "Ana Menüye Dön",
         "yes": "Evet",
         "no": "Hayır",
@@ -23,7 +38,8 @@
         "select_option": "Seçiminiz (Y/N)",
         "email_verifier": "Email Doğrulayıcı",
         "select_email_verifier": "Email doğrulayıcı seçiniz",
-        "imap_settings": "IMAP Ayarları"
+        "imap_settings": "IMAP Ayarları",
+        "save_imap": "IMAP'i Kaydet"
     },
     "bitcoin": "Bitcoin ile Destek Ol: {}",
     "cursor": {
@@ -52,16 +68,16 @@
             "retry_in": "Tekrar deneme süresi",
             "seconds": "saniye",
             "registration_page_error": "Kayıt sayfası açılamadı",
-            "processing": "İşlem devam ediyor...",
-            "operation_failed": "İşlem başarısız",
+            "processing": "İşleniyor...",
+            "operation_failed": "İşlem başarısız oldu",
             "email_unavailable": "Bu email kullanılamaz",
-            "verification_code_error": "Doğrulama kodu girişi başarısız",
+            "verification_code_error": "Doğrulama kodu girilemedi",
             "waiting": "Bekleniyor...",
             "usage_limit": "Kullanım limiti",
             "usage_limit_error": "Kullanım limiti alınamadı"
         },
         "auth": {
-            "no_update_values": "Otomatik giriş yapılamadı çünkü daha önce giriş yapmadınız",
+            "no_update_values": "Otomatik giriş başarısız oldu çünkü daha önce giriş yapmadınız",
             "update_success": "{} başarıyla güncellendi",
             "update_failed": "{} bulunamadı veya değer değişmedi",
             "db_error": "Veritabanı hatası",
@@ -70,7 +86,7 @@
         "completed": "İşlem tamamlandı"
     },
     "windsurf": {
-        "starting": "Windsurf hesap oluşturma başlatılıyor...",
+        "starting": "Windsurf hesabı oluşturuluyor...",
         "registration_success": "Windsurf hesabı başarıyla oluşturuldu",
         "registration_failed": "Windsurf hesabı oluşturulamadı",
         "account_info": "Hesap Bilgileri",
@@ -79,9 +95,7 @@
             "creating_account": "Hesap oluşturuluyor...",
             "filling_form": "Kayıt formu dolduruluyor...",
             "completing_onboarding": "Onboarding adımları tamamlanıyor...",
-            "getting_token": "Token alınıyor ve panoya kopyalanıyor...",
-            "solving_turnstile": "Cloudflare doğrulaması çözülüyor...",
-            "solving_turnstile_success": "Cloudflare dogrulaması başarılı"
+            "getting_token": "Token alınıyor..."
         },
         "steps": {
             "email": "Geçici e-posta adresi alınıyor...",
@@ -136,11 +150,16 @@
     },
     "common": {
         "press_enter": "Devam etmek için Enter'a basın...",
-        "error": "Hata",
-        "account_info": "Hesap Bilgileri",
+        "service": "Servis",
         "email": "E-posta",
         "password": "Şifre",
-        "token": "Token"
+        "token": "Token",
+        "date": "Tarih",
+        "error": "Hata",
+        "account_info": "Hesap Bilgileri",
+        "copied": "Kopyalandı!",
+        "switch_account": "Hesap Geçişi",
+        "switch_account_success": "Hesabınız değiştirildi! Cursor'u yeniden başlatın."
     },
     "logging": {
         "email_error": "E-posta oluşturma hatası",
@@ -160,6 +179,7 @@
         "imap_error": "IMAP Hatası: {}"
     },
     "updates": {
+        "title": "Güncelleme Mevcut!",
         "available": "Yeni Güncelleme Mevcut!",
         "message": "Yeni sürüm ({}) yayınlandı. Lütfen en son sürümü indirin:",
         "download": "İndirme Linki: {}",
@@ -167,10 +187,10 @@
         "latest_version": "En Son Sürüm: {}"
     },
     "features": {
-        "disabled": "{} özelliği şu anda devre dışı."
+        "disabled": "{} özelliği şuanda devre dışı."
     },
     "usage_stats": {
-        "title": "Son Oluşturulan Cursor Hesabının Kullanımı",
-        "requests": "istek"
+        "title": "Son Oluşturulan Cursor Hesabı Kullanımı",
+        "requests": "İstek"
     }
 }
