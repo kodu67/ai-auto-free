@@ -4,10 +4,11 @@
         "select_option": "Zəhmət olmasa bir seçim edin:",
         "cursor": "Cursor Hesab Yaradıcı",
         "windsurf": "Windsurf Hesab Yaradıcı",
-        "machine_id_reset": "Machine ID Sıfırla",
-        "settings": "Tənzimləmələr",
+        "machine_id_reset": "Maşın ID-ni Sıfırla",
+        "settings": "Parametrlər",
         "exit": "Çıxış",
         "back": "Geri",
+        "copy": "Kopyala",
         "invalid_choice": "Yanlış seçim!",
         "table_headers": [
             "Ad",
@@ -19,59 +20,57 @@
         ],
         "updates": {
             "title": "Yeniləmə Mövcuddur",
-            "message": "Yeni versiya ({}) yayımlandı. Zəhmət olmasa ən son versiyanı yükləyin:",
+            "message": "Yeni versiya ({}) buraxıldı. Zəhmət olmasa son versiyanı yükləyin:",
             "download": "Yükləmə Linki: {}",
-            "changelog": "Dəyişikliklər",
-            "current_version": "Mövcud Sürüm: {}",
-            "latest_version": "En Son Sürüm: {}"
+            "changelog": "Dəyişikliklər:\n{}"
         },
         "donate": "Bağış (Bitcoin): {}"
     },
     "settings": {
-        "title": "Tənzimləmələr",
-        "browser_visibility": "Brauzer Görünürlüyü",
+        "title": "Parametrlər",
+        "browser_visibility": "Brauzer Görünüşü",
         "enabled": "Aktiv",
-        "disabled": "Deaktiv",
-        "saved": "Tənzimləmələr uğurla yadda saxlanıldı!",
-        "failed": "IMAP yadda saxlanılarkən xəta baş verdi",
-        "back": "Ana Menyuya Qayıt",
+        "disabled": "Passiv",
+        "saved": "Parametrlər uğurla yadda saxlanıldı!",
+        "failed": "IMAP saxlanılarkən bir səhv baş verdi",
+        "back": "Əsas Menyuyə Qayıt",
         "yes": "Bəli",
         "no": "Xeyr",
-        "current_value": "Mövcud dəyər",
-        "select_option": "Seçiminiz (Y/N)",
+        "current_value": "Cari dəyər",
+        "select_option": "Seçiminiz (B/X)",
         "email_verifier": "Email Doğrulayıcı",
         "select_email_verifier": "Email doğrulayıcı seçin",
-        "imap_settings": "IMAP Tənzimləmələri",
-        "save_imap": "IMAP-ı Yadda Saxla"
+        "imap_settings": "IMAP Parametrləri",
+        "save_imap": "IMAP-i Saxla"
     },
-    "bitcoin": "Bitcoin ilə Dəstək: {}",
+    "bitcoin": "Bitcoin ilə Dəstək Ol: {}",
     "cursor": {
-        "starting": "Cursor hesabı yaradılır...",
-        "browser_init": "Brauzer başladılır...",
+        "starting": "Cursor hesab yaradılması başlanır...",
+        "browser_init": "Brauzer başlanır...",
         "registration_success": "Qeydiyyat uğurla tamamlandı",
-        "registration_failed": "Qeydiyyat uğursuz oldu",
+        "registration_failed": "Cursor hesabı yaradılarkən bir səhv baş verdi",
         "verification_code": "Doğrulama kodu alınır...",
         "account_info": "Hesab Məlumatları",
-        "email": "Email",
+        "email": "E-poçt",
         "password": "Şifrə",
         "process": {
             "cursor_closed": "Cursor bağlandı.",
             "turnstile": {
-                "starting": "Turnstile doğrulaması başladılır...",
-                "started": "Doğrulama başladı",
-                "success": "Doğrulama uğurlu oldu",
-                "failed": "Doğrulama uğursuz oldu"
+                "starting": "Turnstile doğrulaması başlanır...",
+                "started": "Doğrulama başlandı",
+                "success": "Doğrulama uğurlu",
+                "failed": "Doğrulama uğursuz"
             },
             "getting_token": "Cookie alınır...",
             "token_retry": "Cəhd",
             "token_not_found": "Token tapılmadı",
             "seconds_retry": "saniyə sonra yenidən cəhd ediləcək",
-            "max_attempts": "Maksimum cəhd sayına çatıldı",
+            "max_attempts": "Maksimum cəhd sayı çatıldı",
             "token_error": "Cookie alına bilmədi",
             "retry_in": "Yenidən cəhd müddəti",
             "seconds": "saniyə",
             "registration_page_error": "Qeydiyyat səhifəsi açıla bilmədi",
-            "processing": "İşlənir...",
+            "processing": "Emal edilir...",
             "operation_failed": "Əməliyyat uğursuz oldu",
             "email_unavailable": "Bu email istifadə edilə bilməz",
             "verification_code_error": "Doğrulama kodu daxil edilə bilmədi",
@@ -83,123 +82,177 @@
             "no_update_values": "Avtomatik giriş uğursuz oldu çünki əvvəllər giriş etməmisiniz",
             "update_success": "{} uğurla yeniləndi",
             "update_failed": "{} tapılmadı və ya dəyər dəyişmədi",
-            "db_error": "Verilənlər bazası xətası",
-            "error": "Xəta baş verdi"
+            "db_error": "Veritabanı səhvi",
+            "error": "Səhv baş verdi"
         },
-        "completed": "Proses tamamlandı"
+        "completed": "Əməliyyat tamamlandı"
     },
     "windsurf": {
         "starting": "Windsurf hesabı yaradılır...",
         "registration_success": "Windsurf hesabı uğurla yaradıldı",
         "registration_failed": "Windsurf hesabı yaradıla bilmədi",
         "account_info": "Hesab Məlumatları",
-        "token_copied": "Token buferə kopyalandı",
+        "token_copied": "Token panoya kopyalandı",
         "progress": {
             "creating_account": "Hesab yaradılır...",
-            "filling_form": "Qeydiyyat forması doldurulur...",
-            "completing_onboarding": "Onboarding mərhələləri tamamlanır...",
+            "filling_form": "Qeydiyyat formu doldurulur...",
+            "completing_onboarding": "Onboarding addımları tamamlanır...",
             "getting_token": "Token alınır..."
         },
         "turnstile": {
-            "starting": "Turnstile doğrulaması başlatılır...",
-            "started": "Doğrulama başlatıldı",
-            "success": "Doğrulama başarılı",
-            "failed": "Doğrulama başarısız"
+            "starting": "Turnstile doğrulaması başlanır...",
+            "started": "Doğrulama başlandı",
+            "success": "Doğrulama uğurlu",
+            "failed": "Doğrulama uğursuz"
         },
         "steps": {
-            "email": "Müvəqqəti email ünvanı alınır...",
+            "email": "Müvəqqəti e-poçt ünvanı alınır...",
             "password": "Güclü şifrə yaradılır...",
-            "browser": "Brauzer başladılır...",
+            "browser": "Brauzer başlanır...",
             "register_page": "Qeydiyyat səhifəsi açılır...",
             "form": "Form doldurulur...",
-            "submit": "Qeydiyyat forması göndərilir...",
+            "submit": "Qeydiyyat formu göndərilir...",
             "profile": "Profil səhifəsinə yönləndirilir...",
-            "token": "Firebase token alınır...",
-            "complete": "Proses tamamlanır...",
+            "token": "Firebase token'i alınır...",
+            "complete": "Əməliyyat tamamlanır...",
             "close": "Brauzer bağlanır..."
         },
         "errors": {
-            "email_creation": "Email yaradıla bilmədi",
-            "email_field": "Email sahəsi tapılmadı",
+            "email_creation": "E-poçt yaradıla bilmədi",
+            "email_field": "E-poçt sahəsi tapılmadı",
             "password_fields": "Şifrə sahələri tapılmadı",
-            "terms_checkbox": "Şərtlər checkbox-ı tapılmadı",
-            "signup_button": "Qeydiyyat düyməsi tapılmadı",
+            "terms_checkbox": "İstifadə şərtləri checkbox'u tapılmadı",
+            "signup_button": "Sign up düyməsi tapılmadı",
             "firstname_input": "Ad sahəsi tapılmadı",
             "lastname_input": "Soyad sahəsi tapılmadı",
             "continue_button": "Davam et düyməsi tapılmadı",
             "skip_button": "Keç düyməsi tapılmadı",
-            "name_form": "Ad forması yüklənə bilmədi və ya doldurularkən xəta baş verdi",
-            "about_form": "İstifadəçi haqqında forması keçilə bilmədi",
-            "source_form": "Mənbə forması keçilə bilmədi",
-            "editor_page": "Redaktor səhifəsi yüklənə bilmədi",
+            "name_form": "Ad formu yüklənə bilmədi və ya doldurularkən səhv baş verdi",
+            "about_form": "About user formu keçilə bilmədi",
+            "source_form": "Source formu keçilə bilmədi",
+            "editor_page": "Editor səhifəsi yüklənə bilmədi",
             "token": "Token alına bilmədi",
             "turnstile": "Cloudflare doğrulaması uğursuz oldu"
         },
         "token_usage": {
             "title": "Token Necə İstifadə Edilir?",
-            "step1": "1. Windsurf-u açın",
+            "step1": "1. Windsurf'u açın",
             "step2": "2. Windows/Linux üçün Ctrl+Shift+P, MacOS üçün Cmd+Shift+P düymələrinə basın",
-            "step3": "3. Açılan əmr panelinə bunu yazın:",
+            "step3": "3. Açılan komanda palitrasında yazın:",
             "command": "    Windsurf: Provide Auth Token (Backup Login)",
-            "step4": "4. Bu əmr brauzer pəncərəsi açacaq, pəncərəni bağlaya bilərsiniz",
-            "step5": "5. Windsurf-də açılan token daxiletmə sahəsinə kopyalanan tokeni yapışdırın"
+            "step4": "4. Bu komanda brauzer pəncərəsini açacaq, pəncərəni bağlaya bilərsiniz",
+            "step5": "5. Windsurf'də açılan token giriş sahəsinə, kopyalanan tokeni yapışdırın"
         }
     },
     "machine_id_reset": {
-        "starting": "Maşın ID-si sıfırlama prosesi başladılır...",
-        "success": "Maşın ID-si uğurla sıfırlandı",
-        "failed": "Maşın ID-si sıfırlana bilmədi",
-        "need_admin": "Bu əməliyyat administrator səlahiyyətləri tələb edir",
+        "starting": "Maşın ID sıfırlama prosesi başlanır...",
+        "success": "Maşın ID uğurla sıfırlandı",
+        "failed": "Maşın ID sıfırlana bilmədi",
+        "need_admin": "Bu əməliyyat administrator hüquqları tələb edir",
         "changes": "Dəyişikliklər:"
     },
     "admin": {
-        "need_admin": "Bu proqram administrator səlahiyyətləri tələb edir.",
-        "requesting": "Administrator səlahiyyətləri istənilir...",
-        "failed": "Administrator səlahiyyətləri alına bilmədi. Zəhmət olmasa proqramı administrator kimi işə salın."
+        "need_admin": "Bu proqram administrator hüquqları tələb edir.",
+        "requesting": "Administrator hüquqları tələb olunur...",
+        "failed": "Administrator hüquqları alına bilmədi. Zəhmət olmasa proqramı administrator olaraq çalışdırın."
     },
     "common": {
-        "press_enter": "Davam etmək üçün Enter-ə basın...",
-        "service": "Servis",
-        "email": "Email",
+        "press_enter": "Davam etmək üçün Enter'a basın...",
+        "service": "Xidmət",
+        "email": "E-poçt",
         "password": "Şifrə",
         "token": "Token",
         "date": "Tarix",
-        "error": "Xəta",
+        "error": "Səhv",
         "account_info": "Hesab Məlumatları",
         "copied": "Kopyalandı!",
         "switch_account": "Hesab Dəyişikliyi",
-        "switch_account_success": "Hesabınız dəyişdirildi! Cursor-u yenidən başladın."
+        "switch_account_success": "Hesabınız dəyişdirildi! Cursor'u yenidən başladın."
     },
     "logging": {
-        "email_error": "Email yaratma xətası",
-        "token_error": "Token alma xətası",
-        "account_error": "Hesab yaratma xətası",
-        "name_form_attempt": "Ad forması cəhdi {}"
+        "email_error": "E-poçt yaradılması səhvi",
+        "token_error": "Token alınması səhvi",
+        "account_error": "Hesab yaradılması səhvi",
+        "name_form_attempt": "Ad formu cəhdi {}"
     },
     "email": {
-        "processing": "İşlənir...",
+        "processing": "Emal edilir...",
         "verification_failed": "Doğrulama kodu alına bilmədi",
-        "almost_success": "Proses demək olar ki tamamlandı",
-        "execution_failed": "İcra uğursuz oldu",
+        "almost_success": "Proses demək olar ki, tamamlandı",
+        "execution_failed": "Proses uğursuz oldu",
         "imap_connecting": "IMAP-a qoşulur: {}",
-        "imap_login_success": "IMAP Giriş uğurlu oldu",
-        "imap_new_mail_waiting": "Yeni məktub gözlənilir... (Cəhd {}/{})",
-        "imap_content_read_error": "Məzmun oxuma xətası: {}",
-        "imap_error": "IMAP Xətası: {}"
+        "imap_login_success": "IMAP Giriş uğurlu",
+        "imap_new_mail_waiting": "Yeni mail gözlənilir... (Cəhd {}/{})",
+        "imap_content_read_error": "Məzmun oxuma səhvi: {}",
+        "imap_error": "IMAP Səhvi: {}"
     },
     "updates": {
         "title": "Yeniləmə Mövcuddur!",
         "available": "Yeni Yeniləmə Mövcuddur!",
-        "message": "Yeni versiya ({}) yayımlandı. Zəhmət olmasa ən son versiyanı yükləyin:",
+        "message": "Yeni versiya ({}) buraxıldı. Zəhmət olmasa son versiyanı yükləyin:",
         "download": "Yükləmə Linki: {}",
-        "current_version": "Mövcud Versiya: {}",
-        "latest_version": "Ən Son Versiya: {}"
+        "current_version": "Cari Versiya: {}",
+        "latest_version": "Ən Son Versiya: {}",
+        "changelog": "Dəyişikliklər:"
     },
     "features": {
-        "disabled": "{} funksiyası hazırda deaktivdir."
+        "disabled": "{} xüsusiyyəti hazırda deaktivdir."
     },
     "usage_stats": {
         "title": "Son Yaradılan Cursor Hesabının İstifadəsi",
-        "requests": "Sorğu"
+        "requests": "Sorğular"
+    },
+    "proxy": {
+        "start": {
+            "starting": "Proxy başlanır...",
+            "success": "Proxy uğurla başlandı",
+            "error": "Proxy başlana bilmədi: {error}",
+            "info": "MƏLUMAT"
+        },
+        "stop": {
+            "stopping": "Proxy dayandırılır...",
+            "success": "Proxy uğurla dayandırıldı",
+            "error": "Proxy dayandırılarkən səhv baş verdi: {error}"
+        },
+        "restore": {
+            "starting": "Proxy parametrləri bərpa edilir...",
+            "success": "Proxy parametrləri bərpa edildi",
+            "error": "Proxy parametrləri bərpa edilərkən səhv baş verdi: {error}"
+        },
+        "setup": {
+            "windows": {
+                "configuring": "Windows proxy parametrləri konfiqurasiya edilir...",
+                "saved_settings": "Cari proxy parametrləri yadda saxlanıldı",
+                "applied_settings": "Yeni proxy parametrləri tətbiq edildi",
+                "updating": "Sistem proxy parametrləri yenilənir...",
+                "updated": "Sistem proxy parametrləri yeniləndi"
+            },
+            "macos": {
+                "configuring": "MacOS proxy parametrləri konfiqurasiya edilir...",
+                "saved_settings": "Cari proxy parametrləri yadda saxlanıldı",
+                "applied_settings": "Yeni proxy parametrləri tətbiq edildi"
+            },
+            "linux": {
+                "configuring": "Linux proxy parametrləri konfiqurasiya edilir...",
+                "saved_settings": "Cari proxy parametrləri yadda saxlanıldı",
+                "applied_settings": "Yeni proxy parametrləri tətbiq edildi"
+            }
+        },
+        "intercept": {
+            "loaded": "Cursor interceptor yükləndi",
+            "request_caught": "Sorğu tutuldu: {url}",
+            "checksum_modified": "X-Cursor-Checksum dəyişdirildi",
+            "response_received": "Cavab alındı: {url}",
+            "request_success": "Sorğu uğurlu",
+            "request_failed": "Sorğu uğursuz: {status}"
+        },
+        "already_running": "Proxy artıq işləyir",
+        "already_stopped": "Proxy artıq dayandırılıb",
+        "checking_certificate": "Sertifikat yoxlanılır...",
+        "certificate_not_installed": "Proxy sertifikatı quraşdırılmayıb",
+        "buttons": {
+            "start": "Proxy Başlat",
+            "stop": "Proxy Dayandır"
+        }
     }
 }

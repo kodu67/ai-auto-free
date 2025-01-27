@@ -8,6 +8,7 @@
         "settings": "Settings",
         "exit": "Exit",
         "back": "Back",
+        "copy": "Copy",
         "invalid_choice": "Invalid choice!",
         "table_headers": [
             "Name",
@@ -21,9 +22,7 @@
             "title": "Update Available",
             "message": "New version ({}) has been released. Please download the latest version:",
             "download": "Download Link: {}",
-            "changelog": "Changelog",
-            "current_version": "Current Version: {}",
-            "latest_version": "Latest Version: {}"
+            "changelog": "Changes:\n{}"
         },
         "donate": "Donate (Bitcoin): {}"
     },
@@ -33,8 +32,8 @@
         "enabled": "Enabled",
         "disabled": "Disabled",
         "saved": "Settings saved successfully!",
-        "failed": "Failed to save IMAP",
-        "back": "Back to Main Menu",
+        "failed": "An error occurred while saving IMAP",
+        "back": "Return to Main Menu",
         "yes": "Yes",
         "no": "No",
         "current_value": "Current value",
@@ -49,13 +48,13 @@
         "starting": "Starting Cursor account creation...",
         "browser_init": "Initializing browser...",
         "registration_success": "Registration completed successfully",
-        "registration_failed": "Registration failed",
+        "registration_failed": "An error occurred while creating Cursor account",
         "verification_code": "Getting verification code...",
         "account_info": "Account Information",
         "email": "Email",
         "password": "Password",
         "process": {
-            "cursor_closed": "Cursor has been closed.",
+            "cursor_closed": "Cursor closed.",
             "turnstile": {
                 "starting": "Starting Turnstile verification...",
                 "started": "Verification started",
@@ -65,33 +64,33 @@
             "getting_token": "Getting cookie...",
             "token_retry": "Attempt",
             "token_not_found": "Token not found",
-            "seconds_retry": "seconds before retry",
+            "seconds_retry": "will retry in seconds",
             "max_attempts": "Maximum attempts reached",
-            "token_error": "Failed to get cookie",
-            "retry_in": "Retrying in",
+            "token_error": "Could not get cookie",
+            "retry_in": "Retry in",
             "seconds": "seconds",
-            "registration_page_error": "Failed to open registration page",
+            "registration_page_error": "Could not open registration page",
             "processing": "Processing...",
             "operation_failed": "Operation failed",
-            "email_unavailable": "This email is not available",
-            "verification_code_error": "Failed to enter verification code",
+            "email_unavailable": "This email is unavailable",
+            "verification_code_error": "Could not enter verification code",
             "waiting": "Waiting...",
             "usage_limit": "Usage limit",
-            "usage_limit_error": "Failed to get usage limit"
+            "usage_limit_error": "Could not get usage limit"
         },
         "auth": {
-            "no_update_values": "Auto-login failed because you have not logged in before",
+            "no_update_values": "Auto login failed because you haven't logged in before",
             "update_success": "{} updated successfully",
             "update_failed": "{} not found or value unchanged",
             "db_error": "Database error",
             "error": "An error occurred"
         },
-        "completed": "Process completed"
+        "completed": "Operation completed"
     },
     "windsurf": {
-        "starting": "Starting Windsurf account creation...",
+        "starting": "Creating Windsurf account...",
         "registration_success": "Windsurf account created successfully",
-        "registration_failed": "Failed to create Windsurf account",
+        "registration_failed": "Could not create Windsurf account",
         "account_info": "Account Information",
         "token_copied": "Token copied to clipboard",
         "progress": {
@@ -119,7 +118,7 @@
             "close": "Closing browser..."
         },
         "errors": {
-            "email_creation": "Failed to create email",
+            "email_creation": "Could not create email",
             "email_field": "Email field not found",
             "password_fields": "Password fields not found",
             "terms_checkbox": "Terms checkbox not found",
@@ -128,15 +127,15 @@
             "lastname_input": "Last name input not found",
             "continue_button": "Continue button not found",
             "skip_button": "Skip button not found",
-            "name_form": "Failed to load or fill name form",
-            "about_form": "Failed to skip about user form",
-            "source_form": "Failed to skip source form",
-            "editor_page": "Failed to load editor page",
-            "token": "Failed to get token",
+            "name_form": "Name form could not be loaded or filled",
+            "about_form": "Could not skip about user form",
+            "source_form": "Could not skip source form",
+            "editor_page": "Editor page could not be loaded",
+            "token": "Could not get token",
             "turnstile": "Cloudflare verification failed"
         },
         "token_usage": {
-            "title": "How to Use the Token?",
+            "title": "How to Use Token?",
             "step1": "1. Open Windsurf",
             "step2": "2. Press Ctrl+Shift+P for Windows/Linux, Cmd+Shift+P for MacOS",
             "step3": "3. Type in the command palette:",
@@ -147,15 +146,15 @@
     },
     "machine_id_reset": {
         "starting": "Starting machine ID reset process...",
-        "success": "Machine ID reset successful",
-        "failed": "Failed to reset machine ID",
+        "success": "Machine ID reset successfully",
+        "failed": "Could not reset machine ID",
         "need_admin": "This operation requires administrator privileges",
         "changes": "Changes:"
     },
     "admin": {
         "need_admin": "This program requires administrator privileges.",
         "requesting": "Requesting administrator privileges...",
-        "failed": "Failed to get administrator privileges. Please run the program as administrator."
+        "failed": "Could not get administrator privileges. Please run the program as administrator."
     },
     "common": {
         "press_enter": "Press Enter to continue...",
@@ -167,8 +166,8 @@
         "error": "Error",
         "account_info": "Account Information",
         "copied": "Copied!",
-        "switch_account": "Switch Account",
-        "switch_account_success": "Your account has been switched! Please restart Cursor."
+        "switch_account": "Account Switch",
+        "switch_account_success": "Your account has been switched! Restart Cursor."
     },
     "logging": {
         "email_error": "Email creation error",
@@ -178,9 +177,9 @@
     },
     "email": {
         "processing": "Processing...",
-        "verification_failed": "Failed to get verification code",
-        "almost_success": "Almost completed",
-        "execution_failed": "Execution failed",
+        "verification_failed": "Could not get verification code",
+        "almost_success": "Process almost complete",
+        "execution_failed": "Process failed",
         "imap_connecting": "Connecting to IMAP: {}",
         "imap_login_success": "IMAP Login successful",
         "imap_new_mail_waiting": "Waiting for new mail... (Attempt {}/{})",
@@ -193,7 +192,8 @@
         "message": "New version ({}) has been released. Please download the latest version:",
         "download": "Download Link: {}",
         "current_version": "Current Version: {}",
-        "latest_version": "Latest Version: {}"
+        "latest_version": "Latest Version: {}",
+        "changelog": "Changes:"
     },
     "features": {
         "disabled": "{} feature is currently disabled."
@@ -201,5 +201,58 @@
     "usage_stats": {
         "title": "Last Created Cursor Account Usage",
         "requests": "Requests"
+    },
+    "proxy": {
+        "start": {
+            "starting": "Starting proxy...",
+            "success": "Proxy started successfully",
+            "error": "Could not start proxy: {error}",
+            "info": "INFO"
+        },
+        "stop": {
+            "stopping": "Stopping proxy...",
+            "success": "Proxy stopped successfully",
+            "error": "Error occurred while stopping proxy: {error}"
+        },
+        "restore": {
+            "starting": "Restoring proxy settings...",
+            "success": "Proxy settings restored",
+            "error": "Error occurred while restoring proxy settings: {error}"
+        },
+        "setup": {
+            "windows": {
+                "configuring": "Configuring Windows proxy settings...",
+                "saved_settings": "Current proxy settings saved",
+                "applied_settings": "New proxy settings applied",
+                "updating": "Updating system proxy settings...",
+                "updated": "System proxy settings updated"
+            },
+            "macos": {
+                "configuring": "Configuring MacOS proxy settings...",
+                "saved_settings": "Current proxy settings saved",
+                "applied_settings": "New proxy settings applied"
+            },
+            "linux": {
+                "configuring": "Configuring Linux proxy settings...",
+                "saved_settings": "Current proxy settings saved",
+                "applied_settings": "New proxy settings applied"
+            }
+        },
+        "intercept": {
+            "loaded": "Cursor interceptor loaded",
+            "request_caught": "Request caught: {url}",
+            "checksum_modified": "X-Cursor-Checksum modified",
+            "response_received": "Response received: {url}",
+            "request_success": "Request successful",
+            "request_failed": "Request failed: {status}"
+        },
+        "already_running": "Proxy is already running",
+        "already_stopped": "Proxy is already stopped",
+        "checking_certificate": "Checking certificate...",
+        "certificate_not_installed": "Proxy certificate is not installed",
+        "buttons": {
+            "start": "Start Proxy",
+            "stop": "Stop Proxy"
+        }
     }
 }

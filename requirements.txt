@@ -1,4 +1,6 @@
 DrissionPage==4.1.0.9
 pyperclip==1.9.0
 requests==2.32.3
-PySimpleGUI==4.60.5.0
+mitmproxy==11.1.0
+customtkinter==5.2.2
+pyperclip==1.9.0

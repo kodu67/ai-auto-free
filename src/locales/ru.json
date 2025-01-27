@@ -2,12 +2,13 @@
     "menu": {
         "title": "AI Auto Free",
         "select_option": "Пожалуйста, выберите опцию:",
-        "cursor": "Создание аккаунта Cursor",
-        "windsurf": "Создание аккаунта Windsurf",
-        "machine_id_reset": "Сброс Machine ID",
+        "cursor": "Создатель аккаунта Cursor",
+        "windsurf": "Создатель аккаунта Windsurf",
+        "machine_id_reset": "Сбросить ID машины",
         "settings": "Настройки",
         "exit": "Выход",
         "back": "Назад",
+        "copy": "Копировать",
         "invalid_choice": "Неверный выбор!",
         "table_headers": [
             "Имя",
@@ -21,24 +22,22 @@
             "title": "Доступно обновление",
             "message": "Выпущена новая версия ({}). Пожалуйста, скачайте последнюю версию:",
             "download": "Ссылка для скачивания: {}",
-            "changelog": "Список изменений",
-            "current_version": "Текущая версия: {}",
-            "latest_version": "Последняя версия: {}"
+            "changelog": "Изменения:\n{}"
         },
-        "donate": "Поддержать Bitcoin: {}"
+        "donate": "Пожертвовать (Bitcoin): {}"
     },
     "settings": {
         "title": "Настройки",
         "browser_visibility": "Видимость браузера",
-        "enabled": "Включено",
-        "disabled": "Отключено",
+        "enabled": "Активно",
+        "disabled": "Неактивно",
         "saved": "Настройки успешно сохранены!",
-        "failed": "Не удалось сохранить IMAP",
+        "failed": "Произошла ошибка при сохранении IMAP",
         "back": "Вернуться в главное меню",
         "yes": "Да",
         "no": "Нет",
         "current_value": "Текущее значение",
-        "select_option": "Ваш выбор (Y/N)",
+        "select_option": "Ваш выбор (Д/Н)",
         "email_verifier": "Проверка Email",
         "select_email_verifier": "Выберите проверку email",
         "imap_settings": "Настройки IMAP",
@@ -49,27 +48,27 @@
         "starting": "Начинается создание аккаунта Cursor...",
         "browser_init": "Инициализация браузера...",
         "registration_success": "Регистрация успешно завершена",
-        "registration_failed": "Регистрация не удалась",
+        "registration_failed": "Произошла ошибка при создании аккаунта Cursor",
         "verification_code": "Получение кода подтверждения...",
         "account_info": "Информация об аккаунте",
         "email": "Email",
         "password": "Пароль",
         "process": {
-            "cursor_closed": "Cursor был закрыт.",
+            "cursor_closed": "Cursor закрыт.",
             "turnstile": {
                 "starting": "Начинается проверка Turnstile...",
-                "started": "Проверка начата",
+                "started": "Проверка началась",
                 "success": "Проверка успешна",
                 "failed": "Проверка не удалась"
             },
             "getting_token": "Получение cookie...",
             "token_retry": "Попытка",
             "token_not_found": "Токен не найден",
-            "seconds_retry": "секунд до повторной попытки",
+            "seconds_retry": "повтор через секунды",
             "max_attempts": "Достигнуто максимальное количество попыток",
             "token_error": "Не удалось получить cookie",
-            "retry_in": "Повторная попытка через",
-            "seconds": "секунд",
+            "retry_in": "Повторить через",
+            "seconds": "секунды",
             "registration_page_error": "Не удалось открыть страницу регистрации",
             "processing": "Обработка...",
             "operation_failed": "Операция не удалась",
@@ -80,41 +79,41 @@
             "usage_limit_error": "Не удалось получить лимит использования"
         },
         "auth": {
-            "no_update_values": "Автоматический вход не удался, так как вы не входили ранее",
-            "update_success": "{} успешно обновлен",
-            "update_failed": "{} не найден или значение не изменилось",
+            "no_update_values": "Автовход не удался, так как вы не входили ранее",
+            "update_success": "{} успешно обновлено",
+            "update_failed": "{} не найдено или значение не изменилось",
             "db_error": "Ошибка базы данных",
             "error": "Произошла ошибка"
         },
-        "completed": "Процесс завершен"
+        "completed": "Операция завершена"
     },
     "windsurf": {
-        "starting": "Начинается создание аккаунта Windsurf...",
+        "starting": "Создание аккаунта Windsurf...",
         "registration_success": "Аккаунт Windsurf успешно создан",
         "registration_failed": "Не удалось создать аккаунт Windsurf",
         "account_info": "Информация об аккаунте",
         "token_copied": "Токен скопирован в буфер обмена",
         "progress": {
             "creating_account": "Создание аккаунта...",
-            "filling_form": "Заполнение формы регистрации...",
+            "filling_form": "Заполнение регистрационной формы...",
             "completing_onboarding": "Завершение этапов онбординга...",
             "getting_token": "Получение токена..."
         },
         "turnstile": {
             "starting": "Начинается проверка Turnstile...",
-            "started": "Проверка начата",
+            "started": "Проверка началась",
             "success": "Проверка успешна",
             "failed": "Проверка не удалась"
         },
         "steps": {
-            "email": "Получение временного email адреса...",
-            "password": "Генерация надежного пароля...",
+            "email": "Получение временного адреса электронной почты...",
+            "password": "Создание надежного пароля...",
             "browser": "Инициализация браузера...",
             "register_page": "Открытие страницы регистрации...",
             "form": "Заполнение формы...",
-            "submit": "Отправка формы регистрации...",
+            "submit": "Отправка регистрационной формы...",
             "profile": "Перенаправление на страницу профиля...",
-            "token": "Получение Firebase токена...",
+            "token": "Получение токена Firebase...",
             "complete": "Завершение процесса...",
             "close": "Закрытие браузера..."
         },
@@ -122,7 +121,7 @@
             "email_creation": "Не удалось создать email",
             "email_field": "Поле email не найдено",
             "password_fields": "Поля пароля не найдены",
-            "terms_checkbox": "Чекбокс условий не найден",
+            "terms_checkbox": "Чекбокс условий использования не найден",
             "signup_button": "Кнопка регистрации не найдена",
             "firstname_input": "Поле имени не найдено",
             "lastname_input": "Поле фамилии не найдено",
@@ -146,9 +145,9 @@
         }
     },
     "machine_id_reset": {
-        "starting": "Начинается процесс сброса machine ID...",
-        "success": "Сброс machine ID успешен",
-        "failed": "Не удалось сбросить machine ID",
+        "starting": "Начинается процесс сброса ID машины...",
+        "success": "ID машины успешно сброшен",
+        "failed": "Не удалось сбросить ID машины",
         "need_admin": "Эта операция требует прав администратора",
         "changes": "Изменения:"
     },
@@ -158,7 +157,7 @@
         "failed": "Не удалось получить права администратора. Пожалуйста, запустите программу от имени администратора."
     },
     "common": {
-        "press_enter": "Нажмите Enter для продолжения...",
+        "press_enter": "Нажмите Enter, чтобы продолжить...",
         "service": "Сервис",
         "email": "Email",
         "password": "Пароль",
@@ -167,8 +166,8 @@
         "error": "Ошибка",
         "account_info": "Информация об аккаунте",
         "copied": "Скопировано!",
-        "switch_account": "Переключение аккаунта",
-        "switch_account_success": "Ваш аккаунт переключен! Пожалуйста, перезапустите Cursor."
+        "switch_account": "Смена аккаунта",
+        "switch_account_success": "Ваш аккаунт был изменен! Перезапустите Cursor."
     },
     "logging": {
         "email_error": "Ошибка создания email",
@@ -179,8 +178,8 @@
     "email": {
         "processing": "Обработка...",
         "verification_failed": "Не удалось получить код подтверждения",
-        "almost_success": "Почти завершено",
-        "execution_failed": "Выполнение не удалось",
+        "almost_success": "Процесс почти завершен",
+        "execution_failed": "Процесс не удался",
         "imap_connecting": "Подключение к IMAP: {}",
         "imap_login_success": "Вход в IMAP успешен",
         "imap_new_mail_waiting": "Ожидание нового письма... (Попытка {}/{})",
@@ -193,7 +192,8 @@
         "message": "Выпущена новая версия ({}). Пожалуйста, скачайте последнюю версию:",
         "download": "Ссылка для скачивания: {}",
         "current_version": "Текущая версия: {}",
-        "latest_version": "Последняя версия: {}"
+        "latest_version": "Последняя версия: {}",
+        "changelog": "Изменения:"
     },
     "features": {
         "disabled": "Функция {} в настоящее время отключена."
@@ -201,5 +201,58 @@
     "usage_stats": {
         "title": "Использование последнего созданного аккаунта Cursor",
         "requests": "Запросы"
+    },
+    "proxy": {
+        "start": {
+            "starting": "Запуск прокси...",
+            "success": "Прокси успешно запущен",
+            "error": "Не удалось запустить прокси: {error}",
+            "info": "ИНФО"
+        },
+        "stop": {
+            "stopping": "Остановка прокси...",
+            "success": "Прокси успешно остановлен",
+            "error": "Произошла ошибка при остановке прокси: {error}"
+        },
+        "restore": {
+            "starting": "Восстановление настроек прокси...",
+            "success": "Настройки прокси восстановлены",
+            "error": "Произошла ошибка при восстановлении настроек прокси: {error}"
+        },
+        "setup": {
+            "windows": {
+                "configuring": "Настройка параметров прокси Windows...",
+                "saved_settings": "Текущие параметры прокси сохранены",
+                "applied_settings": "Новые параметры прокси применены",
+                "updating": "Обновление системных параметров прокси...",
+                "updated": "Системные параметры прокси обновлены"
+            },
+            "macos": {
+                "configuring": "Настройка параметров прокси MacOS...",
+                "saved_settings": "Текущие параметры прокси сохранены",
+                "applied_settings": "Новые параметры прокси применены"
+            },
+            "linux": {
+                "configuring": "Настройка параметров прокси Linux...",
+                "saved_settings": "Текущие параметры прокси сохранены",
+                "applied_settings": "Новые параметры прокси применены"
+            }
+        },
+        "intercept": {
+            "loaded": "Перехватчик Cursor загружен",
+            "request_caught": "Запрос пойман: {url}",
+            "checksum_modified": "X-Cursor-Checksum изменен",
+            "response_received": "Ответ получен: {url}",
+            "request_success": "Запрос успешен",
+            "request_failed": "Запрос не удался: {status}"
+        },
+        "already_running": "Прокси уже запущен",
+        "already_stopped": "Прокси уже остановлен",
+        "checking_certificate": "Проверка сертификата...",
+        "certificate_not_installed": "Сертификат прокси не установлен",
+        "buttons": {
+            "start": "Запустить прокси",
+            "stop": "Остановить прокси"
+        }
     }
 }

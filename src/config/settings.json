@@ -1,25 +1,17 @@
 {
   "version": "1.1.3",
-  "latest_version": "1.1.3",
+  "latest_version": "1.1.4",
   "bitcoin": {
     "address": "TG9SyC4ZAp2JjYiBWKLwE3AodjosSf4qfJ",
     "name": "USDT TRC20"
   },
-  "changelog": {
-    "1.1.3": {
-      "tr": "GUI eklendi, Cursor hesapları arasında geçiş yapılabilir ve kalan limitler görülebilir. Hesaplarınız artık cihazınızda kaydedilmektedir.",
-      "en": "GUI added, you can switch between Cursor accounts and see remaining limits. Your accounts are now saved on your device.",
-      "ru": "GUI добавлен, вы можете переключаться между учетными записями Cursor и видеть оставшиеся лимиты. Ваши учетные записи теперь сохраняются на вашем устройстве.",
-      "zh": "GUI已添加，您可以在Cursor账户之间切换并查看剩余限制。您的账户现在保存在您的设备上。",
-      "az": "GUI əlavə edildi, Cursor hesabları arasında geçiş mümkündür və kalan limitləri görə bilərsiniz. Hesablarınız artıq cihazınızda saxlınır."
-    }
-  },
+  "changelog": {},
   "message": {
-    "tr": "Cursor için Temporary Mail ile hesap oluşturma özelliği şuanda çalışmamaktadır. Ayarlar kısmından IMAP özelliğini aktif edip kullanmaya devam edebilirsiniz. Repository üzerinde nasıl kullanılacağı yazılmıştır.",
-    "en": "The account creation feature with Temporary Mail for Cursor is currently not working. You can continue to use the IMAP feature by activating it in the settings. The repository contains instructions on how to use it.",
-    "ru": "Функция создания учетной записи с временным почтовым ящиком для Cursor в настоящее время не работает. Вы можете продолжать использовать функцию IMAP, активировав ее в настройках. В репозитории есть инструкции по ее использованию.",
-    "zh": "Cursor的临时邮箱账户创建功能目前无法使用。您可以通过在设置中激活IMAP功能来继续使用该功能。在仓库中可以找到如何使用它的说明。",
-    "az": "Cursor üçün Temporary Mail ilə hesab yaradma xüsusiyyəti indi işləmir. İmaptını aktivləşdirib, onu istifadə etmək üçün ayarlar bölümündən istifadə edə bilərsiniz. Repository üzərində onu necə istifadə etmək barədə məlumatlar var."
+    "tr": "",
+    "en": "",
+    "ru": "",
+    "zh": "",
+    "az": ""
   },
   "features": {
     "cursor": {

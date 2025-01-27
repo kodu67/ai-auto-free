@@ -2,137 +2,136 @@
     "menu": {
         "title": "AI Auto Free",
         "select_option": "请选择一个选项：",
-        "cursor": "Cursor 账号创建器",
-        "windsurf": "Windsurf 账号创建器",
-        "machine_id_reset": "重置 Machine ID",
+        "cursor": "Cursor 账户创建器",
+        "windsurf": "Windsurf 账户创建器",
+        "machine_id_reset": "重置机器 ID",
         "settings": "设置",
         "exit": "退出",
         "back": "返回",
+        "copy": "复制",
         "invalid_choice": "无效选择！",
         "table_headers": [
             "名称",
-            "邮箱",
+            "电子邮件",
             "密码",
             "令牌",
             "限制",
             "创建日期"
         ],
         "updates": {
-            "title": "有可用更新",
+            "title": "更新可用",
             "message": "新版本 ({}) 已发布。请下载最新版本：",
             "download": "下载链接：{}",
-            "changelog": "更新日志",
-            "current_version": "当前版本：{}",
-            "latest_version": "最新版本：{}"
+            "changelog": "更改：\n{}"
         },
-        "donate": "支持比特币：{}"
+        "donate": "捐赠 (比特币)：{}"
     },
     "settings": {
         "title": "设置",
         "browser_visibility": "浏览器可见性",
         "enabled": "启用",
         "disabled": "禁用",
-        "saved": "设置保存成功！",
-        "failed": "IMAP 保存失败",
+        "saved": "设置已成功保存！",
+        "failed": "保存 IMAP 时发生错误",
         "back": "返回主菜单",
         "yes": "是",
         "no": "否",
         "current_value": "当前值",
         "select_option": "您的选择 (Y/N)",
-        "email_verifier": "邮箱验证器",
-        "select_email_verifier": "选择邮箱验证器",
+        "email_verifier": "电子邮件验证器",
+        "select_email_verifier": "选择电子邮件验证器",
         "imap_settings": "IMAP 设置",
         "save_imap": "保存 IMAP"
     },
-    "bitcoin": "用比特币支持：{}",
+    "bitcoin": "支持比特币：{}",
     "cursor": {
-        "starting": "正在开始创建 Cursor 账号...",
-        "browser_init": "正在初始化浏览器...",
+        "starting": "开始创建 Cursor 账户...",
+        "browser_init": "初始化浏览器...",
         "registration_success": "注册成功完成",
-        "registration_failed": "注册失败",
-        "verification_code": "正在获取验证码...",
-        "account_info": "账号信息",
-        "email": "邮箱",
+        "registration_failed": "创建 Cursor 账户时发生错误",
+        "verification_code": "获取验证码...",
+        "account_info": "账户信息",
+        "email": "电子邮件",
         "password": "密码",
         "process": {
             "cursor_closed": "Cursor 已关闭。",
             "turnstile": {
-                "starting": "正在开始 Turnstile 验证...",
+                "starting": "开始 Turnstile 验证...",
                 "started": "验证已开始",
                 "success": "验证成功",
                 "failed": "验证失败"
             },
-            "getting_token": "正在获取 cookie...",
+            "getting_token": "获取 cookie...",
             "token_retry": "尝试",
             "token_not_found": "未找到令牌",
-            "seconds_retry": "秒后重试",
+            "seconds_retry": "将在秒后重试",
             "max_attempts": "已达到最大尝试次数",
-            "token_error": "获取 cookie 失败",
-            "retry_in": "将在",
-            "seconds": "秒后重试",
-            "registration_page_error": "打开注册页面失败",
+            "token_error": "无法获取 cookie",
+            "retry_in": "重试时间",
+            "seconds": "秒",
+            "registration_page_error": "无法打开注册页面",
             "processing": "处理中...",
             "operation_failed": "操作失败",
-            "email_unavailable": "此邮箱不可用",
-            "verification_code_error": "输入验证码失败",
+            "email_unavailable": "此电子邮件不可用",
+            "verification_code_error": "无法输入验证码",
             "waiting": "等待中...",
             "usage_limit": "使用限制",
-            "usage_limit_error": "获取使用限制失败"
+            "usage_limit_error": "无法获取使用限制"
         },
         "auth": {
-            "no_update_values": "自动登录失败，因为您之前未登录",
+            "no_update_values": "自动登录失败，因为您之前没有登录过",
             "update_success": "{} 更新成功",
-            "update_failed": "未找到 {} 或值未更改",
+            "update_failed": "{} 未找到或值未更改",
             "db_error": "数据库错误",
             "error": "发生错误"
         },
-        "completed": "处理完成"
+        "completed": "操作完成"
     },
     "windsurf": {
-        "starting": "正在开始创建 Windsurf 账号...",
-        "registration_success": "Windsurf 账号创建成功",
-        "registration_failed": "创建 Windsurf 账号失败",
-        "account_info": "账号信息",
+        "starting": "正在创建 Windsurf 账户...",
+        "registration_success": "Windsurf 账户创建成功",
+        "registration_failed": "无法创建 Windsurf 账户",
+        "account_info": "账户信息",
         "token_copied": "令牌已复制到剪贴板",
         "progress": {
-            "creating_account": "正在创建账号...",
-            "filling_form": "正在填写注册表单...",
-            "completing_onboarding": "正在完成入门步骤...",
-            "getting_token": "正在获取令牌..."
+            "creating_account": "正在创建账户...",
+            "filling_form": "正在填写注册表格...",
+            "completing_onboarding": "完成入职步骤...",
+            "getting_token": "获取令牌..."
         },
         "turnstile": {
-            "starting": "正在开始 Turnstile 验证...",
+            "starting": "开始 Turnstile 验证...",
             "started": "验证已开始",
             "success": "验证成功",
             "failed": "验证失败"
         },
         "steps": {
-            "email": "正在获取临时邮箱地址...",
-            "password": "正在生成强密码...",
-            "browser": "正在初始化浏览器...",
-            "register_page": "正在打开注册页面...",
-            "form": "正在填写表单...",
-            "submit": "正在提交注册表单...",
-            "profile": "正在重定向到个人资料页面...",
-            "token": "正在获取 Firebase 令牌...",
-            "complete": "正在完成处理...",
-            "close": "正在关闭浏览器..."
+            "email": "获取临时电子邮件地址...",
+            "password": "生成强密码...",
+            "browser": "初始化浏览器...",
+            "register_page": "打开注册页面...",
+            "form": "填写表格...",
+            "submit": "提交注册表格...",
+            "profile": "重定向到个人资料页面...",
+            "token": "获取 Firebase 令牌...",
+            "complete": "完成过程...",
+            "close": "关闭浏览器..."
         },
         "errors": {
-            "email_creation": "创建邮箱失败",
-            "email_field": "未找到邮箱字段",
+            "email_creation": "无法创建电子邮件",
+            "email_field": "未找到电子邮件字段",
             "password_fields": "未找到密码字段",
-            "terms_checkbox": "未找到条款复选框",
+            "terms_checkbox": "未找到使用条款复选框",
             "signup_button": "未找到注册按钮",
             "firstname_input": "未找到名字输入框",
             "lastname_input": "未找到姓氏输入框",
             "continue_button": "未找到继续按钮",
             "skip_button": "未找到跳过按钮",
-            "name_form": "加载或填写姓名表单失败",
-            "about_form": "跳过关于用户表单失败",
-            "source_form": "跳过来源表单失败",
-            "editor_page": "加载编辑器页面失败",
-            "token": "获取令牌失败",
+            "name_form": "无法加载或填写姓名表格",
+            "about_form": "无法跳过用户表格",
+            "source_form": "无法跳过来源表格",
+            "editor_page": "无法加载编辑器页面",
+            "token": "无法获取令牌",
             "turnstile": "Cloudflare 验证失败"
         },
         "token_usage": {
@@ -141,65 +140,119 @@
             "step2": "2. Windows/Linux 按 Ctrl+Shift+P，MacOS 按 Cmd+Shift+P",
             "step3": "3. 在命令面板中输入：",
             "command": "    Windsurf: Provide Auth Token (Backup Login)",
-            "step4": "4. 此命令将打开浏览器窗口，您可以关闭它",
-            "step5": "5. 将复制的令牌粘贴到 Windsurf 中的令牌输入框"
+            "step4": "4. 此命令将打开一个浏览器窗口，您可以关闭它",
+            "step5": "5. 将复制的令牌粘贴到 Windsurf 中的令牌输入字段"
         }
     },
     "machine_id_reset": {
-        "starting": "正在开始重置 machine ID 进程...",
-        "success": "machine ID 重置成功",
-        "failed": "重置 machine ID 失败",
+        "starting": "开始重置机器 ID 过程...",
+        "success": "机器 ID 重置成功",
+        "failed": "无法重置机器 ID",
         "need_admin": "此操作需要管理员权限",
         "changes": "更改："
     },
     "admin": {
         "need_admin": "此程序需要管理员权限。",
-        "requesting": "正在请求管理员权限...",
-        "failed": "获取管理员权限失败。请以管理员身份运行程序。"
+        "requesting": "请求管理员权限...",
+        "failed": "无法获取管理员权限。请以管理员身份运行程序。"
     },
     "common": {
         "press_enter": "按 Enter 继续...",
         "service": "服务",
-        "email": "邮箱",
+        "email": "电子邮件",
         "password": "密码",
         "token": "令牌",
         "date": "日期",
         "error": "错误",
-        "account_info": "账号信息",
+        "account_info": "账户信息",
         "copied": "已复制！",
-        "switch_account": "切换账号",
-        "switch_account_success": "您的账号已切换！请重启 Cursor。"
+        "switch_account": "账户切换",
+        "switch_account_success": "您的账户已更改！重新启动 Cursor。"
     },
     "logging": {
-        "email_error": "邮箱创建错误",
+        "email_error": "电子邮件创建错误",
         "token_error": "令牌获取错误",
-        "account_error": "账号创建错误",
-        "name_form_attempt": "姓名表单尝试 {}"
+        "account_error": "账户创建错误",
+        "name_form_attempt": "姓名表格尝试 {}"
     },
     "email": {
         "processing": "处理中...",
-        "verification_failed": "获取验证码失败",
-        "almost_success": "即将完成",
-        "execution_failed": "执行失败",
-        "imap_connecting": "正在连接到 IMAP：{}",
+        "verification_failed": "无法获取验证码",
+        "almost_success": "过程几乎完成",
+        "execution_failed": "过程失败",
+        "imap_connecting": "连接到 IMAP：{}",
         "imap_login_success": "IMAP 登录成功",
-        "imap_new_mail_waiting": "等待新邮件... (尝试 {}/{})",
+        "imap_new_mail_waiting": "等待新邮件...（尝试 {}/{}）",
         "imap_content_read_error": "内容读取错误：{}",
         "imap_error": "IMAP 错误：{}"
     },
     "updates": {
-        "title": "有可用更新！",
-        "available": "有新更新可用！",
+        "title": "更新可用！",
+        "available": "新更新可用！",
         "message": "新版本 ({}) 已发布。请下载最新版本：",
         "download": "下载链接：{}",
         "current_version": "当前版本：{}",
-        "latest_version": "最新版本：{}"
+        "latest_version": "最新版本：{}",
+        "changelog": "更改："
     },
     "features": {
         "disabled": "{} 功能当前已禁用。"
     },
     "usage_stats": {
-        "title": "最后创建的 Cursor 账号使用情况",
+        "title": "最后创建的 Cursor 账户使用情况",
         "requests": "请求"
+    },
+    "proxy": {
+        "start": {
+            "starting": "启动代理...",
+            "success": "代理成功启动",
+            "error": "无法启动代理：{error}",
+            "info": "信息"
+        },
+        "stop": {
+            "stopping": "停止代理...",
+            "success": "代理成功停止",
+            "error": "停止代理时发生错误：{error}"
+        },
+        "restore": {
+            "starting": "恢复代理设置...",
+            "success": "代理设置已恢复",
+            "error": "恢复代理设置时发生错误：{error}"
+        },
+        "setup": {
+            "windows": {
+                "configuring": "配置 Windows 代理设置...",
+                "saved_settings": "当前代理设置已保存",
+                "applied_settings": "新代理设置已应用",
+                "updating": "更新系统代理设置...",
+                "updated": "系统代理设置已更新"
+            },
+            "macos": {
+                "configuring": "配置 MacOS 代理设置...",
+                "saved_settings": "当前代理设置已保存",
+                "applied_settings": "新代理设置已应用"
+            },
+            "linux": {
+                "configuring": "配置 Linux 代理设置...",
+                "saved_settings": "当前代理设置已保存",
+                "applied_settings": "新代理设置已应用"
+            }
+        },
+        "intercept": {
+            "loaded": "Cursor 拦截器已加载",
+            "request_caught": "请求已捕获：{url}",
+            "checksum_modified": "X-Cursor-Checksum 已修改",
+            "response_received": "已收到响应：{url}",
+            "request_success": "请求成功",
+            "request_failed": "请求失败：{status}"
+        },
+        "already_running": "代理已在运行",
+        "already_stopped": "代理已停止",
+        "checking_certificate": "检查证书...",
+        "certificate_not_installed": "代理证书未安装",
+        "buttons": {
+            "start": "启动代理",
+            "stop": "停止代理"
+        }
     }
 }

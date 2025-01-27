@@ -18,11 +18,11 @@ class UsageChecker:
     def cursor_get_usage(self, raw_token):
         """Cursor kullanım istatistiklerini getirir"""
         if not raw_token:
-            return ""
+            return "-"
 
         user_id = self._cursor_get_user_id(raw_token)
         if not user_id:
-            return ""
+            return "-"
 
         headers = {
             "Cookie": f"WorkosCursorSessionToken={raw_token}",
@@ -48,12 +48,19 @@ class UsageChecker:
                     if (
                         stats.get("numRequests", 0) > 0
                     ):  # Sadece kullanılmış modelleri göster
-                        renamed_model = model.replace("gpt-4", "Premium").replace("gpt-3.5-turbo", "Free")
-                        usage_info[renamed_model] = f"{stats['numRequests']}/{stats['maxRequestUsage']}"
-                usage_str = "\n".join([f"{model}: {usage}" for model, usage in usage_info.items()])
-                return usage_str
+                        renamed_model = model.replace("gpt-4", "Premium").replace(
+                            "gpt-3.5-turbo", "Free"
+                        )
+                        usage_info[renamed_model] = (
+                            f"{stats['numRequests']}/{stats['maxRequestUsage']}"
+                        )
+
+                usage_str = "\n".join(
+                    [f"{model}: {usage}" for model, usage in usage_info.items()]
+                )
+                return usage_str if usage_str else "+"
             else:
-                return ""
+                return "+"
 
         except Exception:
-            return ""
+            return "-"

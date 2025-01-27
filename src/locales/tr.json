@@ -8,6 +8,7 @@
         "settings": "Ayarlar",
         "exit": "Çıkış",
         "back": "Geri",
+        "copy": "Kopyala",
         "invalid_choice": "Geçersiz seçim!",
         "table_headers": [
             "İsim",
@@ -47,7 +48,7 @@
         "starting": "Cursor hesap oluşturma başlatılıyor...",
         "browser_init": "Tarayıcı başlatılıyor...",
         "registration_success": "Kayıt başarıyla tamamlandı",
-        "registration_failed": "Kayıt başarısız oldu",
+        "registration_failed": "Cursor hesabı oluşturulurken bir hata oluştu",
         "verification_code": "Doğrulama kodu alınıyor...",
         "account_info": "Hesap Bilgileri",
         "email": "E-posta",
@@ -200,5 +201,58 @@
     "usage_stats": {
         "title": "Son Oluşturulan Cursor Hesabı Kullanımı",
         "requests": "İstek"
+    },
+    "proxy": {
+        "start": {
+            "starting": "Proxy başlatılıyor...",
+            "success": "Proxy başarıyla başlatıldı",
+            "error": "Proxy başlatılamadı: {error}",
+            "info": "BİLGİ"
+        },
+        "stop": {
+            "stopping": "Proxy durduruluyor...",
+            "success": "Proxy başarıyla durduruldu",
+            "error": "Proxy durdurulurken hata oluştu: {error}"
+        },
+        "restore": {
+            "starting": "Proxy ayarları eski haline getiriliyor...",
+            "success": "Proxy ayarları eski haline getirildi",
+            "error": "Proxy ayarları eski haline getirilirken hata oluştu: {error}"
+        },
+        "setup": {
+            "windows": {
+                "configuring": "Windows proxy ayarları yapılandırılıyor...",
+                "saved_settings": "Mevcut proxy ayarları kaydedildi",
+                "applied_settings": "Yeni proxy ayarları uygulandı",
+                "updating": "Sistem proxy ayarları güncelleniyor...",
+                "updated": "Sistem proxy ayarları güncellendi"
+            },
+            "macos": {
+                "configuring": "MacOS proxy ayarları yapılandırılıyor...",
+                "saved_settings": "Mevcut proxy ayarları kaydedildi",
+                "applied_settings": "Yeni proxy ayarları uygulandı"
+            },
+            "linux": {
+                "configuring": "Linux proxy ayarları yapılandırılıyor...",
+                "saved_settings": "Mevcut proxy ayarları kaydedildi",
+                "applied_settings": "Yeni proxy ayarları uygulandı"
+            }
+        },
+        "intercept": {
+            "loaded": "Cursor interceptor yüklendi",
+            "request_caught": "İstek yakalandı: {url}",
+            "checksum_modified": "X-Cursor-Checksum değiştirildi",
+            "response_received": "Cevap alındı: {url}",
+            "request_success": "İstek başarılı",
+            "request_failed": "İstek başarısız: {status}"
+        },
+        "already_running": "Proxy zaten çalışıyor",
+        "already_stopped": "Proxy zaten durdurulmuş",
+        "checking_certificate": "Sertifika kontrol ediliyor...",
+        "certificate_not_installed": "Proxy sertifikası yüklü değil",
+        "buttons": {
+            "start": "Proxy Başlat",
+            "stop": "Proxy Durdur"
+        }
     }
 }
