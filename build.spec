@@ -136,8 +136,8 @@ if sys.platform == "darwin":
         icon=MACOS_ICON,
         bundle_identifier="com.aifree.app",
         info_plist={
-            "CFBundleShortVersionString": "1.1.3",
-            "CFBundleVersion": "1.1.3",
+            "CFBundleShortVersionString": "1.1.5",
+            "CFBundleVersion": "1.1.5",
             "NSHighResolutionCapable": "True",
         },
     )

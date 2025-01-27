@@ -21,6 +21,7 @@ ___
 - Google Chrome browser must be installed
 - You must be logged into a Cursor or Windsurf account (Required for automatic login)
 - If you are using a proxy or VPN, it must be turned off
+- MitmProxy: [Mitmproxy](https://mitmproxy.org/)
 
 ### Cursor Account Creator
 It's fully automatic. You don't need to do anything.
