@@ -74,6 +74,7 @@
             "operation_failed": "Операция не удалась",
             "email_unavailable": "Созданное письмо было заблокировано Cursor.",
             "verification_code_error": "Не удалось ввести код подтверждения",
+            "sign_up_restricted": "Лимит регистрации достигнут",
             "waiting": "Ожидание...",
             "usage_limit": "Лимит использования",
             "usage_limit_error": "Не удалось получить лимит использования"

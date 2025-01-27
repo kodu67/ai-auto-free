@@ -73,6 +73,7 @@
             "processing": "İşleniyor...",
             "operation_failed": "İşlem başarısız oldu",
             "email_unavailable": "Oluşturulan mail, Cursor tarafından engellenmiş.",
+            "sign_up_restricted": "Kayıt olma sınırı aşıldı",
             "verification_code_error": "Doğrulama kodu girilemedi",
             "waiting": "Bekleniyor...",
             "usage_limit": "Kullanım limiti",

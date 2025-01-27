@@ -116,6 +116,7 @@ class CursorAuthManager:
 
         # Yeni e-posta adresi oluştur
         email, _ = self.email_service.create_email()
+        yield "Email: " + email
         if not email:
             yield self.locale.get_text("cursor.process.email_creation_failed")
             return False
@@ -162,6 +163,9 @@ class CursorAuthManager:
         if tab.ele("This email is not available."):
             yield self.locale.get_text("cursor.process.email_unavailable")
             return False
+        elif tab.ele("Sign up is restricted."):
+            yield self.locale.get_text("cursor.process.sign_up_restricted")
+            return False
 
         yield from self.handle_turnstile(tab)
 
@@ -195,7 +199,13 @@ class CursorAuthManager:
 
         wait_time = random.randint(3, 6)
         for i in range(wait_time):
-            yield self.locale.get_text('cursor.process.waiting') + " " + str(wait_time - i) + " " + self.locale.get_text('cursor.process.seconds')
+            yield (
+                self.locale.get_text("cursor.process.waiting")
+                + " "
+                + str(wait_time - i)
+                + " "
+                + self.locale.get_text("cursor.process.seconds")
+            )
             time.sleep(1)
 
         tab.get(self.SETTINGS_URL)
@@ -249,14 +259,17 @@ class CursorAuthManager:
                                 if token:
                                     email = self.email_service.email
                                     yield from self.update_cursor_auth(
-                                        email=email, access_token=token, refresh_token=token
+                                        email=email,
+                                        access_token=token,
+                                        refresh_token=token,
                                     )
                                     self.account_data["token"] = raw_token
-                                    yield from self.logger.log_account("Cursor", self.account_data)
+                                    yield from self.logger.log_account(
+                                        "Cursor", self.account_data
+                                    )
                                     yield "-REFRESH-TABLE-"
                                 break
                         break
-
 
             yield self.locale.get_text("cursor.completed")
 
@@ -314,12 +327,12 @@ class CursorDatabaseManager:
 
                 if cursor.rowcount > 0:
                     yield self.locale.get_text("cursor.auth.update_success").format(
-                            key.split("/")[-1]
-                        )
+                        key.split("/")[-1]
+                    )
                 else:
                     yield self.locale.get_text("cursor.auth.update_failed").format(
-                            key.split("/")[-1]
-                        )
+                        key.split("/")[-1]
+                    )
 
             conn.commit()
             return True

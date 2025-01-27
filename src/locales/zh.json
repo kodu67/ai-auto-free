@@ -74,6 +74,7 @@
             "operation_failed": "操作失败",
             "email_unavailable": "生成的邮件被光标拦截。",
             "verification_code_error": "无法输入验证码",
+            "sign_up_restricted": "达到注册上限",
             "waiting": "等待中...",
             "usage_limit": "使用限制",
             "usage_limit_error": "无法获取使用限制"

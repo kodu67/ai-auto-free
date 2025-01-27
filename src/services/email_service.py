@@ -10,30 +10,36 @@ from datetime import datetime, timedelta
 
 class EmailService:
     def __init__(self):
-        self.mail_api_url = "https://api.internal.temp-mail.io/api/v3"
+        self.mail_api_url = "https://tempmail.so/us/api"
         self.locale = Locale()
         self.email = None
         self.headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Safari/537.36",
             "Accept": "application/json",
-            "Accept-Language": "tr-TR,tr;q=0.8,en-US;q=0.5,en;q=0.3",
-            "Content-Type": "application/json;charset=utf-8",
-            "Application-Name": "web",
-            "Application-Version": "2.4.2",
-            "Origin": "https://temp-mail.io",
-            "Referer": "https://temp-mail.io/",
+            "Accept-Language": "tr-TR,tr;q=0.9",
+            "Content-Type": "application/json",
+            "Sec-Ch-Ua-Platform": "Windows",
+            "X-Inbox-Lifespan": "600",
+            "Sec-Ch-Ua": "Chromium;v=131, Not_A Brand;v=24",
+            "Sec-Ch-Ua-Mobile": "?0",
+            "Sec-Fetch-Site": "same-origin",
+            "Sec-Fetch-Mode": "cors",
+            "Sec-Fetch-Dest": "empty",
+            "Referer": "https://tempmail.so/",
         }
         self.user_settings = UserSettings()
+        self.session_cookie = None
+        self.tm_session = None
 
     def create_email(self):
         """Yeni bir geçici e-posta adresi oluşturur"""
         from utils.logger import Logger
 
         logger = Logger()
+        accounts = logger.get_accounts()
 
         def is_email_used(email):
             """Email'in daha önce kullanılıp kullanılmadığını kontrol eder"""
-            accounts = logger.get_accounts()
             return any(account["email"] == email for account in accounts)
 
         while True:
@@ -41,6 +47,29 @@ class EmailService:
             if not is_email_used(email):
                 self.email = email
                 return email, token
+
+    def _process_cookie(self, set_cookie):
+        """Set-Cookie header'ından tm_session cookie'sini ayıklar"""
+        if not set_cookie:
+            return None
+
+        try:
+            tm_sessions = set_cookie.split("tm_session=")
+            if len(tm_sessions) > 2:
+                cookie_value = tm_sessions[-1]
+            elif len(tm_sessions) == 2:
+                cookie_value = tm_sessions[1]
+            else:
+                cookie_value = tm_sessions[0].split(";")[0]
+
+            return cookie_value.split(";")[0]
+        except Exception:
+            return None
+
+    def _update_headers_with_cookie(self):
+        """Headers'ı cookie ile günceller"""
+        if self.tm_session and "Cookie" not in self.headers:
+            self.headers = self.headers | {"Cookie": f"tm_session={self.tm_session}"}
 
     def _generate_email(self):
         """Yeni bir email adresi oluşturur"""
@@ -69,18 +98,25 @@ class EmailService:
                 return f"{new_username}@{domain}", None
             return f"{username}@{domain}", None
 
-        # Diğer durumlarda temp-mail API'sini kullan
+        # Diğer durumlarda tempmail.so API'sini kullan
         try:
-            data = {"min_name_length": 10, "max_name_length": 10}
-
-            response = requests.post(
-                f"{self.mail_api_url}/email/new", headers=self.headers, json=data
-            )
+            response = requests.get(f"{self.mail_api_url}/inbox", headers=self.headers)
 
             if response.status_code == 200:
                 result = response.json()
-                self.email = result.get("email")
-                return self.email, result.get("token")
+                if result.get("code") == 0 and result.get("message") == "Success":
+                    data = result.get("data", {})
+                    self.email = data.get("name")
+
+                    # Set-Cookie header'ından tm_session değerini al
+                    set_cookie = response.headers.get("Set-Cookie", "")
+                    cookie_value = self._process_cookie(set_cookie)
+
+                    if cookie_value:
+                        self.tm_session = cookie_value
+                        self._update_headers_with_cookie()
+
+                    return self.email, None
             return None, None
 
         except Exception as e:
@@ -115,27 +151,37 @@ class EmailService:
             return None
 
     def _get_verification_code_api(self, email, max_attempts, delay):
-        """API üzerinden doğrulama kodunu alır"""
+        """API için doğrulama kodunu alır"""
+        import re
+
         for _ in range(max_attempts):
-            response = requests.get(
-                f"{self.mail_api_url}/email/{email}/messages", headers=self.headers
-            )
+            try:
+                response = requests.get(
+                    f"{self.mail_api_url}/inbox", headers=self.headers
+                )
 
-            if response.status_code == 200:
-                messages = response.json()
-                if messages:
-                    message = messages[0]
-                    body_text = message.get("body_text", "")
+                if response.status_code == 200:
+                    result = response.json()
+                    if result.get("code") == 0 and result.get("message") == "Success":
+                        data = result.get("data", {})
+                        inbox = data.get("inbox", [])
 
-                    # Satır satır kontrol
-                    for line in body_text.split("\n"):
-                        line = line.strip()
-                        # Sadece rakamlardan oluşan 6 haneli kodları ara
-                        if line.isdigit() and len(line) == 6:
-                            yield f"{self.locale.get_text('cursor.verification_code')}: {line}"
-                            return line
+                        if inbox:
+                            for message in inbox:
+                                text_body = message.get("textBody", "")
 
-            time.sleep(delay)
+                                # Regex ile 6 haneli kodu ara
+                                code_match = re.search(r"\b(\d{6})\b", text_body)
+                                if code_match:
+                                    verification_code = code_match.group(1)
+                                    yield f"{self.locale.get_text('cursor.verification_code')}: {verification_code}"
+                                    return verification_code
+
+                time.sleep(delay)
+
+            except Exception as e:
+                yield f"API error: {str(e)}"
+                time.sleep(delay)
 
         yield self.locale.get_text("email.verification_failed")
         return None
@@ -160,9 +206,7 @@ class EmailService:
                 one_minute_ago = (datetime.now() - timedelta(minutes=1)).strftime(
                     "%d-%b-%Y"
                 )
-                search_criteria = (
-                    f'(UNSEEN FROM "no-reply@cursor.sh" SINCE "{one_minute_ago}")'
-                )
+
                 _, messages = imap.search(
                     None,
                     "UNSEEN",

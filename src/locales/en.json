@@ -73,6 +73,7 @@
             "processing": "Processing...",
             "operation_failed": "Operation failed",
             "email_unavailable": "The generated mail was blocked by Cursor.",
+            "sign_up_restricted": "Sign up is restricted.",
             "verification_code_error": "Could not enter verification code",
             "waiting": "Waiting...",
             "usage_limit": "Usage limit",

@@ -74,6 +74,7 @@
             "operation_failed": "Əməliyyat uğursuz oldu",
             "email_unavailable": "Yaradılan e-poçt Kursor tərəfindən bloklandı.",
             "verification_code_error": "Doğrulama kodu daxil edilə bilmədi",
+            "sign_up_restricted": "Qeydiyyat ələ dəstək olmayacaq",
             "waiting": "Gözlənilir...",
             "usage_limit": "İstifadə limiti",
             "usage_limit_error": "İstifadə limiti alına bilmədi"

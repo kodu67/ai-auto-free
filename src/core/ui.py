@@ -426,16 +426,7 @@ class MainUI(AutoFreeApp):
                 switch_btn.pack(side="right", padx=5)
 
     def update_console(self, text):
-        ignore_list = [
-            "与页面的连接已断开。",
-            "没有找到元素。",
-            "页面可能已关闭。",
-            "无法访问页面。",
-        ]
-
-        if text in ignore_list or (
-            isinstance(text, str) and any(msg in text for msg in ignore_list)
-        ):
+        if "DrissionPage.errors" in str(type(text)):
             return
 
         if isinstance(text, str):
@@ -446,7 +437,7 @@ class MainUI(AutoFreeApp):
                     return
 
         self.console.configure(state="normal")
-        self.console.insert("end", f"{text}\n")
+        self.console.insert("end", f"{text}\n ")
         self.console.configure(state="disabled")
         self.console.see("end")
 
