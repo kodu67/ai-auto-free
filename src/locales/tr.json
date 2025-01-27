@@ -24,7 +24,7 @@
             "download": "İndirme Linki: {}",
             "changelog": "Değişiklikler:\n{}"
         },
-        "donate": "Bağış (Bitcoin): {}"
+        "donate": "Bağış {}"
     },
     "settings": {
         "title": "Ayarlar",

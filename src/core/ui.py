@@ -154,7 +154,7 @@ class MainUI(AutoFreeApp):
         self.window = ctk.CTk()
         version = self.settings.get_version()
         self.window.title(f"AI Auto Free - v{version}")
-        self.window.geometry("1000x605")
+        self.window.geometry("1000x625")
         self.window.resizable(False, False)
 
         # PyInstaller ile uyumlu icon yolu
@@ -312,7 +312,7 @@ class MainUI(AutoFreeApp):
             justify="left",
             anchor="w",
         )
-        landing_label.pack(fill="x", padx=5)
+        landing_label.pack(fill="x", padx=(5, 20))
 
         # Sağ taraftaki bitcoin ve donate metinleri
         right_footer = ctk.CTkFrame(footer_frame, fg_color="transparent")
@@ -326,9 +326,12 @@ class MainUI(AutoFreeApp):
         donate_label = ctk.CTkLabel(
             donate_frame,
             text=self.locale.get_text("menu.donate").format(
-                self.settings.get_bitcoin_address()["name"]
-                + "\n"
+                "("
+                + self.settings.get_bitcoin_address()["name"]
+                + ") "
                 + self.settings.get_bitcoin_address()["address"]
+                + "\n\n(Buy me a Coffee) "
+                + self.settings.get_buy_me_a_coffee()
             ),
             text_color="#D4DA8B",
             font=("Segoe UI", 11),
@@ -336,22 +339,41 @@ class MainUI(AutoFreeApp):
         )
         donate_label.pack(side="left", padx=(0, 5))
 
-        # Kopyalama butonu
-        copy_btn = ctk.CTkButton(
-            donate_frame,
+        # Butonlar için ayrı bir frame
+        buttons_frame = ctk.CTkFrame(donate_frame, fg_color="transparent")
+        buttons_frame.pack(side="right")
+
+        # BTC Kopyalama butonu
+        btc_copy_btn = ctk.CTkButton(
+            buttons_frame,
             text=self.locale.get_text("menu.copy"),
-            width=30,
-            height=30,
+            width=100,
+            height=25,
             command=self.copy_btc,
             fg_color="transparent",
             hover_color=("gray85", "gray25"),
         )
-        copy_btn.pack(side="right")
+        btc_copy_btn.pack(pady=(0, 5))
+
+        # Coffee Kopyalama butonu
+        coffee_copy_btn = ctk.CTkButton(
+            buttons_frame,
+            text=self.locale.get_text("menu.copy"),
+            width=100,
+            height=25,
+            command=self.copy_coffee,
+            fg_color="transparent",
+            hover_color=("gray85", "gray25"),
+        )
+        coffee_copy_btn.pack()
 
         return self.window
 
     def copy_btc(self):
         pyperclip.copy(self.settings.get_bitcoin_address()["address"])
+
+    def copy_coffee(self):
+        pyperclip.copy(self.settings.get_buy_me_a_coffee())
 
     def update_table(self):
         for widget in self.table_content.winfo_children():

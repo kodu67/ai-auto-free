@@ -14,7 +14,7 @@ This tool is developed for research and educational purposes only. Please use re
 ## Screenshots
 
 ### Windows
-![AI Free](public/gui.png)
+![AI Free](public/sc.png)
 ___
 ### Requirements:
 - Make sure you have installed the latest version of the software (https://github.com/kodu67/ai-auto-free/releases/latest)
@@ -39,49 +39,22 @@ Browser Visibility: By default, the browser is hidden while operations are being
 
 Email Verifier: By default, the "Temporary" option is selected. If this option is selected, it will perform email verification using temp mail services. However, since the services we create accounts for block temp mail services, there is a chance of encountering problems. In this case, you can select the "IMAP" option.
 
-If the IMAP option is selected, it will perform email verification using IMAP services. This service can be your Google Mail account or your own server. As an example, I will explain how it's done with the "GMAIL" option.
-___
-### Using IMAP
-Select the "IMAP" option from the settings. When you make the selection, another option will be added to the settings section where you can configure IMAP settings. When you select that option, a notepad will open. You should correctly add your IMAP settings to this notepad and save it.
-
-We will get our IMAP settings from "gmail.com". After logging into Gmail, click on the settings gear (⚙️) in the top right.
-Select "See all settings" in the opened section.
-
-![Gmail Settings](public/s1.png)
-
-Click on the "Forwarding and POP/IMAP" tab on the opened page.
-
-![Gmail Settings](public/s2.png)
-
-Enable IMAP here.
-
-![Gmail Settings](public/s3.png)
-
-and click "Save Changes" button.
-
-Finally, we need to create a password from Google's security page.
-Detailed information: https://support.google.com/accounts/answer/185833
-
-Let's do it step by step:
-- Go to this address: https://myaccount.google.com/apppasswords
-- Log in to your Google account
-- Choose an app name (e.g., AI Auto Free)
-- Click "Generate App Password" button
-- Copy the password given to you
-
-Now you have all the information.
-
-Let's return to the IMAP settings file. Here:
-- IMAP_SERVER=imap.gmail.com
-- IMAP_PORT=993
-- IMAP_USER={your_gmail}@gmail.com
-- IMAP_PASSWORD=app password you created in the previous step
-
-Update the information as shown above.
-
-Now you can proceed with the account creation process.
+If the IMAP option is selected, it will perform email verification using IMAP services.
 ___
 ### Common Issues
+- #### Trial Limit Exceeded
+```text
+Too many free trial accounts used on this machine.
+Please upgrade to pro. We have this limit in place
+to prevent abuse. Please let us know if you believe
+this is a mistake.
+```
+
+```text
+You've reached your trial request limit.
+```
+Solution: You need to enable proxy mode.
+
 - #### Unauthorized Request
 This is an error seen on the Cursor side. It indicates that the email/email domain you are using has been blocked by Cursor services.
 

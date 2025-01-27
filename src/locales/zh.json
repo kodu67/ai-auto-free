@@ -24,7 +24,7 @@
             "download": "下载链接：{}",
             "changelog": "更改：\n{}"
         },
-        "donate": "捐赠 (比特币)：{}"
+        "donate": "捐赠 {}"
     },
     "settings": {
         "title": "设置",

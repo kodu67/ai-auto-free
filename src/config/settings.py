@@ -29,3 +29,7 @@ class Settings:
     def get_bitcoin_address(self):
         settings = self.get_settings_json()
         return settings.get("bitcoin", {})
+
+    def get_buy_me_a_coffee(self):
+        settings = self.get_settings_json()
+        return settings.get("buy_me_a_coffee", "")

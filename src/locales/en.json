@@ -24,7 +24,7 @@
             "download": "Download Link: {}",
             "changelog": "Changes:\n{}"
         },
-        "donate": "Donate (Bitcoin): {}"
+        "donate": "Donate {}"
     },
     "settings": {
         "title": "Settings",

@@ -1,17 +1,26 @@
 {
-  "version": "1.1.3",
+  "version": "1.1.4",
   "latest_version": "1.1.4",
   "bitcoin": {
     "address": "TG9SyC4ZAp2JjYiBWKLwE3AodjosSf4qfJ",
     "name": "USDT TRC20"
   },
-  "changelog": {},
+  "buy_me_a_coffee": "https://buymeacoffee.com/hqnet",
+  "changelog": {
+    "1.1.4": {
+      "tr": "Yeni email servisi eklendi. TempMail ile hesap oluşturabilirsiniz. Genel iyileştirmeler yapıldı. Cursor yeni sürümü için proxy mod eklendi.",
+      "en": "New email service added. You can create an account with TempMail. General improvements made. Proxy mode added for Cursor new version.",
+      "ru": "Новый сервис электронной почты добавлен. Вы можете создать аккаунт с помощью TempMail. Общие улучшения сделаны. Добавлен режим прокси для новой версии Cursor.",
+      "zh": "新的电子邮件服务添加。您可以使用 TempMail 创建帐户。-general improvements made. Proxy mode added for Cursor new version.",
+      "az": "Yeni email servisi eklendi. TempMail ile hesap oluşturabilirsiniz. Genel iyileştirme özellikleri yapıldı. Cursor yeni versiyonu için proxy modu eklendi."
+    }
+  },
   "message": {
-    "tr": "",
-    "en": "",
-    "ru": "",
-    "zh": "",
-    "az": ""
+    "tr": "Proxy mod ile Cursor'un yeni sürümlerinde bile deneme limiti uyarısına takılmadan kullanabilirsiniz.",
+    "en": "Proxy mode can be used without limits in Cursor's new versions.",
+    "ru": "Мод прокси может быть использован без ограничений в новых версиях Cursor.",
+    "zh": "Proxy mode can be used without limits in Cursor's new versions.",
+    "az": "Proxy modu Cursor yeni versiyalarında bile deneme limitini qorumaq uğunluqda istifade edə bilərsiniz."
   },
   "features": {
     "cursor": {
