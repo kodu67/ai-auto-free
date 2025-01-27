@@ -32,6 +32,8 @@ common_datas = [
     ("src/scripts/turnstilePatch", "scripts/turnstilePatch"),
     ("src/config/settings.json", "src/config"),
     ("src", "src"),  # Tüm src klasörünü kopyala
+    ("assets", "assets"),  # Assets klasörünü ekle
+    ("assets/icons", "assets/icons"),  # Assets klasörünü ekle
 ] + find_mitmdump()  # mitmdump'ı ekle
 
 # Ortak gizli importlar

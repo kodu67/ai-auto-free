@@ -29,7 +29,7 @@ class EmailService:
         }
         self.user_settings = UserSettings()
         self.session_cookie = None
-        self.tm_session = None
+        self.tm_session = ""
 
     def create_email(self):
         """Yeni bir geçici e-posta adresi oluşturur"""

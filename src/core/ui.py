@@ -6,6 +6,8 @@ from auth.cursor_auth import CursorDatabaseManager
 from src.services.proxy.proxy_service import ProxyService
 from src.utils.usage import UsageChecker
 import pyperclip
+import os
+import sys
 
 
 class MainUI(AutoFreeApp):
@@ -154,7 +156,20 @@ class MainUI(AutoFreeApp):
         self.window.title(f"AI Auto Free - v{version}")
         self.window.geometry("1000x605")
         self.window.resizable(False, False)
-        self.window.iconbitmap("assets/icons/icon.ico")
+
+        # PyInstaller ile uyumlu icon yolu
+        if getattr(sys, "frozen", False):
+            # PyInstaller ile build edilmiş
+            application_path = sys._MEIPASS
+        else:
+            # Normal Python çalıştırması
+            application_path = os.path.dirname(
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            )
+
+        icon_path = os.path.join(application_path, "assets", "icons", "icon.ico")
+        if os.path.exists(icon_path):
+            self.window.iconbitmap(icon_path)
 
         # Ana frame
         main_frame = ctk.CTkFrame(self.window, corner_radius=0)

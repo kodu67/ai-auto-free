@@ -12,6 +12,7 @@ class Locale:
 
     def get_lang_code(self):
         """Sistem dilini alir"""
+        return "en"
         system_locale = locale.getdefaultlocale()[0]
         lang_code = system_locale.split("_")[0] if system_locale else "en"
         return lang_code
@@ -36,7 +37,7 @@ class Locale:
             self.current_locale = lang_code
 
             # PyInstaller ile paketlendiğinde _MEIPASS kullan
-            if getattr(sys, 'frozen', False):
+            if getattr(sys, "frozen", False):
                 # PyInstaller ile çalışıyoruz
                 base_path = sys._MEIPASS
                 locale_path = os.path.join(base_path, "locales", locale_file)
@@ -49,10 +50,10 @@ class Locale:
             with open(locale_path, "r", encoding="utf-8") as f:
                 self.translations = json.load(f)
 
-        except Exception as e:
+        except Exception:
             # Varsayılan İngilizce çevirileri yükle
             try:
-                if getattr(sys, 'frozen', False):
+                if getattr(sys, "frozen", False):
                     base_path = sys._MEIPASS
                     locale_path = os.path.join(base_path, "locales", "en.json")
                 else:

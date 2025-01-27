@@ -254,6 +254,18 @@
         "buttons": {
             "start": "启动代理",
             "stop": "停止代理"
+        },
+        "certificate": {
+            "windows_instructions": "Windows证书安装步骤：\n1. 双击位于 {cert_path} 的证书文件\n2. 点击'安装证书'\n3. 选择'本地计算机'并点击'下一步'\n4. 选择'将所有证书放入下列存储'\n5. 点击'浏览'并选择'受信任的根证书颁发机构'\n6. 点击'确定'和'下一步'继续\n7. 点击'完成'完成安装",
+            "macos_instructions": "MacOS证书安装步骤：\n1. 双击位于 {cert_path} 的证书文件\n2. 添加到钥匙串\n3. 双击证书并展开'信任'\n4. 为此证书设置'始终信任'\n5. 关闭钥匙串访问窗口",
+            "linux_instructions": "Linux证书安装步骤：\n1. 将位于 {cert_path} 的证书复制到 /usr/local/share/ca-certificates/\n2. 打开终端\n3. 运行 sudo update-ca-certificates 命令\n4. 完成后重启浏览器",
+            "copying": "正在复制证书文件...",
+            "copy_failed": "复制证书文件失败",
+            "installing": "正在安装证书...",
+            "install_success": "证书安装成功",
+            "install_failed": "证书安装失败",
+            "install_error": "安装证书时出错：{error}",
+            "manual_install_required": "自动安装失败。请按照以下步骤手动安装："
         }
     }
 }

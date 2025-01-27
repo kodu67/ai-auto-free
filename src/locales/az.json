@@ -254,6 +254,18 @@
         "buttons": {
             "start": "Proxy Başlat",
             "stop": "Proxy Dayandır"
+        },
+        "certificate": {
+            "windows_instructions": "Windows üçün sertifikat quraşdırma addımları:\n1. {cert_path} yerində olan sertifikat faylına iki dəfə klikləyin\n2. 'Sertifikatı Quraşdır' düyməsinə klikləyin\n3. 'Yerli Kompüter' seçin və 'İrəli' klikləyin\n4. 'Bütün sertifikatları aşağıdakı yerdə saxla' seçin\n5. 'Gözdən keçir' klikləyin və 'Etibarlı Kök Sertifikat Qurumları' seçin\n6. 'OK' və 'İrəli' klikləyərək davam edin\n7. 'Son' klikləyərək quraşdırmanı tamamlayın",
+            "macos_instructions": "MacOS üçün sertifikat quraşdırma addımları:\n1. {cert_path} yerində olan sertifikat faylına iki dəfə klikləyin\n2. Açar Zəncirinə əlavə edin\n3. Sertifikata iki dəfə klikləyin və 'Etibar' seçimini genişləndirin\n4. 'Bu sertifikata həmişə etibar et' seçimini işarələyin\n5. Açar Zənciri pəncərəsini bağlayın",
+            "linux_instructions": "Linux üçün sertifikat quraşdırma addımları:\n1. {cert_path} yerindən sertifikatı /usr/local/share/ca-certificates/ qovluğuna kopyalayın\n2. Terminal'ı açın\n3. sudo update-ca-certificates əmrini işə salın\n4. Əməliyyat tamamlandıqda brauzeri yenidən başladın",
+            "copying": "Sertifikat faylı kopyalanır...",
+            "copy_failed": "Sertifikat faylı kopyalana bilmədi",
+            "installing": "Sertifikat quraşdırılır...",
+            "install_success": "Sertifikat uğurla quraşdırıldı",
+            "install_failed": "Sertifikat quraşdırıla bilmədi",
+            "install_error": "Sertifikat quraşdırılarkən xəta baş verdi: {error}",
+            "manual_install_required": "Avtomatik quraşdırma uğursuz oldu. Zəhmət olmasa, əl ilə quraşdırmaq üçün bu addımları izləyin:"
         }
     }
 }

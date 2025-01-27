@@ -36,7 +36,9 @@ class CertificateInstaller:
                 yield self.locale.get_text("proxy.certificate.install_failed")
 
         except Exception as e:
-            yield self.locale.get_text("proxy.certificate.install_error").format(error=str(e))
+            yield self.locale.get_text("proxy.certificate.install_error").format(
+                error=str(e)
+            )
 
     def _copy_certificate(self):
         """mitmproxy sertifikasını geçici dizine kopyalar"""
@@ -85,15 +87,9 @@ class CertificateInstaller:
             # Sertifikayı sistem sertifika dizinine kopyala
             dest = "/usr/local/share/ca-certificates/mitmproxy.crt"
             shutil.copy2(cert_path, dest)
-            
+
             # Sertifika deposunu güncelle
             result = os.system("update-ca-certificates")
             return result == 0
         except:
             return False
-
-
-if __name__ == "__main__":
-    installer = CertificateInstaller()
-    for message in installer.install_certificate():
-        print(message)

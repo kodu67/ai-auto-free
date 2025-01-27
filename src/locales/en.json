@@ -254,6 +254,18 @@
         "buttons": {
             "start": "Start Proxy",
             "stop": "Stop Proxy"
+        },
+        "certificate": {
+            "windows_instructions": "Certificate installation steps for Windows:\n1. Double-click the certificate file at {cert_path}\n2. Click 'Install Certificate'\n3. Select 'Local Machine' and click 'Next'\n4. Select 'Place all certificates in the following store'\n5. Click 'Browse' and select 'Trusted Root Certification Authorities'\n6. Click 'OK' and 'Next' to continue\n7. Click 'Finish' to complete the installation",
+            "macos_instructions": "Certificate installation steps for MacOS:\n1. Double-click the certificate file at {cert_path}\n2. Add it to Keychain\n3. Double-click the certificate and expand 'Trust'\n4. Set 'Always Trust' for this certificate\n5. Close the Keychain window",
+            "linux_instructions": "Certificate installation steps for Linux:\n1. Copy the certificate from {cert_path} to /usr/local/share/ca-certificates/\n2. Open Terminal\n3. Run sudo update-ca-certificates command\n4. Restart your browser when complete",
+            "copying": "Copying certificate file...",
+            "copy_failed": "Failed to copy certificate file",
+            "installing": "Installing certificate...",
+            "install_success": "Certificate installed successfully",
+            "install_failed": "Failed to install certificate",
+            "install_error": "Error installing certificate: {error}",
+            "manual_install_required": "Automatic installation failed. Please follow these steps to install manually:"
         }
     }
 }

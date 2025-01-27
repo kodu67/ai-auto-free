@@ -35,7 +35,9 @@ class Helper:
     def get_bitcoin(self):
         """Bitcoin bağış bilgisini gösterir"""
         btc = self.settings.get_bitcoin_address()
-        return self.locale.get_text("bitcoin").format("(" + btc["name"] + ")\n " + btc["address"])
+        return self.locale.get_text("bitcoin").format(
+            "(" + btc["name"] + ")\n " + btc["address"]
+        )
 
     def show_repo(self):
         """Repo adresini gösterir"""
@@ -43,9 +45,11 @@ class Helper:
 
     def get_landing_message(self):
         """Giriş mesajını gösterir"""
-        landing_message = self.settings.get_settings_json().get("message", {}).get(
-                self.locale.current_locale, ""
-            )
+        landing_message = (
+            self.settings.get_settings_json()
+            .get("message", {})
+            .get(self.locale.current_locale, "")
+        )
         return landing_message
 
     def show_main(self):
@@ -78,9 +82,20 @@ class Helper:
         return random.choice(first_names), random.choice(last_names)
 
     def generate_password(self, length=12):
-        """Güçlü bir şifre oluşturur"""
-        chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
-        return "".join(random.choice(chars) for _ in range(length))
+        """Güçlü bir şifre oluşturur."""
+
+        letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        numbers = "0123456789"
+        special_chars = "!@#$%^&*"
+        all_chars = letters + numbers + special_chars
+
+        while True:
+            password = "".join(random.choice(all_chars) for _ in range(length))
+            # En az bir harf ve bir rakam içerdiğinden emin oluyoruz
+            if any(c in letters for c in password) and any(
+                c in numbers for c in password
+            ):
+                return password
 
     def get_src_path(self):
         return os.path.dirname(os.path.dirname(__file__))
@@ -109,15 +124,15 @@ class Helper:
                 "changelog": "",
                 "features": {
                     "cursor": {"enabled": True, "maintenance": False, "message": ""},
-                    "windsurf": {"enabled": True, "maintenance": False, "message": ""}
-                }
+                    "windsurf": {"enabled": True, "maintenance": False, "message": ""},
+                },
             }
 
             # Versiyon kontrolü
             if latest_version and current_version:
                 # Versiyon numaralarını parçalara ayır
-                current_parts = [int(x) for x in current_version.split('.')]
-                latest_parts = [int(x) for x in latest_version.split('.')]
+                current_parts = [int(x) for x in current_version.split(".")]
+                latest_parts = [int(x) for x in latest_version.split(".")]
 
                 # Eksik parçaları 0 ile doldur
                 while len(current_parts) < 3:
@@ -147,7 +162,9 @@ class Helper:
                 update_info["features"]["cursor"]["enabled"] = False
             if cursor_settings.get("maintenance", False):
                 update_info["features"]["cursor"]["maintenance"] = True
-                update_info["features"]["cursor"]["message"] = cursor_settings["maintenance_message"][self.locale.current_locale]
+                update_info["features"]["cursor"]["message"] = cursor_settings[
+                    "maintenance_message"
+                ][self.locale.current_locale]
 
             # Windsurf kontrolü
             windsurf_settings = features.get("windsurf", {})
@@ -155,7 +172,9 @@ class Helper:
                 update_info["features"]["windsurf"]["enabled"] = False
             if windsurf_settings.get("maintenance", False):
                 update_info["features"]["windsurf"]["maintenance"] = True
-                update_info["features"]["windsurf"]["message"] = windsurf_settings["maintenance_message"][self.locale.current_locale]
+                update_info["features"]["windsurf"]["message"] = windsurf_settings[
+                    "maintenance_message"
+                ][self.locale.current_locale]
 
             return update_info
 

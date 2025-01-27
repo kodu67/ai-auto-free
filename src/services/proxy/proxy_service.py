@@ -46,10 +46,22 @@ class ProxyService:
         try:
             yield self._locale.get_text("proxy.checking_certificate")
             if not self.is_certificate_installed():
-                yield self._locale.get_text("proxy.certificate_not_installed")
-                instructions = self.get_cert_install_instructions()
-                yield instructions
-                return
+                from .install_cert import CertificateInstaller
+
+                installer = CertificateInstaller()
+                success = True
+                for message in installer.install_certificate():
+                    yield message
+                    if "failed" in message or "error" in message:
+                        success = False
+
+                if not success:
+                    yield self._locale.get_text(
+                        "proxy.certificate.manual_install_required"
+                    )
+                    instructions = self.get_cert_install_instructions()
+                    yield instructions
+                    return
 
             # Yeni bir proxy manager oluştur
             self._proxy_manager = ProxyManager()
@@ -134,12 +146,19 @@ class ProxyService:
 
     def get_cert_install_instructions(self):
         """Sertifika yükleme talimatlarını döndürür"""
+        cert_path = Path.home() / ".cursor" / "certs" / "mitmproxy-ca-cert.pem"
         if self._helper.is_windows():
-            return self._locale.get_text("proxy.certificate.windows_instructions")
+            return self._locale.get_text(
+                "proxy.certificate.windows_instructions"
+            ).format(cert_path=cert_path)
         elif self._helper.is_macos():
-            return self._locale.get_text("proxy.certificate.macos_instructions")
+            return self._locale.get_text("proxy.certificate.macos_instructions").format(
+                cert_path=cert_path
+            )
         else:
-            return self._locale.get_text("proxy.certificate.linux_instructions")
+            return self._locale.get_text("proxy.certificate.linux_instructions").format(
+                cert_path=cert_path
+            )
 
     def proxy_status_handler(self, message):
         if self._status_callback:

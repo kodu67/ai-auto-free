@@ -1,5 +1,4 @@
 import time
-import json
 import random
 import pyperclip
 from services.browser_service import BrowserService
@@ -166,15 +165,11 @@ class WindsurfAuthManager:
                 yield from self.logger.log_account("Windsurf", account_data)
                 yield "-REFRESH-TABLE-"
 
-                yield "\n" + self.locale.get_text("windsurf.registration_success")
-                yield "\n" + self.locale.get_text("common.account_info")
-                yield "+" + "-" * 50 + "+"
-                yield f"| {self.locale.get_text('common.email'):<15}: {email:<32} |"
-                yield f"| {self.locale.get_text('common.password'):<15}: {password:<32} |"
-                yield "+" + "-" * 50 + "+"
-                yield "\n" + "+" + "-" * 70 + "+"
-                yield f"| {self.locale.get_text('windsurf.token_copied'):<15} |"
-                yield "+" + "-" * 70 + "+"
+                yield self.locale.get_text("windsurf.registration_success")
+                yield self.locale.get_text("common.account_info")
+                yield f"{self.locale.get_text('common.email')}: {email}"
+                yield f"{self.locale.get_text('common.password')}: {password}"
+                yield self.locale.get_text("windsurf.token_copied")
             else:
                 yield "[!] Token not found"
 
@@ -193,9 +188,7 @@ class WindsurfAuthManager:
                 # Başarı durumunu kontrol et
                 response_input = tab.ele("@name=cf-turnstile-response")
                 if response_input and response_input.attr("value"):
-                    yield "[*] " + self.locale.get_text(
-                        "windsurf.turnstile.success"
-                    )
+                    yield "[*] " + self.locale.get_text("windsurf.turnstile.success")
                     return True
 
                 # Shadow root içinde iframe'i ara
@@ -226,9 +219,7 @@ class WindsurfAuthManager:
                 # Sign up butonu aktif mi kontrol et
                 signup_button = tab.ele("text=Sign up")
                 if signup_button and not signup_button.attr("disabled"):
-                    yield "[*] " + self.locale.get_text(
-                        "windsurf.turnstile.success"
-                    )
+                    yield "[*] " + self.locale.get_text("windsurf.turnstile.success")
                     return True
 
                 time.sleep(random.uniform(1, 2))

@@ -254,6 +254,18 @@
         "buttons": {
             "start": "Proxy Başlat",
             "stop": "Proxy Durdur"
+        },
+        "certificate": {
+            "windows_instructions": "Windows için sertifika yükleme adımları:\n1. {cert_path} konumundaki sertifika dosyasına çift tıklayın\n2. 'Sertifikayı Yükle' seçeneğine tıklayın\n3. 'Yerel Bilgisayar' seçin ve 'İleri' tıklayın\n4. 'Tüm sertifikaları aşağıdaki depolama alanına yerleştir' seçin\n5. 'Gözat' tıklayın ve 'Güvenilen Kök Sertifika Yetkilileri' seçin\n6. 'Tamam' ve 'İleri' tıklayarak devam edin\n7. 'Son' tıklayarak yüklemeyi tamamlayın",
+            "macos_instructions": "MacOS için sertifika yükleme adımları:\n1. {cert_path} konumundaki sertifika dosyasına çift tıklayın\n2. Anahtar Zinciri'ne ekleyin\n3. Sertifikaya çift tıklayın ve 'Güven' seçeneğini genişletin\n4. 'Bu sertifikaya her zaman güven' seçeneğini işaretleyin\n5. Anahtar Zinciri penceresini kapatın",
+            "linux_instructions": "Linux için sertifika yükleme adımları:\n1. {cert_path} konumundaki sertifikayı /usr/local/share/ca-certificates/ dizinine kopyalayın\n2. Terminal'i açın\n3. sudo update-ca-certificates komutunu çalıştırın\n4. İşlem tamamlandığında tarayıcıyı yeniden başlatın",
+            "copying": "Sertifika dosyası kopyalanıyor...",
+            "copy_failed": "Sertifika dosyası kopyalanamadı",
+            "installing": "Sertifika yükleniyor...",
+            "install_success": "Sertifika başarıyla yüklendi",
+            "install_failed": "Sertifika yüklenemedi",
+            "install_error": "Sertifika yüklenirken hata oluştu: {error}",
+            "manual_install_required": "Otomatik yükleme başarısız oldu. Lütfen aşağıdaki adımları takip ederek manuel olarak yükleyin:"
         }
     }
 }
