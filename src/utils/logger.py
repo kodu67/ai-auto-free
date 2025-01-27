@@ -8,7 +8,7 @@ class Logger:
         self.user_settings = UserSettings()
         self.accounts_file = os.path.join(self.user_settings.settings_dir, "accounts.json")
 
-    def _get_accounts(self):
+    def get_accounts(self):
         try:
             with open(self.accounts_file, "r", encoding="utf-8") as f:
                 return json.load(f)
@@ -16,7 +16,7 @@ class Logger:
             return []
 
     def get_accounts_as_list(self):
-        accounts = self._get_accounts()
+        accounts = self.get_accounts()
         return [
             [account["service"], account["email"], account["password"], account["token"], "", account["date"]]
             for account in reversed(accounts)
@@ -24,7 +24,7 @@ class Logger:
 
     def log_account(self, service_type, account_data):
         try:
-            accounts = self._get_accounts()
+            accounts = self.get_accounts()
             date = datetime.now().strftime("%Y-%m-%d %H:%M")
 
             accounts.append({

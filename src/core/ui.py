@@ -116,7 +116,7 @@ class MainUI(AutoFreeApp):
             field_frame = ctk.CTkFrame(imap_frame, fg_color="transparent")
             field_frame.pack(fill="x", padx=10, pady=2)
             ctk.CTkLabel(field_frame, text=label, width=70).pack(side="left")
-            entry = ctk.CTkEntry(field_frame, placeholder_text=label)
+            entry = ctk.CTkEntry(field_frame, placeholder_text=label, justify="right")
             entry.pack(side="right", fill="x", expand=True)
             entry.insert(0, self.imap_settings.get(key, ""))
             if key == "IMAP_PASS":
@@ -150,9 +150,11 @@ class MainUI(AutoFreeApp):
 
     def create_layout(self):
         self.window = ctk.CTk()
-        self.window.title("AI Auto Free")
-        self.window.geometry("1000x600")
+        version = self.settings.get_version()
+        self.window.title(f"AI Auto Free - v{version}")
+        self.window.geometry("1000x605")
         self.window.resizable(False, False)
+        self.window.iconbitmap("assets/icons/icon.ico")
 
         # Ana frame
         main_frame = ctk.CTkFrame(self.window, corner_radius=0)
@@ -237,7 +239,7 @@ class MainUI(AutoFreeApp):
         header_frame = ctk.CTkFrame(self.table_frame, fg_color=("gray85", "gray25"))
         header_frame.pack(fill="x", padx=1, pady=1)
 
-        widths = [0.2, 0.5, 0.3]  # Sütun genişlik oranları
+        widths = [0.2, 0.4, 0.4]  # Sütun genişlik oranları
         for col, (header, width) in enumerate(zip(headers, widths)):
             label_frame = ctk.CTkFrame(header_frame, fg_color="transparent")
             label_frame.pack(side="left", fill="both", expand=True, padx=1)
@@ -349,14 +351,17 @@ class MainUI(AutoFreeApp):
             row_frame.pack(fill="x", padx=1, pady=1)
             row_frame.pack_propagate(False)
 
-            widths = [0.2, 0.5, 0.3]  # Sütun genişlik oranları
+            widths = [0.2, 0.4, 0.4]  # Sütun genişlik oranları
             for col, (value, width) in enumerate(zip(data, widths)):
                 cell_frame = ctk.CTkFrame(row_frame, fg_color="transparent")
                 cell_frame.pack(side="left", fill="both", expand=True, padx=1)
 
                 # E-posta ve tarih sütunları için sağa yaslı, diğerleri için sola yaslı
                 anchor = "e" if col in [1, 2] else "w"
-                label = ctk.CTkLabel(cell_frame, text=value, anchor=anchor)
+                justify = "right" if col in [1, 2] else "left"
+                label = ctk.CTkLabel(
+                    cell_frame, text=value, anchor=anchor, justify=justify
+                )
                 label.pack(fill="x", padx=5)
                 cell_frame.configure(width=int(800 * width))
 
@@ -368,6 +373,8 @@ class MainUI(AutoFreeApp):
         details = self.get_account_details(index)
         if not details:
             return
+
+        self.selected_account = index  # Seçili hesabı güncelle
 
         for widget in self.detail_frame.winfo_children():
             widget.destroy()
@@ -408,7 +415,7 @@ class MainUI(AutoFreeApp):
 
             entry.configure(state="readonly")
 
-            if key == "email":
+            if key == "email" and details["service"] == "Cursor":
                 switch_btn = ctk.CTkButton(
                     frame,
                     text=self.locale.get_text("common.switch_account"),
@@ -485,10 +492,10 @@ class MainUI(AutoFreeApp):
             if details and details["token"]:
                 token = details["token"].split("%3A%3A")[1]
                 cursor_db = CursorDatabaseManager()
-                cursor_db.update_auth(
+                for log in cursor_db.update_auth(
                     email=details["email"], access_token=token, refresh_token=token
-                )
-                self.show_info(self.locale.get_text("common.switch_account_success"))
+                ):
+                    self.update_proxy_console(log)
 
     def handle_cursor_creation(self):
         try:
@@ -576,7 +583,7 @@ class MainUI(AutoFreeApp):
             else:
                 self.start_proxy_button.configure(state="normal")
         except Exception as e:
-            self.update_proxy_console(f"Hata: {str(e)}")
+            self.update_proxy_console(f"ERR: {str(e)}")
             self.start_proxy_button.configure(state="normal")
             self.stop_proxy_button.configure(state="disabled")
             # Hata durumunda thread'i temizle

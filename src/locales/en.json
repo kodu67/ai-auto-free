@@ -72,7 +72,7 @@
             "registration_page_error": "Could not open registration page",
             "processing": "Processing...",
             "operation_failed": "Operation failed",
-            "email_unavailable": "This email is unavailable",
+            "email_unavailable": "The generated mail was blocked by Cursor.",
             "verification_code_error": "Could not enter verification code",
             "waiting": "Waiting...",
             "usage_limit": "Usage limit",

@@ -72,7 +72,7 @@
             "registration_page_error": "Kayıt sayfası açılamadı",
             "processing": "İşleniyor...",
             "operation_failed": "İşlem başarısız oldu",
-            "email_unavailable": "Bu email kullanılamaz",
+            "email_unavailable": "Oluşturulan mail, Cursor tarafından engellenmiş.",
             "verification_code_error": "Doğrulama kodu girilemedi",
             "waiting": "Bekleniyor...",
             "usage_limit": "Kullanım limiti",

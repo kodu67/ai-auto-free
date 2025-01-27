@@ -72,7 +72,7 @@
             "registration_page_error": "Qeydiyyat səhifəsi açıla bilmədi",
             "processing": "Emal edilir...",
             "operation_failed": "Əməliyyat uğursuz oldu",
-            "email_unavailable": "Bu email istifadə edilə bilməz",
+            "email_unavailable": "Yaradılan e-poçt Kursor tərəfindən bloklandı.",
             "verification_code_error": "Doğrulama kodu daxil edilə bilmədi",
             "waiting": "Gözlənilir...",
             "usage_limit": "İstifadə limiti",

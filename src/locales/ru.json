@@ -72,7 +72,7 @@
             "registration_page_error": "Не удалось открыть страницу регистрации",
             "processing": "Обработка...",
             "operation_failed": "Операция не удалась",
-            "email_unavailable": "Этот email недоступен",
+            "email_unavailable": "Созданное письмо было заблокировано Cursor.",
             "verification_code_error": "Не удалось ввести код подтверждения",
             "waiting": "Ожидание...",
             "usage_limit": "Лимит использования",

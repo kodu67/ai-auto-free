@@ -3,10 +3,10 @@ import time
 import imaplib
 from email import message_from_bytes
 import random
-import string
 from utils.locale import Locale
 from config.user_settings import UserSettings
 from datetime import datetime, timedelta
+
 
 class EmailService:
     def __init__(self):
@@ -27,25 +27,47 @@ class EmailService:
 
     def create_email(self):
         """Yeni bir geçici e-posta adresi oluşturur"""
+        from utils.logger import Logger
+
+        logger = Logger()
+
+        def is_email_used(email):
+            """Email'in daha önce kullanılıp kullanılmadığını kontrol eder"""
+            accounts = logger.get_accounts()
+            return any(account["email"] == email for account in accounts)
+
+        while True:
+            email, token = self._generate_email()
+            if not is_email_used(email):
+                self.email = email
+                return email, token
+
+    def _generate_email(self):
+        """Yeni bir email adresi oluşturur"""
         # IMAP kullanılıyorsa IMAP ayarlarından e-posta oluştur
         if self.user_settings.get_email_verifier() == "imap":
             imap_settings = self.user_settings.get_imap_settings()
             email_parts = imap_settings["IMAP_USER"].split("@")
-            random_suffix = ''.join(random.choices(string.ascii_letters + string.digits, k=5))
 
             # Gmail.com'u bazen googlemail.com'a çevir
             domain = email_parts[1]
-            if domain == "gmail.com" and random.random() < 0.5:
+            is_gmail = domain == "gmail.com"
+            if is_gmail and random.random() < 0.5:
                 domain = "googlemail.com"
 
-            # Rastgele nokta ekle (düşük olasılıkla)
+            # Username'in harfleri arasına nokta ekle
             username = email_parts[0]
-            if len(username) > 3 and random.random() < 0.5:
-                pos = random.randint(1, len(username)-1)
-                username = username[:pos] + "." + username[pos:]
+            if not is_gmail:
+                username_chars = list(username)
+                num_dots = random.randint(1, len(username) - 1)
+                dot_positions = random.sample(range(1, len(username)), num_dots)
 
-            self.email = f"{username}+{random_suffix}@{domain}"
-            return self.email, None
+                for pos in sorted(dot_positions, reverse=True):
+                    username_chars.insert(pos, ".")
+
+                new_username = "".join(username_chars)
+                return f"{new_username}@{domain}", None
+            return f"{username}@{domain}", None
 
         # Diğer durumlarda temp-mail API'sini kullan
         try:
@@ -70,14 +92,18 @@ class EmailService:
 
         try:
             if self.user_settings.get_email_verifier() == "imap":
-                imap_generator = self._get_verification_code_imap(email, max_attempts, delay)
+                imap_generator = self._get_verification_code_imap(
+                    email, max_attempts, delay
+                )
                 while True:
                     try:
                         yield next(imap_generator)
                     except StopIteration as e:
                         return e.value
             else:
-                api_generator = self._get_verification_code_api(email, max_attempts, delay)
+                api_generator = self._get_verification_code_api(
+                    email, max_attempts, delay
+                )
                 while True:
                     try:
                         yield next(api_generator)
@@ -113,26 +139,41 @@ class EmailService:
 
         yield self.locale.get_text("email.verification_failed")
         return None
+
     def _get_verification_code_imap(self, email, max_attempts, delay):
         """IMAP üzerinden doğrulama kodunu alır"""
         imap_settings = self.user_settings.get_imap_settings()
 
         for attempt in range(max_attempts):
             try:
-                yield self.locale.get_text("email.imap_connecting").format(imap_settings["IMAP_SERVER"])
-                imap = imaplib.IMAP4_SSL(imap_settings["IMAP_SERVER"], int(imap_settings["IMAP_PORT"]))
+                yield self.locale.get_text("email.imap_connecting").format(
+                    imap_settings["IMAP_SERVER"]
+                )
+                imap = imaplib.IMAP4_SSL(
+                    imap_settings["IMAP_SERVER"], int(imap_settings["IMAP_PORT"])
+                )
                 imap.login(imap_settings["IMAP_USER"], imap_settings["IMAP_PASS"])
                 yield self.locale.get_text("email.imap_login_success")
                 imap.select("INBOX")
 
                 # Son 1 dakika içinde gelen okunmamış mesajları ara
-                one_minute_ago = (datetime.now() - timedelta(minutes=1)).strftime("%d-%b-%Y")
-                search_criteria = f'(UNSEEN FROM "no-reply@cursor.sh" SINCE "{one_minute_ago}")'
-                _, messages = imap.search(None, 'UNSEEN', f'(FROM "no-reply@cursor.sh" SINCE "{one_minute_ago}")')
+                one_minute_ago = (datetime.now() - timedelta(minutes=1)).strftime(
+                    "%d-%b-%Y"
+                )
+                search_criteria = (
+                    f'(UNSEEN FROM "no-reply@cursor.sh" SINCE "{one_minute_ago}")'
+                )
+                _, messages = imap.search(
+                    None,
+                    "UNSEEN",
+                    f'(FROM "no-reply@cursor.sh" SINCE "{one_minute_ago}")',
+                )
                 message_nums = messages[0].split()
 
                 if not message_nums:
-                    yield self.locale.get_text("email.imap_new_mail_waiting").format(attempt + 1, max_attempts)
+                    yield self.locale.get_text("email.imap_new_mail_waiting").format(
+                        attempt + 1, max_attempts
+                    )
                     imap.close()
                     imap.logout()
                     time.sleep(delay)
@@ -151,20 +192,23 @@ class EmailService:
                                 content = part.get_payload(decode=True).decode()
                                 body_text += content + "\n"
                             except Exception as e:
-                                yield self.locale.get_text("email.imap_content_read_error").format(str(e))
+                                yield self.locale.get_text(
+                                    "email.imap_content_read_error"
+                                ).format(str(e))
                                 continue
                 else:
                     body_text = email_body.get_payload(decode=True).decode()
 
                 import re
-                codes = re.findall(r'\b\d{6}\b', body_text)
+
+                codes = re.findall(r"\b\d{6}\b", body_text)
 
                 if codes:
                     code = codes[0]
                     yield f"{self.locale.get_text('cursor.verification_code')}: {code}"
 
                     # Mesajı sil
-                    imap.store(latest_email_id, '+FLAGS', '\\Deleted')
+                    imap.store(latest_email_id, "+FLAGS", "\\Deleted")
                     imap.expunge()
 
                     imap.close()

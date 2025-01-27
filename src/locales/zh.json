@@ -72,7 +72,7 @@
             "registration_page_error": "无法打开注册页面",
             "processing": "处理中...",
             "operation_failed": "操作失败",
-            "email_unavailable": "此电子邮件不可用",
+            "email_unavailable": "生成的邮件被光标拦截。",
             "verification_code_error": "无法输入验证码",
             "waiting": "等待中...",
             "usage_limit": "使用限制",
