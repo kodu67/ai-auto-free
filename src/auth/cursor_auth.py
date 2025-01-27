@@ -1,5 +1,4 @@
 import sqlite3
-import os
 import time
 import random
 from utils.locale import Locale

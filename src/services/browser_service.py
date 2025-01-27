@@ -42,7 +42,6 @@ class BrowserService:
         except Exception as e:
             yield f"Chrome extension loading error: {e}"
 
-
         co.set_user_agent(
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/130.0.6723.92 Safari/537.36"
@@ -65,7 +64,7 @@ class BrowserService:
     def _get_extension_path(self):
         """Turnstile Patch eklentisinin yolunu döndürür"""
         try:
-            if getattr(sys, 'frozen', False):
+            if getattr(sys, "frozen", False):
                 # PyInstaller ile paketlenmiş
                 base_path = sys._MEIPASS
                 extension_path = os.path.join(base_path, "scripts", "turnstilePatch")
@@ -76,11 +75,15 @@ class BrowserService:
                 )
 
             if not os.path.exists(extension_path):
-                raise FileNotFoundError(f"Extension directory not found: {extension_path}")
+                raise FileNotFoundError(
+                    f"Extension directory not found: {extension_path}"
+                )
 
             # Dizin içeriğini kontrol et
             if not os.path.exists(os.path.join(extension_path, "manifest.json")):
-                raise FileNotFoundError(f"manifest.json not found in extension directory")
+                raise FileNotFoundError(
+                    f"manifest.json not found in extension directory"
+                )
 
             return extension_path
 

@@ -448,12 +448,62 @@ class MainUI(AutoFreeApp):
         self.proxy_console.see("end")
 
     def show_info(self, message):
-        info_window = ctk.CTkToplevel()
-        info_window.title("Bilgi")
-        info_window.geometry("800x200")
+        # Bağımsız bir pencere oluştur
+        info_window = ctk.CTkToplevel(None)
+        info_window.title("Info")
 
-        ctk.CTkLabel(info_window, text=message).pack(pady=20)
-        ctk.CTkButton(info_window, text="Tamam", command=info_window.destroy).pack()
+        # Pencere arkaplan rengini ayarla
+        info_window.configure(fg_color=("gray95", "gray10"))
+
+        # Pencere içeriği
+        frame = ctk.CTkFrame(info_window)
+        frame.pack(expand=True, fill="both")
+
+        # Seçilebilir metin alanı
+        message_text = ctk.CTkTextbox(
+            frame,
+            width=400,
+            wrap="word",
+            activate_scrollbars=False,  # Scrollbar'ı gizle
+            fg_color="transparent",  # Arka plan rengini frame ile aynı yap
+        )
+        message_text.insert("1.0", message)
+        message_text.configure(
+            state="disabled"
+        )  # Salt okunur yap ama seçilebilir kalsın
+        message_text.pack(pady=(20, 30), padx=20, fill="both", expand=True)
+
+        # Metin boyutunu hesapla
+        message_text.update_idletasks()
+        line_count = len(message_text.get("1.0", "end").splitlines())
+        text_height = line_count * 25  # Her satır için yaklaşık 25 piksel
+        message_text.configure(height=text_height)
+
+        ok_button = ctk.CTkButton(
+            frame, text="Tamam", width=120, command=info_window.destroy
+        )
+        ok_button.pack(pady=(0, 20))
+
+        # Pencere boyutunu içeriğe göre ayarla
+        info_window.update_idletasks()
+        window_width = max(400, min(400, 800))  # Sabit genişlik
+        window_height = frame.winfo_reqheight() + 40
+
+        # Ekranın ortasına konumlandır
+        screen_width = info_window.winfo_screenwidth()
+        screen_height = info_window.winfo_screenheight()
+        x = (screen_width - window_width) // 2
+        y = (screen_height - window_height) // 2
+
+        info_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
+        info_window.resizable(False, False)
+
+        # Pencereyi modal yap
+        info_window.grab_set()
+        info_window.focus_force()
+
+        # Pencere kapanana kadar bekle
+        info_window.wait_window()
 
     def show_error(self, message):
         error_window = ctk.CTkToplevel()
