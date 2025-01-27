@@ -3,6 +3,7 @@ from pathlib import Path
 from .proxy_manager import ProxyManager
 from utils.helper import Helper
 from utils.locale import Locale
+from config.user_settings import UserSettings
 
 
 class ProxyService:
@@ -12,6 +13,7 @@ class ProxyService:
     _status_callback = None
     _locale = None
     _helper = None
+    _user_settings = None
 
     @classmethod
     def get_instance(cls):
@@ -27,6 +29,7 @@ class ProxyService:
         ProxyService._instance = self
         self._locale = Locale()
         self._helper = Helper()
+        self._user_settings = UserSettings()
 
     def set_status_callback(self, callback):
         """UI'a durum mesajı göndermek için callback fonksiyonu ayarlar"""
@@ -37,6 +40,38 @@ class ProxyService:
         if self._status_callback:
             self._status_callback(message)
 
+    def check_mitmproxy_installed(self):
+        """
+        mitmproxy'nin sistemde yüklü olup olmadığını kontrol eder.
+        Kuruluysa mitmproxy klasör yolunu, değilse False döndürür.
+        """
+        try:
+            # Önce Python modülü olarak kontrol et
+            import mitmproxy
+            
+            # Modül yolunu al
+            mitmproxy_path = os.path.dirname(mitmproxy.__file__)
+            
+            # Sonra komut satırından kontrol et
+            if self._helper.is_windows():
+                result = os.popen("where mitmdump").read().strip().split('\n')[0]  # İlk yolu al
+                if not result:
+                    return False
+                # mitmdump.exe'nin bulunduğu klasörün üst klasörünü al
+                install_path = os.path.dirname(os.path.dirname(result))
+            else:
+                result = os.popen("which mitmdump").read().strip()
+                if not result:
+                    return False
+                install_path = os.path.dirname(os.path.dirname(result))
+                
+            return install_path
+            
+        except ImportError:
+            return False
+        except Exception:
+            return False
+
     def start_proxy(self):
         """Proxy'yi başlatır ve durumu yield eder"""
         if self._is_running:
@@ -44,40 +79,63 @@ class ProxyService:
             return
 
         try:
-            yield self._locale.get_text("proxy.checking_certificate")
-            if not self.is_certificate_installed():
-                from .install_cert import CertificateInstaller
-
-                installer = CertificateInstaller()
-                success = True
-                for message in installer.install_certificate():
-                    yield message
-                    if "failed" in message or "error" in message:
-                        success = False
-
-                if not success:
-                    yield self._locale.get_text(
-                        "proxy.certificate.manual_install_required"
-                    )
-                    instructions = self.get_cert_install_instructions()
-                    yield instructions
-                    return
+            # Önce mitmproxy kontrolü yap
+            mitmproxy_path = self._user_settings.get_mitmproxy_path()
+            if not mitmproxy_path:
+                yield f"Error: Please install mitmproxy https://mitmproxy.org/"
+                return
 
             # Yeni bir proxy manager oluştur
             self._proxy_manager = ProxyManager()
 
-            # Proxy'yi başlat
-            for status in self._proxy_manager.start(self.proxy_status_handler):
-                yield status
+            try:
+                # Önce proxy'yi başlat (bu sertifika dosyalarını oluşturacak)
+                for status in self._proxy_manager.start(self.proxy_status_handler, mitmproxy_path):
+                    yield status
 
-            self._is_running = True
+                # Şimdi sertifika kontrolü ve kurulumu yap
+                yield self._locale.get_text("proxy.checking_certificate")
+                if not self.is_certificate_installed():
+                    from .install_cert import CertificateInstaller
+
+                    installer = CertificateInstaller()
+                    success = True
+                    for message in installer.install_certificate():
+                        yield message
+                        if "failed" in message or "error" in message:
+                            success = False
+
+                    if not success:
+                        yield self._locale.get_text(
+                            "proxy.certificate.manual_install_required"
+                        )
+                        instructions = self.get_cert_install_instructions()
+                        yield instructions
+                        # Sertifika kurulamadıysa proxy'yi durdur
+                        for status in self.stop_proxy():
+                            yield status
+                        return
+
+                self._is_running = True
+
+            except Exception as e:
+                # Proxy başlatma hatası durumunda
+                error_msg = self._locale.get_text("proxy.start.error").format(error=str(e))
+                yield error_msg
+                # Proxy'yi durdur ve temizle
+                if self._proxy_manager:
+                    for status in self.stop_proxy():
+                        yield status
+                raise  # Hatayı yukarı ilet
+
         except Exception as e:
             error_msg = self._locale.get_text("proxy.start.error").format(error=str(e))
             yield error_msg
             self._is_running = False
+            # Proxy'yi durdur ve temizle
             if self._proxy_manager:
-                self._proxy_manager.stop()  # Hata durumunda process'i temizle
-                self._proxy_manager = None
+                for status in self.stop_proxy():
+                    yield status
 
     def stop_proxy(self):
         """Proxy'yi durdurur ve durumu yield eder"""

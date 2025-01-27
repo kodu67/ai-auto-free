@@ -41,7 +41,10 @@
         "email_verifier": "Email Verifier",
         "select_email_verifier": "Select email verifier",
         "imap_settings": "IMAP Settings",
-        "save_imap": "Save IMAP"
+        "save_imap": "Save IMAP",
+        "mitmproxy_folder": "MITMProxy Folder",
+        "select_folder": "Select Folder",
+        "save": "Save"
     },
     "bitcoin": "Support with Bitcoin: {}",
     "cursor": {

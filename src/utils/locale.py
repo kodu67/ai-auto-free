@@ -12,7 +12,6 @@ class Locale:
 
     def get_lang_code(self):
         """Sistem dilini alir"""
-        return "en"
         system_locale = locale.getdefaultlocale()[0]
         lang_code = system_locale.split("_")[0] if system_locale else "en"
         return lang_code

@@ -1,13 +1,13 @@
 {
-  "version": "1.1.4",
-  "latest_version": "1.1.4",
+  "version": "1.1.5",
+  "latest_version": "1.1.5",
   "bitcoin": {
     "address": "TG9SyC4ZAp2JjYiBWKLwE3AodjosSf4qfJ",
     "name": "USDT TRC20"
   },
   "buy_me_a_coffee": "https://buymeacoffee.com/hqnet",
   "changelog": {
-    "1.1.4": {
+    "1.1.5": {
       "tr": "Yeni email servisi eklendi. TempMail ile hesap oluşturabilirsiniz. Genel iyileştirmeler yapıldı. Cursor yeni sürümü için proxy mod eklendi.",
       "en": "New email service added. You can create an account with TempMail. General improvements made. Proxy mode added for Cursor new version.",
       "ru": "Новый сервис электронной почты добавлен. Вы можете создать аккаунт с помощью TempMail. Общие улучшения сделаны. Добавлен режим прокси для новой версии Cursor.",

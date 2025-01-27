@@ -41,7 +41,10 @@
         "email_verifier": "电子邮件验证器",
         "select_email_verifier": "选择电子邮件验证器",
         "imap_settings": "IMAP 设置",
-        "save_imap": "保存 IMAP"
+        "save_imap": "保存 IMAP",
+        "mitmproxy_folder": "MITMProxy 文件夹",
+        "select_folder": "选择文件夹",
+        "save": "保存"
     },
     "bitcoin": "支持比特币：{}",
     "cursor": {

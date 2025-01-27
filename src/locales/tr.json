@@ -41,7 +41,10 @@
         "email_verifier": "Email Doğrulayıcı",
         "select_email_verifier": "Email doğrulayıcı seçiniz",
         "imap_settings": "IMAP Ayarları",
-        "save_imap": "IMAP'i Kaydet"
+        "save_imap": "IMAP'i Kaydet",
+        "mitmproxy_folder": "MITMProxy Klasörü",
+        "select_folder": "Klasör Seç",
+        "save": "Kaydet"
     },
     "bitcoin": "Bitcoin ile Destek Ol: {}",
     "cursor": {

@@ -41,7 +41,10 @@
         "email_verifier": "Проверка Email",
         "select_email_verifier": "Выберите проверку email",
         "imap_settings": "Настройки IMAP",
-        "save_imap": "Сохранить IMAP"
+        "save_imap": "Сохранить IMAP",
+        "mitmproxy_folder": "Папка MITMProxy",
+        "select_folder": "Выбрать папку",
+        "save": "Сохранить"
     },
     "bitcoin": "Поддержать Bitcoin: {}",
     "cursor": {

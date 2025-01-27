@@ -41,7 +41,10 @@
         "email_verifier": "Email Doğrulayıcı",
         "select_email_verifier": "Email doğrulayıcı seçin",
         "imap_settings": "IMAP Parametrləri",
-        "save_imap": "IMAP-i Saxla"
+        "save_imap": "IMAP-i Saxla",
+        "mitmproxy_folder": "MITMProxy Qovluğu",
+        "select_folder": "Qovluq Seç",
+        "save": "Saxla"
     },
     "bitcoin": "Bitcoin ilə Dəstək Ol: {}",
     "cursor": {

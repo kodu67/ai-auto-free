@@ -3,6 +3,7 @@ import shutil
 from pathlib import Path
 from utils.helper import Helper
 from utils.locale import Locale
+import time
 
 
 class CertificateInstaller:
@@ -45,6 +46,13 @@ class CertificateInstaller:
         try:
             # Sertifika dosyasının konumunu bul
             cert_source = Path.home() / ".mitmproxy" / "mitmproxy-ca-cert.pem"
+            
+            # Sertifika dosyasının oluşturulmasını bekle (maksimum 10 saniye)
+            wait_time = 0
+            while not cert_source.exists() and wait_time < 10:
+                time.sleep(1)
+                wait_time += 1
+
             if not cert_source.exists():
                 return None
 

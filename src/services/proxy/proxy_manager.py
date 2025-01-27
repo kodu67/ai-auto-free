@@ -6,7 +6,7 @@ import threading
 from pathlib import Path
 from utils.helper import Helper
 from utils.locale import Locale
-
+from config.constants import TEST_MODE
 
 class ProxyManager:
     def __init__(self):
@@ -162,33 +162,75 @@ class ProxyManager:
                 # Process'i temizle
                 self.proxy_process = None
 
-            # Proxy ayarlarını geri yükle
-            for status in self.restore_proxy_settings():
-                pass  # Status'ları yoksay
-
-            # Windows'ta proxy'i devre dışı bırak
+            # Windows'ta proxy ayarlarını eski haline getir
             if self.helper.is_windows():
-                key = winreg.OpenKey(
+                internet_settings = winreg.OpenKey(
                     winreg.HKEY_CURRENT_USER,
                     r"Software\Microsoft\Windows\CurrentVersion\Internet Settings",
                     0,
                     winreg.KEY_WRITE,
                 )
-                winreg.SetValueEx(key, "ProxyEnable", 0, winreg.REG_DWORD, 0)
-                winreg.CloseKey(key)
+                
+                # Orijinal ayarları geri yükle
+                if self.original_proxy_settings:
+                    winreg.SetValueEx(
+                        internet_settings,
+                        "ProxyEnable",
+                        0,
+                        winreg.REG_DWORD,
+                        self.original_proxy_settings.get("ProxyEnable", 0)
+                    )
+                    winreg.SetValueEx(
+                        internet_settings,
+                        "ProxyServer",
+                        0,
+                        winreg.REG_SZ,
+                        self.original_proxy_settings.get("ProxyServer", "")
+                    )
+                else:
+                    # Orijinal ayarlar yoksa tamamen kapat
+                    winreg.SetValueEx(
+                        internet_settings,
+                        "ProxyEnable",
+                        0,
+                        winreg.REG_DWORD,
+                        0
+                    )
+                    winreg.SetValueEx(
+                        internet_settings,
+                        "ProxyServer",
+                        0,
+                        winreg.REG_SZ,
+                        ""
+                    )
+
+                winreg.CloseKey(internet_settings)
+
                 # Internet Options'ı güncelle
                 import ctypes
-
                 INTERNET_OPTION_REFRESH = 37
                 INTERNET_OPTION_SETTINGS_CHANGED = 39
                 internet_set_option = ctypes.windll.Wininet.InternetSetOptionW
-                internet_set_option(0, INTERNET_OPTION_REFRESH, 0, 0)
                 internet_set_option(0, INTERNET_OPTION_SETTINGS_CHANGED, 0, 0)
+                internet_set_option(0, INTERNET_OPTION_REFRESH, 0, 0)
+
+            # MacOS için proxy ayarlarını geri yükle
+            elif self.helper.is_macos():
+                os.system("networksetup -setwebproxystate Wi-Fi off")
+                os.system("networksetup -setsecurewebproxystate Wi-Fi off")
+
+            # Linux için proxy ayarlarını geri yükle
+            else:
+                if "http_proxy" in os.environ:
+                    del os.environ["http_proxy"]
+                if "https_proxy" in os.environ:
+                    del os.environ["https_proxy"]
+
         except Exception as e:
-            print(str(e))
+            print(f"Error stopping proxy: {str(e)}")
             raise
 
-    def start(self, status_callback=None):
+    def start(self, status_callback=None, mitmproxy_path=None):
         """Proxy'yi başlatır ve durumu bildirir"""
         try:
             if status_callback:
@@ -203,15 +245,18 @@ class ProxyManager:
             # Kullanılabilir bir port bul
             self.proxy_port = self._find_available_port()
 
-            # Proxy ayarlarını yapılandır
-            yield from self.setup_proxy()
-
             # Script dosyasının yolunu al
             script_path = str(Path(__file__).parent / "cursor_interceptor.py")
 
+            # mitmdump yolunu belirle
+            if self.helper.is_windows():
+                mitmdump_path = os.path.join(mitmproxy_path, "mitmdump.exe")
+            else:
+                mitmdump_path = "mitmdump"
+
             # mitmproxy komut satırı argümanlarını hazırla
             args = [
-                "mitmdump",  # python -m mitmproxy.tools.main yerine doğrudan mitmdump kullan
+                mitmdump_path,
                 "--listen-host",
                 "127.0.0.1",
                 "--listen-port",
@@ -239,25 +284,27 @@ class ProxyManager:
                     args,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
-                    creationflags=subprocess.CREATE_NO_WINDOW,  # Windows'ta konsol penceresi gösterme
-                    text=True,  # Çıktıları string olarak al
-                    bufsize=1,  # Line buffering
-                    universal_newlines=True,  # Universal newlines
-                    env=env,  # Güncellenmiş environment değişkenlerini kullan
+                    creationflags=subprocess.CREATE_NO_WINDOW if self.helper.is_windows() else 0,
+                    text=True,
+                    bufsize=1,
+                    universal_newlines=True,
+                    env=env,
                 )
             except FileNotFoundError:
                 raise Exception("mitmdump not found")
 
-            # Process'in başarılı başladığını kontrol et
+            # Process'in başlaması ve sertifika dosyalarının oluşturulması için bekle
             import time
-
-            time.sleep(2)  # Process'in başlaması için bekle
+            time.sleep(3)  # Bekleme süresini 3 saniyeye çıkardık
 
             if self.proxy_process.poll() is not None:
                 error = self.proxy_process.stderr.read()
                 stdout = self.proxy_process.stdout.read()
                 error_msg = f"STDERR: {error}\nSTDOUT: {stdout}"
                 raise Exception(error_msg)
+
+            # Proxy ayarlarını yapılandır
+            yield from self.setup_proxy()
 
             # Başarılı başlatma mesajı
             if status_callback:

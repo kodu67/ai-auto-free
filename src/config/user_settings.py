@@ -1,6 +1,7 @@
 import os
 import json
 from utils.helper import Helper
+from .constants import TEST_MODE
 
 class UserSettings:
     def __init__(self):
@@ -87,3 +88,42 @@ class UserSettings:
     def get_email_verifier(self):
         """Email doğrulayıcı tipini döndürür"""
         return self.get_value("email_verifier")
+
+    def set_mitmproxy_folder(self, folder_path):
+        """MITMProxy klasör yolunu ayarlar"""
+        try:
+            settings = self.get_settings()
+            settings["mitmproxy_folder"] = folder_path
+            self.save_settings(settings)
+            return True
+        except Exception:
+            return False
+
+    def get_mitmproxy_path(self):
+        """
+        MITMProxy klasör yolunu döndürür.
+        1. Kullanıcının kaydettiği yol varsa onu döndürür
+        2. Yoksa sistemde kurulu olan mitmproxy'nin yolunu bulup döndürür
+        3. Hiçbiri yoksa None döndürür
+        """
+        try:
+            # Önce kaydedilmiş yolu kontrol et
+            saved_path = self.get_settings().get("mitmproxy_folder", "")
+            if saved_path and os.path.exists(saved_path):
+                return saved_path
+            
+            # Kaydedilmiş yol yoksa veya geçersizse, sistemdeki kurulumu kontrol et
+            from src.services.proxy.proxy_service import ProxyService
+            proxy_service = ProxyService.get_instance()
+            system_path = proxy_service.check_mitmproxy_installed()
+            
+            if self.helper.is_windows():
+                system_path = os.path.join(system_path, "bin" if not TEST_MODE else "Scripts")
+            
+            if system_path:
+                return system_path
+                
+            return None
+            
+        except Exception:
+            return None

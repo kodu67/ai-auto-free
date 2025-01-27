@@ -8,6 +8,7 @@ from src.utils.usage import UsageChecker
 import pyperclip
 import os
 import sys
+from tkinter import filedialog
 
 
 class MainUI(AutoFreeApp):
@@ -50,7 +51,7 @@ class MainUI(AutoFreeApp):
     def create_settings_window(self):
         settings_window = ctk.CTkToplevel()
         settings_window.title(self.locale.get_text("settings.title"))
-        settings_window.geometry("500x350")
+        settings_window.geometry("500x450")
         settings_window.resizable(False, False)
 
         main_frame = ctk.CTkFrame(settings_window, corner_radius=0)
@@ -142,6 +143,58 @@ class MainUI(AutoFreeApp):
             height=28,
         )
         save_btn.pack(pady=10)
+
+        # MITMProxy klasör seçimi
+        mitmproxy_frame = ctk.CTkFrame(main_frame)
+        mitmproxy_frame.pack(fill="x", padx=15, pady=5)
+
+        ctk.CTkLabel(
+            mitmproxy_frame,
+            text=self.locale.get_text("settings.mitmproxy_folder"),
+            font=ctk.CTkFont(size=14, weight="bold"),
+        ).pack(pady=5)
+
+        folder_frame = ctk.CTkFrame(mitmproxy_frame, fg_color="transparent")
+        folder_frame.pack(fill="x", padx=10, pady=2)
+
+        folder_entry = ctk.CTkEntry(folder_frame, placeholder_text="Klasör yolu", justify="left")
+        folder_entry.pack(side="left", fill="x", expand=True, padx=(0, 5))
+        
+        def select_folder():
+            folder_path = filedialog.askdirectory()
+            if folder_path:
+                folder_entry.delete(0, "end")
+                folder_entry.insert(0, folder_path)
+
+        def save_mitmproxy_folder():
+            folder_path = folder_entry.get()
+            if self.user_settings.set_mitmproxy_folder(folder_path):
+                self.show_info(self.locale.get_text("settings.saved"))
+            else:
+                self.show_error(self.locale.get_text("settings.failed"))
+
+        select_btn = ctk.CTkButton(
+            folder_frame,
+            text=self.locale.get_text("settings.select_folder"),
+            command=select_folder,
+            width=100,
+            height=28
+        )
+        select_btn.pack(side="left", padx=5)
+
+        save_folder_btn = ctk.CTkButton(
+            folder_frame,
+            text=self.locale.get_text("settings.save"),
+            command=save_mitmproxy_folder,
+            width=100,
+            height=28
+        )
+        save_folder_btn.pack(side="left")
+
+        # Mevcut klasör yolunu göster
+        current_folder = self.user_settings.get_mitmproxy_path()
+        if current_folder:
+            folder_entry.insert(0, current_folder)
 
         return settings_window
 
